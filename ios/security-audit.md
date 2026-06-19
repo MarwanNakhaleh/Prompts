@@ -2,6 +2,12 @@
 
 > Acting as a principal cybersecurity engineer specializing in iOS application security, perform a comprehensive security audit of this iOS codebase. **Do not implement any fixes** — document findings only. Where relevant, reference the OWASP Mobile Application Security Verification Standard (MASVS) and current Apple platform security guidance. Treat the device as potentially hostile: assume an attacker may control a jailbroken, hooked, or MITM'd device.
 
+**Method — work from the attack surface inward, and think like an attacker.**
+- **Map the attack surface first.** Before scoring findings, enumerate every untrusted input and reachable resource: custom URL schemes and universal links, every input field, pasteboard reads, app-group/shared-container and shared-keychain access, app-extension boundaries, `WKWebView` JS bridges, every network endpoint, and every file the app reads. This inventory is the spine of the audit — a vulnerability you never mapped is one you never tested.
+- **Drive testing from abuse/misuse cases, not just features.** For each capability, write the adversary's version: "as an attacker on a jailbroken/hooked device, can I bypass the biometric gate by manipulating the callback? read secrets out of the keychain/backup? feed a crafted deep link to trigger an unauthorized action? MITM this request?" Prioritize by architectural risk and known mobile attack patterns, not by code coverage.
+- **Combine automated and manual effort — the 80/20 rule.** Static analysis (examines source/binary without running), dynamic/runtime analysis (Frida/objection, MITM proxy), and dependency/CVE scanners find the common ~80% cheaply and belong in CI; the deep ~20% (chained logic flaws, client-side trust assumptions, business-logic abuse) needs a human adversarial mindset. Note where either half is absent.
+- (Search the web for "attack surface mapping," "abuse case / misuse case testing," and "OWASP fuzzing / fault injection" to expand these techniques.)
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)
@@ -59,7 +65,7 @@ agent will infer from the code. -->
 
 ## 5. Inter-Process Communication & Deep Links
 
-- Audit custom URL scheme and universal/associated-link handling — is all incoming input treated as untrusted and validated? Can a crafted link trigger unauthorized actions, navigation, or state change?
+- Audit custom URL scheme and universal/associated-link handling — is all incoming input treated as untrusted and validated? Can a crafted link trigger unauthorized actions, navigation, or state change? Assess resistance to **fuzzing / fault injection** on these entry points: malformed, oversized, or unexpected-type parameters, encoding tricks, and crafted payloads (injection/path-traversal) that happy-path parsing would mishandle
 - Review `openURL`/scene handling for injection or unintended side effects
 - Check App Groups, shared containers, and shared Keychain access groups for over-broad sharing
 - Audit app extensions (share, widget, notification, custom keyboard) and their trust boundaries and data flow
@@ -103,6 +109,7 @@ agent will infer from the code. -->
 - Check `DEBUG` conditional compilation excludes insecure paths from release
 - Audit CI/CD and fastlane/match for secret leakage and secure signing-identity handling
 - Review how environment config/secrets are injected at build time
+- Flag real production or personal data (PII, financial, health) bundled as seed/fixture/sample files in the app target or committed in test targets — it ships inside the IPA or lives in the repo unscrubbed; use masked, referentially-valid synthetic data instead
 
 ## 11. Third-Party Dependencies & Supply Chain
 

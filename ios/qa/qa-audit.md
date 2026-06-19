@@ -2,6 +2,8 @@
 
 > Acting as a principal QA engineer specializing in iOS, perform a comprehensive test-coverage audit of this codebase. **Do not implement any fixes or tests** — document gaps only. The goal is to find the bugs that *will* ship to prod next, not the ones already caught by the existing suite. Reason about the platform's real failure modes: decode-shape drift at the network boundary, persistence and date coercion, concurrency races, and SwiftUI state-lifecycle bugs — not just line coverage.
 
+**Framing — cover all four testing quadrants, not just the automated ones.** The canonical model lives in `shared/testing-quadrants.md`; read it first. In one line: judge coverage on a two-axis map — business- vs. technology-facing × tests that *support* building vs. *critique* the finished product — spanning **Q1** unit/component, **Q2** acceptance/story tests from concrete customer examples, **Q3** exploratory/usability/UAT driven by a thinking human, and **Q4** performance/load/security/"ilities." A suite living entirely in Q1/Q2 can be all-green and still ship the bugs that matter, so note explicitly which quadrants the existing suite neglects, and apply context-driven judgment throughout — the value of any practice depends on the product's risk profile.
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)
@@ -26,8 +28,12 @@ will infer from the code, but prior incidents are the highest-signal input. -->
 - Inventory every test target and classify each test: pure unit (everything mocked), integration (real persistence / real decode against fixture payloads), contract (API/SDK response shape), snapshot (UI), UI automation (XCUITest)
 - Flag suites that are unit-heavy with no integration tier — these can't catch the bugs that matter on iOS: JSON-decode-shape drift, Core Data/SwiftData fetch + type coercion, actor/threading behavior
 - Look for "the test passes, the real call fails" risk: tests that mock `URLSession`/the repository so completely they assert nothing about real decoding or real persistence
-- Check whether code coverage is collected in the scheme and actually enforced as a gate in CI (not just displayed)
+- Check whether code coverage is collected in the scheme and actually enforced as a gate in CI (not just displayed) — but treat the percentage as a weak signal, not a quality measure: coverage proves a line *executed*, not that an assertion pinned its behavior or that the failing path was exercised. A line run by a test that only asserts "returned some value" is effectively untested. Flag a high coverage number cited as a quality claim, check whether the suite's strength is ever validated by deliberate fault injection (break a function / flip a branch and confirm a test goes red) rather than assumed, and weight coverage expectations by risk — higher for payment, auth, decode, and persistence paths than for trivial glue
 - Identify untested critical paths: screens or flows that ship with NO coverage at any tier
+- **Push tests to the lowest level that can hold them.** For each behavior covered only by a slow UI/integration test, ask whether it could be asserted at the unit or component level instead — lower-level tests are faster, more isolated, and pinpoint failures. Flag inverted pyramids (UI-heavy, unit-light) where a single failure can't be localized, and flag the opposite trap: pure unit suites that mock the boundary so completely they assert nothing about real decode/persistence behavior.
+- **Find decision logic trapped behind a hard-to-test shell.** When a behavior is only reachable through a slow XCUITest/integration test, the cause is often that real logic — branching, formatting, state derivation, entitlement decisions — is fused into a hard-to-test boundary (a SwiftUI `View`/`body`, a view controller, or a networking/persistence class) that can't be exercised without a simulator, a live server, or a real store. The structural fix that makes it unit-testable is to keep that boundary *humble* (the `View` only renders values handed to it; the store/client class only runs the query or request) and pull the decision logic into a plain, framework-free type — a view model, a presenter, or a pure function — that a test calls directly. Audit for humble shells that still carry untested work: a `View` computing formatted strings / deciding visibility in its body, a controller deriving entitlement inline, a store wrapper branching on results. That buried logic, not the missing UI test, is the real gap; the proposed fix is "extract to a plain type and unit-test it there." A unit that needs half the app stood up to test it usually signals a missing boundary (or a dependency cycle) — flag that too.
+- **Automate by risk, not by reflex.** Not every check earns automation. Look-and-feel, usability, one-off validations, and behavior that realistically can never regress are often cheaper to verify once by hand than to maintain forever; the highest-ROI investment belongs in the unit/component base of the pyramid. Treat XCUITest/UI tests as the fragile, high-maintenance tip — keep them few, and where lower tiers already cover a behavior, question whether a parallel UI case still earns its keep. Flag suites that automate trivia while leaving risky paths uncovered, and conversely flag manual scripted regression re-run every release that should have been automated.
+- **Fast feedback is itself a coverage property.** When the build + test run grows too long, check-ins stack up and the team stops trusting the signal. Flag a slow CI loop: profile the bottleneck, push behavior down to faster unit tests, parallelize across simulators/machines, and move genuinely costly suites (full integration, device-farm runs) to a scheduled run. A fast green build is the highest-ROI automation a team has.
 
 ## 2. Decode-Boundary & Domain Contract Tests
 
@@ -41,7 +47,7 @@ will infer from the code, but prior incidents are the highest-signal input. -->
 
 - Find every type that reads/writes Core Data, SwiftData, Realm, SQLite, Keychain, or UserDefaults. For each, check whether tests exercise a **real store** (in-memory Core Data / SwiftData container, real Keychain test, real SQLite) or only a hand-rolled mock that can't reproduce coercion and fetch behavior
 - Flag tests that fabricate model instances in memory and never round-trip them through the store — these mask migration, type-coercion, and constraint bugs
-- Audit migrations explicitly: Core Data lightweight/heavyweight migration tests, SwiftData schema-version migration tests. An unmigrated store on upgrade is a launch-crash class — flag missing migration tests as P0
+- Audit migrations explicitly: Core Data lightweight/heavyweight migration tests, SwiftData schema-version migration tests. An unmigrated store on upgrade is a launch-crash class — flag missing migration tests as P0. Test migrations against a realistically *large* store, not a handful of fabricated rows: a migration that completes instantly on dev data can take minutes on a power user's accumulated store and blow the app-launch watchdog into a launch-time termination. Missing large-store migration-timing coverage is itself a P0
 - Check threading on the persistence layer: Core Data context confinement (main vs background), `@MainActor` model access, SwiftData `ModelActor` usage — and whether any test asserts cross-context/cross-actor correctness
 - Look for Keychain accessibility/migration coverage: tokens surviving (or correctly not surviving) OS upgrade, device restore, and locked-device access
 
@@ -68,6 +74,7 @@ will infer from the code, but prior incidents are the highest-signal input. -->
 - Audit every networking error path: does the layer surface a structured, distinguishable error (status code + decoded server error body) or collapse everything into a generic "Something went wrong"? Generic catch-alls hide root cause for weeks — flag every occurrence
 - Check coverage for the failure matrix: timeout, no connectivity, 4xx with error body, 5xx, decode failure, empty/partial payload. Each should be a distinct, tested branch
 - Look for offline-mode and flaky-network coverage: cached-data fallback, queued writes, retry-with-backoff (and that retries are bounded)
+- Check graceful-degradation coverage for the *slow* dependency, not just the failed one: when a screen fans out to several endpoints and one responds slowly or hangs, does that section degrade independently (its own timeout, a per-section error/retry affordance) or does it block the whole screen behind one spinner? A slow backend is more dangerous than a down one — it's the case happy-path tests miss. Flag screens with no per-section timeout/degradation coverage
 - Audit that the UI renders the real error, not a hardcoded string that masks the server's actual message
 - Check that logging on error paths includes enough structured detail (status, endpoint, decoded error) to diagnose without a repro
 
@@ -101,7 +108,26 @@ will infer from the code, but prior incidents are the highest-signal input. -->
 - OS-version branches: any `if #available` / availability-gated code path should have coverage on both branches
 - Permission states: denied/restricted/not-determined for camera, location, notifications, photos — and graceful behavior in each
 
-## 11. Test Hygiene & Anti-Patterns
+## 11. Exploratory, Scenario & Product-Critique Coverage (the bugs scripts miss)
+
+- The existing suite almost certainly lives in Q1/Q2 (tests that *support* the team). Audit whether anyone *critiques* the product: is there a charter-driven, time-boxed **exploratory testing** practice (session-based test management — a mission, a time box, notes that make findings reproducible), or does testing stop at scripted assertions? Exploratory testing is *simultaneous test design, execution, and learning* — not ad-hoc clicking — and it's where the most serious iOS bugs (state corruption, navigation dead-ends, gesture/lifecycle interactions) actually surface. Flag the absence as a P1 process gap.
+- Check for **scenario / "soap opera" coverage** of realistic, exaggerated multi-step journeys (backgrounding mid-purchase, deep-link into a half-restored `NavigationStack`, rotate during an in-flight async load, lose connectivity between two writes) rather than isolated per-screen tests.
+- **Persona coverage:** are adversarial and edge personas exercised — the user on a jailbroken/slow device, the double-tapper, the offline-then-online user, the VoiceOver-only user, the largest-Dynamic-Type user? Note personas with no representation in the test thinking.
+- **Feedback loop:** confirm exploratory findings are converted into automated regression tests — a bug found by hand should become a unit/integration test so it can't silently return. A team that explores but never captures is paying for the same bug twice.
+- Note where exploratory testing is the *right* tool and automation is the wrong one (usability, look-and-feel, one-off investigations) and is simply missing.
+- (Search the web for "session-based test management," "exploratory testing charters," and "soap opera testing" to expand these techniques.)
+
+## 12. Non-Functional / "ility" Coverage
+
+- Use an explicit "ility" checklist so the team consciously decides which qualities matter and how important each is — don't let nonfunctional concerns default to "the developers will handle it." Cover at least:
+  - **Performance:** launch time, scroll/interaction latency, memory under realistic data volumes. Is there a **baseline** captured so regressions are detectable, with *measurable* targets (e.g., "cold launch < 1.5s", "list scrolls at 60fps with 5k rows") rather than "should be fast"? Confirm perf is measured on a production-representative device class (and that any result extrapolated from a faster simulator/device says so explicitly), and that perf tests are re-run when features likely to move the numbers land (complex queries, large fetches, image-heavy screens) — not deferred to the end game. Watch allocations over a sustained soak for leak/retain growth, not just a single snapshot. Flag missing baselines.
+  - **Reliability:** run the automated suites repeatedly / over time to surface leaks and intermittent failures (the iOS analog of a soak test); assert against stated SLAs/crash-free-session targets where they exist.
+  - **Compatibility:** the supported device-class / OS-version matrix — is each `if #available` branch and each min/max device actually exercised?
+  - **Install / upgrade:** is the *real upgrade path* tested (old persisted store → migration → launch), not just a clean install? Unmigrated-store-on-upgrade is a launch-crash class.
+  - **Accessibility & localization** as qualities to verify, not checkboxes (VoiceOver flows, RTL, pluralization, non-Gregorian calendars).
+- Performance/security/"ility" tests are listed fourth but should not be done last — flag anywhere they're deferred to the end game when redesign is no longer affordable.
+
+## 13. Test Hygiene & Anti-Patterns
 
 - Flag XCUITest flakiness: `sleep()` / fixed `Thread.sleep` instead of `XCTestExpectation`/`waitForExistence`, and any wait without a sensible timeout
 - Look for tests that simulate failure in a way the real boundary never produces (e.g., throwing where the SDK actually returns a typed error value, or vice versa)
@@ -110,6 +136,9 @@ will infer from the code, but prior incidents are the highest-signal input. -->
 - Find skipped/disabled tests (`XCTSkip`, disabled in the scheme, commented-out) and `// TODO: fix` markers — quantify the latent gap they represent
 - Flag weak assertions (`XCTAssertNotNil`, `XCTAssertTrue(x != nil)`) where an exact `XCTAssertEqual` is possible
 - Audit async test correctness: missing `await` on expectations, expectations that can pass by timing out, `@MainActor` isolation gaps in tests
+- Flag inter-dependent tests that must run in a fixed order or share mutable state (a leaked Keychain entry, a populated shared store, `UserDefaults` not reset). Each test should set up and tear down its own state and pass in isolation and in any order; rely on a fresh in-memory store / reset fixtures per test, not an accreting shared one
+- Flag omnibus tests asserting several unrelated behaviors at once — one condition per test means a failure pinpoints the cause instead of just saying "something broke"
+- Audit XCUITest selector strategy and structure: tests bound to on-screen text or system-generated identifiers break when copy or view hierarchy shifts. Prefer stable accessibility identifiers, and a layered structure (driver → screen-object → test-data) so UI churn is absorbed in one place rather than cascading across the suite. Organize tests by the behavior's *intent*, which rarely changes, not the UI's current *implementation*, which changes constantly. (Search the web for "page object pattern" / "screen object" to expand this.)
 
 ---
 
@@ -146,5 +175,6 @@ Every category above maps to at least one of these. Note explicitly when a gap w
 - **Unfinished StoreKit transaction:** transaction never finished; user re-prompted or entitlement state diverges across resolution sites
 - **Keychain accessibility/migration loss:** wrong accessibility class or missing migration drops tokens on OS upgrade/restore
 - **Concurrent token-refresh race:** parallel 401s trigger multiple refreshes; one wins, others 401 silently
+- **Slow-dependency stall:** a request with no (or too-long) timeout hangs the UI or blocks a whole screen behind one section; a slow backend freezes the app where a failed one would surface an error
 
 Findings that enable any of these to recur are P0 by default.

@@ -2,6 +2,12 @@
 
 > Acting as a principal cybersecurity engineer specializing in full-stack TypeScript and Next.js, perform a comprehensive security audit of this codebase. **Do not implement any fixes** — document findings only. Reason about the framework's real attack surface: Server Actions and route handlers are public endpoints, the Server/Client boundary can leak secrets, and server-side `fetch` is an SSRF vector.
 
+**Method — work from the attack surface inward, and think like an attacker.**
+- **Map the attack surface first.** Before scoring findings, enumerate every untrusted input and reachable resource: every route handler, Server Action, middleware matcher, webhook, public API, form, query/path param, header, cookie, file upload, and every outbound `fetch`/SDK call built from user input. This inventory is the spine of the audit — a vulnerability you never mapped is one you never tested.
+- **Drive testing from abuse/misuse cases, not just features.** For each capability, write the adversary's version: "as an attacker, can I read another tenant's record by changing this ID? replay this webhook? smuggle a redirect host? exhaust this endpoint?" Prioritize by architectural risk and known attack patterns, not by code coverage.
+- **Combine automated and manual effort — the 80/20 rule.** Automated static analysis (examines code without running it), dynamic scanning (runs against the live app for injection/XSS/etc.), and dependency/CVE scanners find the common ~80% cheaply and belong in CI; the deep ~20% (chained logic flaws, authz gaps, business-logic abuse) needs a human adversarial mindset. Note where either half is absent.
+- (Search the web for "attack surface mapping," "abuse case / misuse case testing," and "OWASP fuzzing / fault injection" to expand these techniques.)
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)
@@ -47,6 +53,7 @@ agent will infer from the code. -->
 - Look for PII over-exposure in API/Server Component responses — endpoints returning more than the client needs
 - Check that sensitive fields are masked/redacted in logs, error messages, and responses
 - Verify deleted accounts and associated data/files are purged or anonymized
+- **Non-production data:** flag production data (PII, financial, health, credentials) copied into staging, dev, test, seed, or fixture databases without being scrubbed/masked — lower environments are typically less hardened and more widely accessible, so an unscrubbed copy is a real exposure and a compliance breach. Masked values must stay referentially valid (not violate constraints) so they remain usable for testing
 - **Server/Client boundary:** flag secrets or sensitive fields passed from Server into Client Components (serialized into the client bundle/payload), and any secret read without the server-only guarantee (`server-only`, non-`NEXT_PUBLIC_` env)
 
 ## 4. Payment & Subscription Security
@@ -65,6 +72,7 @@ agent will infer from the code. -->
 - Assess file-upload handling: type validation, size limits, storage location, filename sanitization
 - Check path traversal in any file retrieval/download endpoint
 - Verify runtime validation (Zod/Valibot/etc.) at request boundaries and that Server Action inputs are validated, not trusted
+- Assess resistance to **fuzzing / fault injection** at each input: oversized payloads, malformed/unexpected types, boundary lengths, unicode/encoding tricks, and crafted strings (SQLi/XSS/path-traversal payloads). Note inputs that have only happy-path validation and would benefit from automated fuzzing
 
 ## 6. API & Server-Surface Security
 
