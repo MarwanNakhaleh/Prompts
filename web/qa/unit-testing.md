@@ -52,6 +52,14 @@ Take each condition of satisfaction from the `web/feature-dev.md` Phase 1 sessio
 ## Confirm the testing seam
 The service function's / validator's / formatter's public TypeScript API — inputs, return type, thrown error type — is the seam. Tests call that API and assert on the return value or thrown error. Tests must not reach into a function's internal closures, mock its private helpers, or assert on intermediate steps. A seam that requires reaching into internals means the logic needs extraction.
 
+## Allow queries; expect commands
+When writing mock expectations, apply this rule to keep tests focused and non-brittle:
+
+- **Queries** (functions that return a value but have no side effect on the world outside the unit) should be set up as stubs — the test feeds in a return value (`vi.fn().mockReturnValue(...)`) but does not assert the call was made. Whether or not the implementation chooses to call a query is an optimization detail, not a behavior commitment.
+- **Commands** (calls that change state visible outside the unit — persisting data, sending a notification, publishing an event, triggering a side effect) should be set up as strict expectations — the test asserts `expect(mockFn).toHaveBeenCalledWith(...)` or `toHaveBeenCalledTimes(n)`.
+
+A test with many strict call-count expectations is likely over-specifying. Review each mock assertion: if it is for a query, demote it to a stub. If it is for a command, confirm it is the observable side effect the test is actually about.
+
 
 # Phase 3 — Write the Tests
 
@@ -70,6 +78,8 @@ Name each test so a reader understands the behavior without reading the body:
 ```
 
 One behavior per test. If you find yourself writing `// check case A` and then `// check case B` in the same body, split into two `it` blocks. A test that asserts several unrelated things masks which behavior broke and makes failures harder to localize.
+
+Avoid conditional logic (`if`, `else`, `for`, `while`) inside test body functions. A branch that evaluates unexpectedly silently skips its assertions and produces a false pass — the test looks green but has verified nothing. Extract complex conditional checks into a helper or custom matcher; restructure to remove the branch from the test body entirely. For sync expected-throw tests, use `expect(() => fn()).toThrow(ErrorType)` rather than a bare `try/catch` — the bare pattern passes silently when no error is thrown, hiding the bug. For async throws, `await expect(fn()).rejects.toThrow(SpecificError)` already handles this correctly.
 
 ## Independence — every test stands alone
 - Set up all state from scratch in each test (use `beforeEach` factories, not shared mutable `let` variables that tests modify)
@@ -100,6 +110,16 @@ Test every failure mode agreed in `web/feature-dev.md` Phase 1:
 - A new discriminant value / enum member the code hasn't seen → the unknown-case fallback is taken, not a throw
 - Retried or replayed operations → idempotent: duplicate delivery does not double-apply
 - Partial / empty response from a dependency → the caller receives a usable result, not a generic failure
+
+## Design tests to fail informatively
+A test that passes is not the goal — a test that *fails clearly* when the code breaks is. After writing a test and watching it go red, check the failure output before moving on to make it green:
+
+- The failure message should name what broke and why — not just "expected X got Y" with no context. Vitest/Jest's `expect(x, "label").toEqual(...)` or `expect(x).toEqual(...)` combined with a descriptive `it()` name serves this purpose.
+- Use named constants for sentinel values rather than bare `null`, `undefined`, or magic numbers. `const NO_CUSTOMER = null as Customer | null` is self-explanatory and future-proof — if the absence representation changes, one constant changes instead of every test.
+- Use obviously-canned values for placeholders so it is clear at a glance the value is a test fixture: an impossible ID (`-99`), an obviously-past date (`"1970-01-01"`), a clearly-labeled string (`"test-user-id"`) rather than a value that could be mistaken for real data.
+- When an assertion checks only one attribute of a complex return value, assert that attribute directly rather than equality-comparing the entire object. A test that asserts `expect(result.status).toBe("confirmed")` fails with the actual status; a test that asserts `expect(result).toEqual(wholeExpectedObject)` fails with a giant diff when any unrelated field changes.
+
+The four-step TDD cycle is **red → (read the failure) → green → refactor**. Skipping the failure-reading step produces tests that go green through luck or an incorrect assertion and provide no diagnostic value when they eventually fail in CI.
 
 ## Async tests
 - Use `async`/`await` throughout — never `done` callbacks or implicit promise returns
@@ -158,6 +178,7 @@ Before marking tests done, verify:
 - No raw `any` in test data that bypasses TypeScript's type checking
 - No skipped tests (`.skip`, `xit`, `xdescribe`, commented-out blocks). When a test fails unexpectedly, exactly three responses are valid: (a) fix the production code if the test exposed a real regression, (b) fix or delete the test if the behavior it was specifying intentionally changed, or (c) record the gap immediately and create a tracked follow-up if fixing is genuinely blocked. Commenting out a failing test and continuing is never acceptable — a commented-out test is a silent lie: it records a gap that nobody knows exists and that will never be fixed.
 - No `setTimeout` / `sleep` calls — use `await` and structured async
+- No conditional logic (`if`, `else`, `for`, `while`) in test body functions — skipped branches silently skip assertions; for sync throws, `expect(() => fn()).toThrow(ErrorType)` not bare `try/catch`
 
 **Independence and reliability:**
 - The suite passes when tests run in random order (`--random`)

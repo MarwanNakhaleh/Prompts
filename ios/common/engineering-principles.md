@@ -46,6 +46,23 @@ Note: the choice of architectural style — layered, feature-sliced, ports and a
 ## Composition root — wire once, inject inward
 Construct the object graph in a single composition root (the `@main` `App` / `AppDelegate`) — the one "dirty" place allowed to know concrete types, the DI framework, and configuration. Domain logic and views receive their dependencies through protocols and never reach for a shared container, singleton, or DI framework directly. This lets the same core run unchanged under a different configuration (dev/test/prod, or a SwiftUI preview) by swapping only what the root injects. Think of the composition root as a *plugin*: you can have multiple — one for dev, one for test, one for prod, one per customer or region. The core system is never aware of which plugin is active; only the root changes.
 
+## Object peer stereotypes — know which collaborators must be injected
+A type's collaborators fall into three categories, each with a different injection strategy:
+
+- **Dependencies** — services the type *requires* to function at all (a network client, a persistence store). There is no safe default. Pass them through the constructor/initializer; a type that cannot be created without its dependencies makes the requirement impossible to miss.
+- **Notifications** — fire-and-forget observers the type informs of events (a delegate, an analytics sink). A missing observer is acceptable — initialize to a null object or empty list so the type can operate without one, and let callers register after construction.
+- **Adjustments** — policy objects that tune the type's behavior (a retry strategy, a formatter, a feature-flag resolver). Safe defaults exist. Initialize to the canonical default and let callers override.
+
+Bloated constructors are a frequent consequence of treating Notifications and Adjustments as Dependencies. When an initializer grows beyond ~3–4 parameters, check each argument: if removing it would leave the object in a valid (if default) state, it is not a true Dependency — give it a default and remove it from the constructor. If two or more arguments are always used together and share a lifetime, they may represent an implicit concept that deserves its own named type.
+
+## Support logging is a feature; diagnostic logging is scaffolding
+Two activities share the word "logging" but have entirely different stakeholders and design rules:
+
+- **Support / operational logs** (error, warning, info-level events visible to ops or support staff) are part of the product's external interface. They should be test-driven from the requirements of whoever depends on them — operations, support engineers, automated monitors. Model them as a named notification object (an `ErrorReporter` protocol, a `Monitor` interface) rather than scattering direct `Logger.error(...)` calls through domain code. This keeps the log contract explicit, keeps domain code readable, and makes the format stable enough for scripts and dashboards to rely on.
+- **Diagnostic logs** (debug, trace) are programmer scaffolding — not intended for production and not part of any contract. They do not need to be test-driven and can be written inline.
+
+If a domain type must accept a logger in its constructor because support logging is scattered throughout it, that is a design smell: the type either has too many responsibilities or the support-log call belongs in a caller, not inside the type.
+
 ## Resilience — assume the network and every backend can fail or stall
 Put an explicit timeout on every request — a slow server is more dangerous than a down one, because it hangs the UI while a down one fails fast. Bound retries with backoff. Degrade gracefully — cached/partial content with a retry affordance beats an endless spinner. Make retried writes idempotent. Treat any locally held server entity as a possibly-stale snapshot. Decode external responses tolerantly: handle unknown enum cases with a fallback; extract only the fields you use.
 

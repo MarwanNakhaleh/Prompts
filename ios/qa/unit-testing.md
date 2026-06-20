@@ -48,6 +48,14 @@ Take each condition of satisfaction from the `ios/feature-dev.md` Phase 1 sessio
 ## Confirm the testing seam
 The view model's / use case's public API — method inputs, returned values, `@Published` / `@Observable` state changes — is the seam. Tests call that API and assert on the observable results. Tests must not reach into private properties, call private methods, or assert on intermediate steps of the implementation. A seam that requires reaching into internals means the type needs extraction or the boundary needs redrawing.
 
+## Allow queries; expect commands
+When writing mock expectations, apply this rule to keep tests focused and non-brittle:
+
+- **Queries** (methods that return a value but have no side effect on the world outside the type) should be set up as stubs / allowances — the test feeds in a return value but does not assert the call was made. Whether or not the implementation chooses to call a query is an optimization detail, not a behavior commitment.
+- **Commands** (methods that change state visible outside the type — persisting data, sending a notification, updating a listener) should be set up as strict expectations — the test asserts the call was made the expected number of times with the expected arguments.
+
+A test with many strict expectations is likely over-specifying. Review each expectation: if it is for a query, demote it to an allowance. If it is for a command, confirm it is the observable side effect the test is actually about.
+
 
 # Phase 3 — Write the Tests
 
@@ -66,6 +74,8 @@ Name each test so a reader understands the behavior without reading the body:
 ```
 
 One behavior per test. If you find yourself writing `// check case A` and then `// check case B` in the same body, split into two tests. A test that asserts several unrelated things masks which behavior broke and makes failures harder to localize.
+
+Avoid conditional logic (`if`, `else`, `for`, `while`) inside test method bodies. A branch that evaluates unexpectedly silently skips its assertions and produces a false pass — the test looks green but has verified nothing. Extract complex conditional checks into a named helper or custom assertion; restructure to remove the branch from the test body entirely. For expected-throw tests in particular: use `XCTAssertThrowsError(try expression)` rather than a bare `do { try ... } catch {}` — the bare pattern passes silently when no error is thrown, hiding the bug.
 
 ## Independence — every test stands alone
 - Set up all state from scratch in each test (`setUp()` or test-scoped `let`)
@@ -95,6 +105,15 @@ Test every failure mode agreed in `ios/feature-dev.md` Phase 1:
 - Unknown enum case from the server → the `.unknown` fallback is used, not a crash
 - Retried writes produce a duplicate delivery → the operation is idempotent, state is consistent
 - Partial / empty payload → the UI receives a usable (possibly empty) result, not a generic failure
+
+## Design tests to fail informatively
+A test that passes is not the goal — a test that *fails clearly* when the code breaks is. After writing a test and watching it go red, check the failure output before moving on to make it green:
+
+- The failure message should name what broke and why — not just "expected X got Y" with no context. Add a label to assertions that have multiple related checks: `XCTAssertEqual(order.status, .confirmed, "status after confirming a pending order")`
+- Use named constants for sentinel values rather than bare magic numbers or `nil`. `let NO_CUSTOMER: Customer? = nil` is both self-explanatory and future-proof — if the absence representation changes, one constant changes instead of every test.
+- Use obviously-canned values for placeholders so it is clear at a glance the value is a test fixture, not a realistic input: an obviously-impossible ID (`-99`), an obviously-past date (`1970-01-01`), a clearly-labeled string (`"test-user-id"`) rather than a value that could be mistaken for real data.
+
+The four-step TDD cycle is **red → (read the failure) → green → refactor**. Skipping the failure-reading step produces tests that go green through luck or an incorrect assertion and provide no diagnostic value when they eventually fail in CI.
 
 ## Async / concurrency tests
 - Use `async`/`await` test functions (Swift Testing or `XCTestCase` async tests) — never `Thread.sleep` or polling
@@ -132,6 +151,7 @@ Before marking tests done, verify:
 - No force-unwraps (`!`) or `try!` inside tests — these convert a meaningful assertion failure into an opaque crash
 - No skipped tests (`XCTSkip`, `xit`, commented-out blocks). When a test fails unexpectedly, exactly three responses are valid: (a) fix the production code if the test exposed a real regression, (b) fix or delete the test if the behavior it was specifying intentionally changed, or (c) record the gap immediately and create a tracked follow-up if fixing is genuinely blocked. Commenting out a failing test and continuing is never acceptable — a commented-out test is a silent lie: it records a gap that nobody knows exists and that will never be fixed.
 - No `Thread.sleep` or fixed delays — use structured async / expectations
+- No conditional logic (`if`, `else`, `for`, `while`) in test method bodies — skipped branches silently skip assertions; for expected-throw tests, use `XCTAssertThrowsError(try ...)` rather than bare `do { try ... } catch {}`
 
 **Independence and reliability:**
 - The suite passes when tests run in random order

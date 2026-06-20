@@ -46,6 +46,23 @@ Note: the choice of architectural style — layered, feature-sliced, ports and a
 ## Composition root — wire once, inject inward
 Wire dependencies in one composition root (a single wiring module or per-request factory) rather than constructing them inline across route handlers, Server Actions, and components. Business logic should not `new` up a Prisma/Drizzle client or an SDK directly. This keeps the framework and SDKs as swappable outer details, gives tests one seam to substitute fakes, and stops framework/vendor types leaking inward. Think of the composition root as a *plugin*: you can have multiple — one for dev, one for test, one for prod, one per environment or tenant. The core system is never aware of which plugin is active; only the wiring module changes.
 
+## Object peer stereotypes — know which collaborators must be injected
+A module or class's collaborators fall into three categories, each with a different injection strategy:
+
+- **Dependencies** — services the module *requires* to function at all (a database client, an HTTP client). There is no safe default. Pass them through the constructor or factory parameter; a module that cannot be created without its dependencies makes the requirement impossible to miss.
+- **Notifications** — fire-and-forget observers the module informs of events (an event bus, an audit logger, an analytics callback). A missing observer is acceptable — initialize to a no-op or null object so the module can operate without one, and let callers register after construction.
+- **Adjustments** — policy objects that tune the module's behavior (a retry strategy, a formatter, a feature-flag resolver, a timeout value). Safe defaults exist. Initialize to the canonical default and let callers override.
+
+Bloated constructors are a frequent consequence of treating Notifications and Adjustments as Dependencies. When a constructor or factory grows beyond ~3–4 parameters, check each argument: if removing it would leave the module in a valid (if default) state, it is not a true Dependency — give it a default. If two or more arguments are always used together and share a lifetime, they may represent an implicit concept that deserves its own named type.
+
+## Support logging is a feature; diagnostic logging is scaffolding
+Two activities share the word "logging" but have entirely different stakeholders and design rules:
+
+- **Support / operational logs** (error, warning, info-level events visible to ops or support staff) are part of the product's external interface. They should be test-driven from the requirements of whoever depends on them — operations, support engineers, automated monitors. Model them as a named notification object (a `Reporter` interface, a `Monitor` service) rather than scattering direct `logger.error(...)` calls through domain code. This keeps the log contract explicit, keeps domain code readable, and makes the format stable enough for scripts and dashboards to rely on.
+- **Diagnostic logs** (debug, trace) are programmer scaffolding — not intended for production and not part of any contract. They do not need to be test-driven and can be written inline.
+
+If a domain function or class must accept a logger in its constructor because support logging is scattered throughout it, that is a design smell: the function either has too many responsibilities or the support-log call belongs in a caller, not inside the domain unit.
+
 ## Minimize dependencies
 Each dependency is a liability — a supply-chain risk, a bundle-size cost, and a maintenance burden. Prefer the platform and framework's built-ins.
 
