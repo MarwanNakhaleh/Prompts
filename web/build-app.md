@@ -213,7 +213,14 @@ scope or a shared-schema decision is genuinely unresolved — otherwise keep mov
    define its "done," and the slice of UI + data + access control it owns. Split
    anything too big to hold in one focused build; merge anything too trivial to
    stand alone.
-   Before finalizing the decomposition, apply the **cross-cutting-concern test**: if
+   Before finalizing the decomposition, identify the **actors** — the distinct
+   stakeholders or external systems whose requirements drive change — and verify
+   that each chunk serves one actor's concerns. Changes to one actor's requirements
+   should not force changes in code owned by another actor; this is the
+   Single Responsibility Principle applied at the component level. A decomposition
+   where each chunk has one clear actor owner tends to produce boundaries that
+   change for one reason at a time and stay stable as the product grows.
+   Then apply the **cross-cutting-concern test**: if
    a plausible next feature would require every chunk to change simultaneously, the
    boundaries are drawn along functional behavior rather than along axes of change.
    Restructure so that new capabilities can be added as new chunks (following the

@@ -5,6 +5,8 @@ These principles apply to every prompt in `web/` — build-app, feature-dev, set
 ## Simplicity is the deliverable
 If two solutions work, ship the one that's easier to read and delete. Optimize for readability and the next engineer who maintains this. Unnecessary abstraction, premature generalization, speculative flexibility, and dependency bloat are bugs.
 
+Getting the app to work is step one ("make it work"). Step two is making it right — refactoring so the next engineer can understand and evolve it. Step three is making it fast only where actually needed. Code that only ever reaches step one accumulates coupling (ORM calls scattered through route handlers, business logic embedded in components) until the codebase can no longer survive a technology change. The simplest version that fully works *and* is easy to change is the target.
+
 ## Don't gold-plate
 Solve the stated problem, not imagined future scale. The simplest version that fully works is the target.
 
@@ -19,6 +21,8 @@ A framework is a detail you use, not one you marry. Keep Next.js/React-specific 
 
 ## Lean on the toolchain to hold boundaries
 Module/package seams, ESLint import rules (`no-restricted-imports` / `import/no-restricted-paths`), TypeScript project references, and `server-only` / `client-only` markers can make a forbidden dependency fail the build rather than slipping through review. Prefer that over trusting convention. Flag barrel files (`index.ts` re-export hubs) and overly-broad public exports that defeat this by making everything reachable from everywhere.
+
+Note: the choice of architectural style — layered, feature-sliced, ports and adapters, component-based — becomes effectively meaningless if every module re-exports all its internals. When all types are globally reachable, all four styles collapse into the same flat topology regardless of folder structure. Export visibility is what gives an architectural choice its meaning; without it, the structure is labeling, not enforcement. Minimize exports to the surface the module genuinely intends to expose.
 
 ## Composition root — wire once, inject inward
 Wire dependencies in one composition root (a single wiring module or per-request factory) rather than constructing them inline across route handlers, Server Actions, and components. Business logic should not `new` up a Prisma/Drizzle client or an SDK directly. This keeps the framework and SDKs as swappable outer details, gives tests one seam to substitute fakes, and stops framework/vendor types leaking inward. Think of the composition root as a *plugin*: you can have multiple — one for dev, one for test, one for prod, one per environment or tenant. The core system is never aware of which plugin is active; only the wiring module changes.

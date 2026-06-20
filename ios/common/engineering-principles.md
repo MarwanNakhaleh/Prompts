@@ -5,6 +5,8 @@ These principles apply to every prompt in `ios/` — build-app, feature-dev, ref
 ## Simplicity is the deliverable
 If two solutions work, ship the one that's easier to read and delete. Optimize for readability and the next engineer who maintains this. Unnecessary abstraction, premature generalization, and speculative flexibility are bugs.
 
+Getting the app to work is step one ("make it work"). Step two is making it right — refactoring so the next engineer can understand and evolve it. Step three is making it fast only where actually needed. Code that only ever reaches step one accumulates coupling until it becomes unmaintainable: every change touches hardware, OS, and business logic at the same time, and the codebase can no longer outlive the platform it was written for. The simplest version that fully works *and* is easy to change is the target.
+
 ## Don't gold-plate
 Solve the stated problem, not imagined future ones. The simplest version that fully works is the target.
 
@@ -19,6 +21,8 @@ A framework is a detail you use, not a foundation you marry. Keep third-party fr
 
 ## Lean on the language to hold boundaries
 Use access control (`private`, `fileprivate`, `internal`) and Swift Package Manager module seams so a forbidden dependency fails to compile rather than relying on code review to catch it. Default to the tightest access level and widen only when a real cross-boundary need appears. Where the architecture depends on convention alone to keep illegal imports out, a boundary will eventually be violated under time pressure.
+
+Note: the choice of architectural style — layered, feature-sliced, ports and adapters, component-based — becomes effectively meaningless if types are made excessively public. When every type is reachable from anywhere, all architectural styles collapse into the same flat topology regardless of how directories and modules are organized. Access visibility is what gives an architectural choice its meaning; without it, the structure is labeling, not enforcement.
 
 ## Composition root — wire once, inject inward
 Construct the object graph in a single composition root (the `@main` `App` / `AppDelegate`) — the one "dirty" place allowed to know concrete types, the DI framework, and configuration. Domain logic and views receive their dependencies through protocols and never reach for a shared container, singleton, or DI framework directly. This lets the same core run unchanged under a different configuration (dev/test/prod, or a SwiftUI preview) by swapping only what the root injects. Think of the composition root as a *plugin*: you can have multiple — one for dev, one for test, one for prod, one per customer or region. The core system is never aware of which plugin is active; only the root changes.
