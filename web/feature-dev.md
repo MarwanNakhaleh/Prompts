@@ -82,7 +82,13 @@ Present a short, concrete plan before implementing:
   can hold it (a unit test beats an E2E test). State what's mocked vs. exercised
   end-to-end; the Phase 1 conditions of satisfaction are the acceptance tests.
 - **Blast radius:** existing code touched, risk to current routes/behavior, and
-  how regressions are kept out.
+  how regressions are kept out. If the blast radius is unexpectedly wide — the
+  feature requires coordinated changes across many seemingly unrelated routes,
+  handlers, or modules — flag it as a **cross-cutting concern**: a signal that
+  the existing boundaries may be drawn along functional behavior rather than along
+  axes of change. Note this explicitly and recommend whether it warrants a boundary
+  conversation before proceeding, rather than quietly patching through every
+  affected area.
 - The simplest version that fully works — explicitly what you are NOT building.
 
 Wait for my approval (or feedback) before writing the implementation when run

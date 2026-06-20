@@ -21,13 +21,16 @@ A framework is a detail you use, not one you marry. Keep Next.js/React-specific 
 Module/package seams, ESLint import rules (`no-restricted-imports` / `import/no-restricted-paths`), TypeScript project references, and `server-only` / `client-only` markers can make a forbidden dependency fail the build rather than slipping through review. Prefer that over trusting convention. Flag barrel files (`index.ts` re-export hubs) and overly-broad public exports that defeat this by making everything reachable from everywhere.
 
 ## Composition root — wire once, inject inward
-Wire dependencies in one composition root (a single wiring module or per-request factory) rather than constructing them inline across route handlers, Server Actions, and components. Business logic should not `new` up a Prisma/Drizzle client or an SDK directly. This keeps the framework and SDKs as swappable outer details, gives tests one seam to substitute fakes, and stops framework/vendor types leaking inward.
+Wire dependencies in one composition root (a single wiring module or per-request factory) rather than constructing them inline across route handlers, Server Actions, and components. Business logic should not `new` up a Prisma/Drizzle client or an SDK directly. This keeps the framework and SDKs as swappable outer details, gives tests one seam to substitute fakes, and stops framework/vendor types leaking inward. Think of the composition root as a *plugin*: you can have multiple — one for dev, one for test, one for prod, one per environment or tenant. The core system is never aware of which plugin is active; only the wiring module changes.
 
 ## Minimize dependencies
 Each dependency is a liability — a supply-chain risk, a bundle-size cost, and a maintenance burden. Prefer the platform and framework's built-ins.
 
 ## Resilience — assume the network and every dependency can fail or stall
 Put an explicit timeout on every out-of-process call. Prefer failing fast and degrading a feature (fail a widget, not the whole page) over hanging the whole response — a slow dependency is more dangerous than a down one, because blocked requests pile up and exhaust the pool. Bound retries with backoff. Make retried or replayed effects idempotent. Read external responses tolerantly: extract only the fields you use, ignore unknown/extra ones.
+
+## Implement boundaries at the inflection point
+Architectural boundaries cost money to implement and cost money to leave out. Don't add them speculatively up front (YAGNI applies), but watch for the friction that signals one is needed: two concerns changing at different rates, inability to test one thing without standing up another, or a "small" feature requiring coordinated changes across many unrelated routes and modules. When that friction appears, weigh the ongoing cost of ignoring the boundary against the one-time cost of drawing it — and implement it when the former exceeds the latter. Revisit this judgment frequently; it is not a one-time decision.
 
 ## Surface trade-offs explicitly
 Don't bury decisions in code. A constraint, a risk, or a rejected alternative worth knowing belongs in a plan, a comment, or a handoff note — not silent in the implementation.

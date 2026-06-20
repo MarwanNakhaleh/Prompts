@@ -213,6 +213,12 @@ scope or a shared-schema decision is genuinely unresolved — otherwise keep mov
    define its "done," and the slice of UI + data + access control it owns. Split
    anything too big to hold in one focused build; merge anything too trivial to
    stand alone.
+   Before finalizing the decomposition, apply the **cross-cutting-concern test**: if
+   a plausible next feature would require every chunk to change simultaneously, the
+   boundaries are drawn along functional behavior rather than along axes of change.
+   Restructure so that new capabilities can be added as new chunks (following the
+   Open-Closed Principle) without touching existing ones — that is the sign of a
+   decomposition drawn at the right seam.
 2. **Map dependencies and file ownership.** For each chunk, record what it depends
    on (the foundation, a shared schema change, or another feature) and which
    files/areas it will touch. This map is what makes safe parallelism possible.

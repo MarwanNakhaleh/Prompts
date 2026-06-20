@@ -77,7 +77,13 @@ Present a short, concrete plan before implementing:
   can hold it (a unit test beats a UI test). State what's mocked vs. exercised
   end-to-end; the Phase 1 conditions of satisfaction are the acceptance tests.
 - **Blast radius:** what existing code is touched and the risk to current
-  behavior; how you'll keep regressions out.
+  behavior; how you'll keep regressions out. If the blast radius is unexpectedly
+  wide — the feature requires coordinated changes across many seemingly unrelated
+  areas — flag it as a **cross-cutting concern**: a signal that the existing
+  boundaries may be drawn along functional behavior rather than along axes of
+  change. Note this explicitly and recommend whether it warrants a boundary
+  conversation before proceeding, rather than quietly patching through every
+  affected area.
 - The simplest version that fully works — explicitly what you are NOT building
   and why.
 
