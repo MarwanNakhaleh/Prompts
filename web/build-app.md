@@ -195,6 +195,10 @@ feature is delivered later through `web/feature-dev.md`.
 Once the foundation and first slice are green, documented, and approved, do not
 hand-build the rest. Decompose the product into discrete features and drive each
 one through `web/feature-dev.md` — running independent features as parallel agents.
+Because the architecture was already approved in Phase 3, proceed **automatically**:
+state the decomposition and parallelization plan for the record, then fan out the
+independent chunks without waiting for further approval. Only pause if a chunk's
+scope or a shared-schema decision is genuinely unresolved — otherwise keep moving.
 
 1. **Break the product into feature-sized chunks.** Each chunk should be one
    coherent feature that a single `web/feature-dev.md` run can deliver: a crisp

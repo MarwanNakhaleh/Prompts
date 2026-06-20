@@ -132,9 +132,12 @@ For `build-app.md` (stand up an app, then delegate features):
   then sequences and **fans them out as parallel `feature-dev.md` agents**.
   Independent chunks (disjoint files) run concurrently; chunks that share files
   or depend on each other are serialized so parallel agents never collide.
-- Present the feature decomposition and parallelization plan, and wait for
-  approval, before fanning out agents. After the fan-out, cross-review features
-  against each other and run the full test suite on the integrated whole.
+- Because the architecture was already approved in Phase 3, Phase 5 runs
+  **automatically**: state the decomposition and parallelization plan for the
+  record, then fan out the independent chunks without waiting for further
+  approval (pause only for a genuinely unresolved chunk scope or shared-schema
+  decision). After the fan-out, cross-review features against each other and run
+  the full test suite on the integrated whole.
 
 For `feature-dev.md` (add one feature to a living codebase):
 
@@ -257,10 +260,14 @@ Respect these gates unless the user explicitly overrides them:
 - Product requirements: stop after clarifying questions, then stop again after
   pressure-testing scope.
 - `build-app.md`: stop after clarifying questions, then again after the
-  architecture plan, then again after the feature decomposition / parallelization
-  plan in Phase 5 — before fanning out `feature-dev.md` agents.
-- `feature-dev.md`: stop after clarifying questions, then again after the feature
-  plan, before writing the implementation.
+  architecture plan. After that approval, Phase 5 proceeds automatically —
+  decomposing the product into features and fanning out parallel `feature-dev.md`
+  agents without a further gate (pausing only for a genuinely unresolved chunk
+  scope or shared-schema decision).
+- `feature-dev.md`: when run standalone, stop after clarifying questions, then
+  again after the feature plan, before writing the implementation. When fanned
+  out automatically as a chunk from `build-app.md`, it inherits the approved
+  architecture and runs without re-gating.
 - Hosting prompt: stop after unresolved decision questions, then stop again
   after the hosting recommendation.
 - Audit prompts (security, QA, refactoring): no approval gate is needed before

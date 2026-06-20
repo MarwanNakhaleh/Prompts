@@ -26,13 +26,15 @@ design. Group them and cover at least:
   "done" for each behavior — real values, including worst-case and best-case, not
   abstractions. These become the acceptance/E2E tests, so capture them now.
 
-If this feature arrived as a chunk from `web/build-app.md`, treat its handoff note
-(inherited architecture, reusable building blocks, acceptance criteria) as the
-starting context and confirm only what's genuinely unresolved rather than
-re-asking what's already settled.
+Ask, then STOP and wait **when run standalone**. Where I leave a gap, state the
+assumption you're making and why before continuing.
 
-Ask, then STOP and wait. Where I leave a gap, state the assumption you're
-making and why before continuing.
+When fanned out automatically as a chunk from `web/build-app.md`, do **not** block
+the fan-out: treat the handoff note (inherited architecture, reusable building
+blocks, acceptance criteria) as the starting context, resolve what you can from
+it, state assumptions for any gaps, and proceed — escalate only a genuine blocker
+(ambiguous scope, an unsafe shared-schema change) instead of waiting on each
+question.
 
 # Phase 2 — Study the Codebase, Then Research
 Before proposing a design, learn how THIS codebase works — do not assume.
@@ -83,7 +85,10 @@ Present a short, concrete plan before implementing:
   how regressions are kept out.
 - The simplest version that fully works — explicitly what you are NOT building.
 
-Wait for my approval (or feedback) before writing the implementation.
+Wait for my approval (or feedback) before writing the implementation when run
+standalone. When orchestrated automatically by `web/build-app.md`, proceed from
+the plan without a separate gate — the architecture it relies on was already
+approved — and capture the plan in your handoff summary instead.
 
 # Phase 4 — Implement
 - Write idiomatic, modern Next.js + TypeScript matching the codebase's

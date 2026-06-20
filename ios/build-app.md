@@ -153,6 +153,11 @@ feature is delivered later through `ios/feature-dev.md`.
 Once the foundation and first slice are green, documented, and approved, do not
 hand-build the rest. Decompose the app into discrete features and drive each one
 through `ios/feature-dev.md` — running independent features as parallel agents.
+Because the architecture was already approved in Phase 3, proceed **automatically**:
+state the decomposition and parallelization plan for the record, then fan out the
+independent chunks without waiting for further approval. Only pause if a chunk's
+scope or a shared-model/migration decision is genuinely unresolved — otherwise
+keep moving.
 
 1. **Break the app into feature-sized chunks.** Each chunk should be one coherent
    feature that a single `ios/feature-dev.md` run can deliver: a crisp scope, the
