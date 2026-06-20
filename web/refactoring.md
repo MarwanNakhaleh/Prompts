@@ -30,6 +30,7 @@ Read `web/common/engineering-principles.md` — it is the canonical reference fo
 - Confirm `tsc --noEmit` passes and is gated; type errors undermine safe refactoring. Flag where loose typing makes refactors risky
 - Flag any "refactor" entangled with a behavior change and recommend separating them
 - Note mechanical refactors a tool/compiler/codemod can do safely vs. those needing judgment
+- **Work in tiny, test-preserving steps.** Every proposed refactoring should decompose into increments where the test suite is green before and after each step. If a move cannot be broken into safe, passing increments, it is either too large (split it) or it changes behavior (flag it as out of scope for a refactor). Apply the Boy Scout Rule as the guiding philosophy: each edit leaves the touched area slightly cleaner — a better name, a shorter function, a removed dead branch. A refactoring plan is a sequenced backlog of such edits, not a big-bang rewrite.
 
 ## 2. Server/Client Boundary & Rendering Model
 
@@ -41,11 +42,16 @@ Read `web/common/engineering-principles.md` — it is the canonical reference fo
 
 ## 3. Component Structure & React Idiom
 
-- Flag oversized components mixing data fetching, business logic, and presentation — candidates for Extract Component / lift logic into hooks or a service layer
+- Flag oversized components mixing data fetching, business logic, and presentation — candidates for Extract Component / lift logic into hooks or a service layer. Apply the **naming test for over-responsibility**: if a module, service, hook, or component's name contains vague aggregation words like `Utils`, `Helpers`, `Manager`, `Processor`, `Handler`, or `Service` (without a specific domain qualifier), that name is a near-certain signal of accumulated unrelated concerns. As a quick check: if you cannot describe the unit's purpose in about 25 words without using "if", "and", "or", or "but", it almost certainly has more than one responsibility — the connective tissue in that description reveals where to draw the split.
 - Identify `useEffect` overuse: derived state computed in effects, effects synchronizing state that could be computed during render, fetch-in-effect that belongs server-side
 - Audit prop drilling that context, composition, or better data colocation would simplify
 - Find repeated JSX / markup and repeated Tailwind class strings that should become shared components or extracted patterns
 - Identify reusable logic embedded in components that should become custom hooks
+- Flag **flag prop anti-patterns** (boolean props that change the fundamental behavior of a component rather than a style detail) — split into two clearly-named components instead
+- Flag **mixed abstraction levels** within a handler, Server Action, or component: high-level business operations should not share a function body with low-level implementation detail. Each function should contain steps at one level of abstraction below its name; when a sub-function can be extracted with a name that is not merely a restatement of the implementation, the function is doing more than one thing
+- Flag **names that require comments to explain what they do**: a comment explaining *what* a function, variable, or component does is a naming or structural failure — rename or refactor until the comment is unnecessary
+- Flag **complex inline conditionals** that should be extracted into intent-revealing predicate functions — `if canBeCompacted()` is easier to reason about than a multi-clause boolean expression inline in an `if` statement. A conditional that needs a comment to explain what it's checking is a predicate waiting to be named
+- Flag **negative conditionals** where a positive form would be clearer — when `!shouldNotProcess()` is semantically equivalent to `canProcess()`, prefer the positive form. Negatives add a mental inversion step that accumulates across a function body
 
 ## 4. Separation of Concerns & Layering
 
@@ -57,6 +63,10 @@ Read `web/common/engineering-principles.md` — it is the canonical reference fo
 - Draw boundaries along **axes of change** — where two concerns change at different rates and for different reasons (UI vs. business rules, business rules vs. a vendor SDK) — not on instinct. Where fast-churning and slow-churning code are fused in one unit, propose the seam; where a "boundary" only separates things that always change together, flag it as needless indirection to collapse
 - Flag the **relaxed-layering cheat**: a component, route handler, or Server Action that bypasses the service/domain layer to hit the data-access layer or ORM directly. Even when the dependency graph stays acyclic, skipping the layer that enforces authorization, validation, and business rules is a smell — name the fix (route the access back through the service seam) and call out where the bypass also drops a security or invariant check. Convention alone ("controllers shouldn't call repositories") won't hold; pair the fix with a mechanical guard (see §9)
 - Apply the **Humble Object** move for testability: when hard-to-test logic (branching, formatting, entitlement decisions) is welded into a framework-bound shell (a component body, route handler, or Server Action), split it — keep the shell humble (it only moves data) and extract the decision logic into a plain, framework-free function/module that can be unit-tested directly. This is often the highest-leverage refactor for a low-coverage hotspot, because it converts an E2E-only behavior into a unit-testable one
+- Flag **command-query separation violations** in route handlers and Server Actions: a function that both mutates state and returns information about the result conflates concerns, leading to ambiguous call sites. Prefer two operations — one that changes state (returns nothing meaningful) and one that returns information (has no side effects); mutations and their revalidation are the command, data-fetching is the query
+- Flag **Law of Demeter violations** (train wrecks): chains that navigate through multiple modules' or objects' internals — e.g., `user.subscription.plan.features.has('export')` in a component — expose hidden structure, couple the caller to every intermediate type, and require updates across the chain when any link's shape changes. The fix is usually to add a method or service function at the nearest boundary that performs the check internally. This pattern is especially common when components chain through Prisma/Drizzle relations instead of calling a service method that owns the decision
+- Flag **feature envy**: a function, hook, or component that accesses more data or calls more methods from another module or service than from its own context is a signal it belongs closer to that data. Look for handlers dominated by `user.subscription.plan.features`-style navigation or repeated `other.getX()`, `other.getY()` feeding a local calculation — move the logic to where the data lives, or expose a named method on the nearest service boundary. Common exceptions: deliberate Strategy/Visitor patterns or cross-cutting concerns where the separation is intentional
+- Flag **hidden temporal coupling**: functions, middleware, or server actions that must be called in a specific order but don't express this constraint in their types. A comment like "call initializeSession() before processing" will eventually be violated under time pressure. The fix: have step N return a typed value that step N+1 requires as a parameter, so TypeScript prevents out-of-order calls. Flag middleware chains and multi-phase setup where ordering is enforced only by convention rather than the type system
 
 ## 5. Data Fetching & Caching Patterns
 
@@ -72,6 +82,8 @@ Read `web/common/engineering-principles.md` — it is the canonical reference fo
 - Find duplicated validation logic across client and server that should converge on a single shared schema (Zod/Valibot)
 - Identify stringly-typed code and magic strings/numbers that should become unions, enums, or named constants
 - Flag scattered `process.env` access that should be centralized and validated
+- Flag **null/undefined-returning functions** where a special-case object would eliminate defensive null-check chains in every caller. An `if (result === null) return` pattern repeated at each call site signals the function could return an empty array, a zero-value object, or a null object instead, consolidating the "not found" handling in one place and removing scattered guards from all callers
+- Flag **sentinel error returns**: functions that signal failure via a magic return value (−1, 0, `""`, a `"error: ..."` string, `false`) rather than throwing or returning a typed discriminated union. Callers cannot reliably distinguish a sentinel from a legitimate value, must remember to check it, and often don't — creating silent failure paths. Replace with thrown errors or typed discriminated unions where failure is a realistic outcome
 
 ## 7. Duplication & Reuse
 

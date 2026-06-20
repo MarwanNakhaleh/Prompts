@@ -111,12 +111,13 @@ approved — and capture the plan in your handoff summary instead.
   feature is unit-testable without a simulator. Reuse genuinely-shared code, but
   don't force the feature into an abstraction it only coincidentally resembles.
 - Build incrementally in logical commits; keep each change focused.
-- Handle the empty/loading/error states we agreed on.
+- Apply the **Boy Scout Rule** to any code you touch: if you can improve a name, remove a dead branch, or extract a muddled helper into a clear function without risk to the feature, do it. Leave the surrounding code slightly cleaner than you found it. This is not a license for unbounded cleanup — it means small, safe improvements that happen naturally while you're already in that code.
+- Handle the empty/loading/error states we agreed on. For "nothing found" results, prefer returning a special-case value (empty collection, zero-value type, or null object) over nil/Optional so callers use the result directly without defensive guards; reserve Optional for cases where the caller genuinely needs to distinguish absence from presence.
 - Match the app's accessibility, Dynamic Type, localization, and dark-mode
   conventions (don't hardcode user-facing strings if the app localizes).
 - Add tests at the agreed tier; keep them meaningful.
 - Respect the existing concurrency model and `@MainActor`/actor boundaries.
-- Annotate non-obvious decisions with a brief comment on *why*, not *what*.
+- Annotate non-obvious decisions with a brief comment on *why*, not *what*. If you find yourself writing a comment that explains *what* a function or variable does, that is a signal to rename or restructure until the comment is no longer needed.
 
 # Phase 5 — Verify & Hand Off
 - Build the project and run the test suite; report results. If anything is red,

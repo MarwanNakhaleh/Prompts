@@ -121,10 +121,11 @@ approved — and capture the plan in your handoff summary instead.
   standing up the server. Reuse genuinely-shared code, but don't force the feature
   into an abstraction it only coincidentally resembles.
 - Pair mutations with the correct `revalidatePath`/`revalidateTag`.
-- Handle the empty/loading/error states we agreed on with proper boundaries.
+- Handle the empty/loading/error states we agreed on with proper boundaries. For "nothing found" results, prefer returning empty arrays or default objects over null/undefined so callers use the value directly without null-checks; reserve null/undefined for cases where the caller must distinguish absence from presence and acts differently on each.
 - Build incrementally in focused commits; add tests at the agreed tier.
+- Apply the **Boy Scout Rule** to any code you touch: if you can improve a name, remove a dead branch, or extract a muddled helper into a clear function without risk to the feature, do it. Leave the surrounding code slightly cleaner than you found it. This is not a license for unbounded cleanup — it means small, safe improvements that happen naturally while you're already in that code.
 - Keep accessibility and i18n consistent with the app; don't hardcode secrets.
-- Annotate non-obvious decisions with a brief comment on *why*, not *what*.
+- Annotate non-obvious decisions with a brief comment on *why*, not *what*. If you find yourself writing a comment that explains *what* a function or variable does, that is a signal to rename or restructure until the comment is no longer needed.
 
 # Phase 5 — Verify & Hand Off
 - Run typecheck (`tsc --noEmit`), lint, build, and the test suite; report

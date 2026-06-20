@@ -70,16 +70,46 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   context-driven-testing framing. Single source of truth for the QA-audit and
   refactoring-audit prompts so the iOS and web variants don't drift apart.
 - `ios/common/engineering-principles.md`: Platform-wide iOS engineering principles
-  (dependency rule, don't marry the framework, compiler-enforced boundaries,
-  composition root, resilience, true vs. accidental duplication, etc.). Every
+  (simplicity is the deliverable; names reveal intent — including scope-based
+  name length, side-effect naming, and encapsulate/prefer-positive conditionals;
+  functions do one thing at one level of abstraction; comments compensate for
+  failure to express in code; leave it cleaner than you found it / Boy Scout
+  Rule; dependency rule; don't marry the framework; lean on the language to hold
+  boundaries; composition root; keep configurable data at high levels; resilience;
+  concurrency is a separate concern — synchronize as little as possible, prefer
+  encapsulated locking; tell don't ask / Law of Demeter; feature envy — move
+  methods to the type whose data they use; temporal coupling — expose execution
+  order in the signature; encapsulate boundary conditions; use explanatory
+  variables; return empty objects not nil / avoid sentinel error returns; true vs.
+  accidental duplication; implement boundaries at the inflection point). Every
   `ios/` prompt instructs the LLM to read this file — it is the canonical lens
   for architecture, implementation, refactoring, and audit decisions.
 - `web/common/engineering-principles.md`: Platform-wide web/Next.js engineering
-  principles (dependency rule, don't marry the framework, toolchain-enforced
-  boundaries, composition root, minimize dependencies, resilience, true vs.
-  accidental duplication, etc.). Every `web/` prompt instructs the LLM to read
-  this file — it is the canonical lens for architecture, implementation,
+  principles (simplicity is the deliverable; names reveal intent — including
+  scope-based name length, side-effect naming, and encapsulate/prefer-positive
+  conditionals; functions do one thing at one level of abstraction; comments
+  compensate for failure to express in code; leave it cleaner than you found it /
+  Boy Scout Rule; dependency rule; don't marry the framework; lean on the
+  toolchain to hold boundaries; composition root; minimize dependencies; keep
+  configurable data at high levels; resilience; concurrency is a separate concern
+  — synchronize as little as possible, prefer encapsulated locking; tell don't
+  ask / Law of Demeter; feature envy — move functions to the module whose data
+  they use; temporal coupling — expose execution order in types; encapsulate
+  boundary conditions; use explanatory variables; return empty objects not null /
+  avoid sentinel error returns; true vs. accidental duplication; implement
+  boundaries at the inflection point). Every `web/` prompt instructs the LLM to
+  read this file — it is the canonical lens for architecture, implementation,
   refactoring, and audit decisions.
+
+Meta-prompt (library maintenance — not a product workflow):
+
+- `improvement.md`: Reading-loop prompt that advances the library's knowledge
+  base. It reads all prompts in `ios/` and `web/`, then reads the current book
+  in `reading_progress.json` starting at the saved position, extracts
+  engineering insights from the material, and applies them to the relevant
+  prompts. At the end of each run it updates `reading_progress.json` and
+  `README.md` if the prompt structure changed. Run this to improve the prompts
+  as new material is read; do not run it as part of a product workflow.
 
 ## Recommended Workflow
 
