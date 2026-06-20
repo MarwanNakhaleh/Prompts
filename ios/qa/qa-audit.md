@@ -4,6 +4,8 @@
 
 Read `ios/common/engineering-principles.md` — the dependency rule, humble-shell pattern, and composition root it describes are the background for why certain coverage gaps carry higher risk (logic trapped behind a hard-to-test shell, dependencies that can't be substituted in tests, behavior verified only through the volatile UI).
 
+Consult `ios/resources.md` as needed — it lists the authoritative testing frameworks (XCTest, Swift Testing, XCUITest), Apple security and platform docs, and OWASP sources for security-relevant test gaps.
+
 **Framing — cover all four testing quadrants, not just the automated ones.** The canonical model lives in `shared/testing-quadrants.md`; read it first. In one line: judge coverage on a two-axis map — business- vs. technology-facing × tests that *support* building vs. *critique* the finished product — spanning **Q1** unit/component, **Q2** acceptance/story tests from concrete customer examples, **Q3** exploratory/usability/UAT driven by a thinking human, and **Q4** performance/load/security/"ilities." A suite living entirely in Q1/Q2 can be all-green and still ship the bugs that matter, so note explicitly which quadrants the existing suite neglects, and apply context-driven judgment throughout — the value of any practice depends on the product's risk profile.
 
 ---

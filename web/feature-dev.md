@@ -56,12 +56,15 @@ Inspect the repo and report what you find:
   tests are structured, coverage expectations, and whether `tsc --noEmit` is
   gated.
 
-Then ground yourself in **current best practice** for anything new: the latest
-Next.js and React documentation for the app's version (App Router, Server
-Components, Server Actions, caching/revalidation, current data-fetching
-guidance), flagging any deprecated pattern you'd otherwise reach for. Prefer
-official sources. Where current best practice conflicts with the codebase's
-existing pattern, note it and ask which to follow rather than deciding alone.
+Then ground yourself in **current best practice** for anything new. Consult
+`web/resources.md` to find the authoritative source for each slice this feature
+touches — rendering model, data layer, auth, payments, file uploads, caching,
+security headers, etc. Use those sources to verify the latest Next.js and React
+documentation for the app's version (App Router, Server Components, Server
+Actions, caching/revalidation, current data-fetching guidance), flagging any
+deprecated pattern you'd otherwise reach for. Prefer official sources. Where
+current best practice conflicts with the codebase's existing pattern, note it
+and ask which to follow rather than deciding alone.
 
 # Phase 3 — Propose the Plan (get sign-off)
 Present a short, concrete plan before implementing:
@@ -81,6 +84,8 @@ Present a short, concrete plan before implementing:
   it (see `shared/testing-quadrants.md`), each test pushed to the lowest tier that
   can hold it (a unit test beats an E2E test). State what's mocked vs. exercised
   end-to-end; the Phase 1 conditions of satisfaction are the acceptance tests.
+  For the unit test tier, follow `web/qa/unit-testing.md` — it defines naming,
+  structure, mock strategy, boundary coverage, and test hygiene.
 - **Blast radius:** existing code touched, risk to current routes/behavior, and
   how regressions are kept out. If the blast radius is unexpectedly wide — the
   feature requires coordinated changes across many seemingly unrelated routes,
@@ -122,7 +127,10 @@ approved — and capture the plan in your handoff summary instead.
   into an abstraction it only coincidentally resembles.
 - Pair mutations with the correct `revalidatePath`/`revalidateTag`.
 - Handle the empty/loading/error states we agreed on with proper boundaries. For "nothing found" results, prefer returning empty arrays or default objects over null/undefined so callers use the value directly without null-checks; reserve null/undefined for cases where the caller must distinguish absence from presence and acts differently on each.
-- Build incrementally in focused commits; add tests at the agreed tier.
+- Build incrementally in focused commits; add unit tests following
+  `web/qa/unit-testing.md`: test behavior not structure, pin every condition of
+  satisfaction from Phase 1, cover boundary values and error paths explicitly,
+  keep tests fast, independent, and self-validating.
 - Apply the **Boy Scout Rule** to any code you touch: if you can improve a name, remove a dead branch, or extract a muddled helper into a clear function without risk to the feature, do it. Leave the surrounding code slightly cleaner than you found it. This is not a license for unbounded cleanup — it means small, safe improvements that happen naturally while you're already in that code.
 - Keep accessibility and i18n consistent with the app; don't hardcode secrets.
 - Annotate non-obvious decisions with a brief comment on *why*, not *what*. If you find yourself writing a comment that explains *what* a function or variable does, that is a signal to rename or restructure until the comment is no longer needed.

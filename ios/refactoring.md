@@ -4,6 +4,8 @@
 
 Read `ios/common/engineering-principles.md` — it is the canonical reference for why findings in this audit are flagged (dependency rule, don't marry the framework, compiler-enforced boundaries, composition root, true vs. accidental duplication, and more).
 
+Consult `ios/resources.md` for the authoritative documentation source for each application slice you audit (networking, auth, secure storage, concurrency, payments, etc.). Use those sources to verify current Apple guidance and catch deprecated APIs before recommending a refactoring direction.
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)

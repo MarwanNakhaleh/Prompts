@@ -2,6 +2,8 @@
 
 These principles apply to every prompt in `web/` — build-app, feature-dev, set-up-hosting, refactoring, security, and QA. They are the background framework for every architecture, implementation, and audit decision.
 
+When making decisions that depend on current framework behavior — caching semantics, rendering model, security controls, or any API — consult `web/resources.md` first. It lists the authoritative, regularly-updated source for each application slice so you ground decisions in live documentation rather than training-data memory.
+
 ## Simplicity is the deliverable
 If two solutions work, ship the one that's easier to read and delete. Optimize for readability and the next engineer who maintains this. Unnecessary abstraction, premature generalization, speculative flexibility, and dependency bloat are bugs.
 

@@ -73,7 +73,9 @@ before continuing.
 
 # Phase 2 — Research Current Best Practice
 Before proposing an architecture, ground yourself in what's current — your
-training data may be behind. Research and summarize:
+training data may be behind. Consult `web/resources.md` to find the authoritative
+source for each application slice this build touches (rendering model, data layer,
+auth, payments, file uploads, caching, etc.), then research and summarize:
 
 - The **latest official Next.js documentation** (nextjs.org/docs) for the
   confirmed version: current guidance on App Router, Server Components, Server

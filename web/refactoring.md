@@ -4,6 +4,8 @@
 
 Read `web/common/engineering-principles.md` — it is the canonical reference for why findings in this audit are flagged (dependency rule, don't marry the framework, toolchain-enforced boundaries, composition root, true vs. accidental duplication, and more).
 
+Consult `web/resources.md` for the authoritative documentation source for each application slice you audit (rendering model, data layer, auth, caching, type safety, dependency management, etc.). Use those sources to verify current Next.js and React guidance and catch deprecated patterns before recommending a refactoring direction.
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)

@@ -4,6 +4,8 @@
 
 Read `web/common/engineering-principles.md` — violations of the dependency rule, framework boundaries, and composition root are frequent root causes of security findings (client-side enforcement that belongs server-side, secrets leaking across the Server/Client boundary, business logic bypassed through the relaxed-layering cheat).
 
+Consult `web/resources.md` before auditing each slice — it lists the authoritative OWASP, Next.js, MDN, and Stripe sources per concern (auth, authorization, input validation, SSRF, CSP, webhooks, file uploads, dependency scanning). Use those sources to verify current guidance and the correct remediation for each finding category.
+
 **Method — work from the attack surface inward, and think like an attacker.**
 - **Map the attack surface first.** Before scoring findings, enumerate every untrusted input and reachable resource: every route handler, Server Action, middleware matcher, webhook, public API, form, query/path param, header, cookie, file upload, and every outbound `fetch`/SDK call built from user input. This inventory is the spine of the audit — a vulnerability you never mapped is one you never tested.
 - **Drive testing from abuse/misuse cases, not just features.** For each capability, write the adversary's version: "as an attacker, can I read another tenant's record by changing this ID? replay this webhook? smuggle a redirect host? exhaust this endpoint?" Prioritize by architectural risk and known attack patterns, not by code coverage.

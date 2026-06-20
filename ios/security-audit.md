@@ -4,6 +4,8 @@
 
 Read `ios/common/engineering-principles.md` — violations of the dependency rule, framework boundaries, and composition root are frequent root causes of security findings (client-side enforcement that belongs server-side, secrets leaking across a boundary, trust placed in a layer that can be bypassed).
 
+Consult `ios/resources.md` before auditing each slice — it lists the authoritative Apple and OWASP sources per concern (Keychain, ATS, CryptoKit, LocalAuthentication, StoreKit, MASVS/MASTG). Use those sources to verify current guidance and catch deprecated security APIs.
+
 **Method — work from the attack surface inward, and think like an attacker.**
 - **Map the attack surface first.** Before scoring findings, enumerate every untrusted input and reachable resource: custom URL schemes and universal links, every input field, pasteboard reads, app-group/shared-container and shared-keychain access, app-extension boundaries, `WKWebView` JS bridges, every network endpoint, and every file the app reads. This inventory is the spine of the audit — a vulnerability you never mapped is one you never tested.
 - **Drive testing from abuse/misuse cases, not just features.** For each capability, write the adversary's version: "as an attacker on a jailbroken/hooked device, can I bypass the biometric gate by manipulating the callback? read secrets out of the keychain/backup? feed a crafted deep link to trigger an unauthorized action? MITM this request?" Prioritize by architectural risk and known mobile attack patterns, not by code coverage.

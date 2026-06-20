@@ -35,6 +35,11 @@ the latter.
   (unit/component, example-driven acceptance, exploratory, and non-functional)
   and identify the production bug classes the current tests may miss. Report gaps
   only.
+- `ios/qa/unit-testing.md`: Write the unit test suite for an iOS feature. Covers
+  identifying humble shells vs. logic-bearing types, mock strategy, naming,
+  Arrange/Act/Assert structure, boundary conditions, async/`@MainActor` patterns,
+  date injection, in-memory stores, and the F.I.R.S.T. checklist. Companion to
+  `ios/feature-dev.md` — run it when writing or reviewing unit tests for a feature.
 - `ios/refactoring.md`: Audit an iOS codebase for maintainability and produce a
   prioritized, behavior-preserving refactoring plan, ranked by churn × complexity.
   Report a plan only; establishes the existing test suite (and any `ios/qa/qa-audit.md`
@@ -58,6 +63,12 @@ the latter.
   exploratory, and non-functional), focusing on production bug classes like
   schema/type drift, Server/Client boundary failures, stale caches, webhook
   idempotency, and SDK-shape changes. Report gaps only.
+- `web/qa/unit-testing.md`: Write the unit test suite for a Next.js/TypeScript
+  feature. Covers identifying humble shells vs. logic-bearing units, mock strategy
+  (fakes vs. real), naming, Arrange/Act/Assert structure, boundary conditions,
+  Zod/Valibot schema testing, discriminated union coverage, async patterns, date
+  injection, RTL component testing, and the F.I.R.S.T. checklist. Companion to
+  `web/feature-dev.md` — run it when writing or reviewing unit tests for a feature.
 - `web/refactoring.md`: Audit a Next.js/TypeScript codebase for maintainability
   and produce a prioritized, behavior-preserving refactoring plan, ranked by
   churn × complexity. Report a plan only; establishes the existing test suite
@@ -126,7 +137,9 @@ For a new product:
    or depend on each other.
 4. To add a feature later to the now-living codebase, run the platform
    `feature-dev.md` directly (it inherits the established architecture and
-   conventions, so it confirms only what's genuinely unresolved).
+   conventions, so it confirms only what's genuinely unresolved). Run
+   `qa/unit-testing.md` alongside or immediately after to write the unit tests
+   for that feature — it takes the Phase 1 conditions of satisfaction as input.
 5. After implementation, run the relevant security and QA audit prompts; reach
    for the refactoring audit when maintainability degrades.
 

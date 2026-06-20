@@ -2,6 +2,8 @@
 
 These principles apply to every prompt in `ios/` — build-app, feature-dev, refactoring, security, and QA. They are the background framework for every architecture, implementation, and audit decision.
 
+When making decisions that depend on current platform behavior — Swift concurrency semantics, SwiftUI lifecycle, security APIs, or any Apple framework — consult `ios/resources.md` first. It lists the authoritative, regularly-updated source for each application slice so you ground decisions in live Apple documentation rather than training-data memory.
+
 ## Simplicity is the deliverable
 If two solutions work, ship the one that's easier to read and delete. Optimize for readability and the next engineer who maintains this. Unnecessary abstraction, premature generalization, and speculative flexibility are bugs.
 

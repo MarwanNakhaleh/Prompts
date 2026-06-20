@@ -53,12 +53,15 @@ Inspect the repo and report what you find:
 - **Test conventions:** which frameworks (XCTest / Swift Testing / snapshot),
   how existing tests are structured, what the coverage expectation is.
 
-Then ground yourself in **current platform best practice** for anything new:
-the latest Apple documentation, relevant WWDC guidance, and HIG for the
-frameworks involved at the app's deployment target — and flag any API you'd
-reach for that is deprecated or has a newer replacement. Prefer first-party
-sources. Note where current best practice conflicts with the codebase's
-existing pattern, and ask which to follow rather than deciding unilaterally.
+Then ground yourself in **current platform best practice** for anything new.
+Consult `ios/resources.md` to find the authoritative source for each slice this
+feature touches — networking, auth, secure storage, payments, concurrency, etc.
+Use those sources to verify the latest Apple documentation, relevant WWDC
+guidance, and HIG for the frameworks at the app's deployment target, and flag
+any API you'd reach for that is deprecated or has a newer replacement. Prefer
+first-party sources. Note where current best practice conflicts with the
+codebase's existing pattern, and ask which to follow rather than deciding
+unilaterally.
 
 # Phase 3 — Propose the Plan (get sign-off)
 Present a short, concrete plan before implementing:
@@ -76,6 +79,8 @@ Present a short, concrete plan before implementing:
   it (see `shared/testing-quadrants.md`), each test pushed to the lowest tier that
   can hold it (a unit test beats a UI test). State what's mocked vs. exercised
   end-to-end; the Phase 1 conditions of satisfaction are the acceptance tests.
+  For the unit test tier, follow `ios/qa/unit-testing.md` — it defines naming,
+  structure, mock strategy, boundary coverage, and test hygiene.
 - **Blast radius:** what existing code is touched and the risk to current
   behavior; how you'll keep regressions out. If the blast radius is unexpectedly
   wide — the feature requires coordinated changes across many seemingly unrelated
@@ -115,7 +120,9 @@ approved — and capture the plan in your handoff summary instead.
 - Handle the empty/loading/error states we agreed on. For "nothing found" results, prefer returning a special-case value (empty collection, zero-value type, or null object) over nil/Optional so callers use the result directly without defensive guards; reserve Optional for cases where the caller genuinely needs to distinguish absence from presence.
 - Match the app's accessibility, Dynamic Type, localization, and dark-mode
   conventions (don't hardcode user-facing strings if the app localizes).
-- Add tests at the agreed tier; keep them meaningful.
+- Add unit tests following `ios/qa/unit-testing.md`: test behavior not structure,
+  pin every condition of satisfaction from Phase 1, cover boundary values and
+  error paths explicitly, keep tests fast, independent, and self-validating.
 - Respect the existing concurrency model and `@MainActor`/actor boundaries.
 - Annotate non-obvious decisions with a brief comment on *why*, not *what*. If you find yourself writing a comment that explains *what* a function or variable does, that is a signal to rename or restructure until the comment is no longer needed.
 

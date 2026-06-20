@@ -59,7 +59,9 @@ making and why before continuing.
 
 # Phase 2 — Research Current Best Practice
 Before proposing an architecture, ground yourself in what's current — your
-training data may be behind. Research and cite what you find:
+training data may be behind. Consult `ios/resources.md` to find the authoritative
+source for each application slice this feature touches, then research and cite
+what you find:
 
 - The **latest official Apple documentation** for the relevant frameworks
   (developer.apple.com/documentation), including any APIs marked new or
