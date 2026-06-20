@@ -115,7 +115,7 @@ approved — and capture the plan in your handoff summary instead.
   `body` or controller — matching how the codebase already separates them — so the
   feature is unit-testable without a simulator. Reuse genuinely-shared code, but
   don't force the feature into an abstraction it only coincidentally resembles.
-- Build incrementally in logical commits; keep each change focused.
+- Build incrementally in logical commits; keep each change focused. When a new feature requires modifying a widely-used shared abstraction, avoid a long-lived feature branch. Instead, use **branch by abstraction** on trunk: (1) introduce the new abstraction alongside the old one, (2) migrate call sites one at a time while both coexist, (3) delete the old abstraction once all callers are migrated. Trunk stays releasable throughout and there is no merge cliff at the end.
 - Apply the **Boy Scout Rule** to any code you touch: if you can improve a name, remove a dead branch, or extract a muddled helper into a clear function without risk to the feature, do it. Leave the surrounding code slightly cleaner than you found it. This is not a license for unbounded cleanup — it means small, safe improvements that happen naturally while you're already in that code.
 - Handle the empty/loading/error states we agreed on. For "nothing found" results, prefer returning a special-case value (empty collection, zero-value type, or null object) over nil/Optional so callers use the result directly without defensive guards; reserve Optional for cases where the caller genuinely needs to distinguish absence from presence.
 - Match the app's accessibility, Dynamic Type, localization, and dark-mode
@@ -131,7 +131,7 @@ approved — and capture the plan in your handoff summary instead.
   fix it before declaring done.
 - Self-review the diff for convention drift, leftover debug code, force-unwraps,
   retain cycles, and unhandled error paths.
-- Confirm the feature meets each acceptance criterion from Phase 1.
+- Confirm the feature meets each acceptance criterion from Phase 1. A feature is only **done** when it is demonstrable from a production-like environment — local green tests are necessary but not sufficient. If the feature has not been exercised in a staging or production-like context, say so explicitly.
 - Summarize: what changed, files touched, any follow-ups or deferred items, and
   anything reviewers should look at closely.
 - Note any docs/READMEs that should be updated (don't update silently).

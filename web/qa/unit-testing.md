@@ -156,7 +156,7 @@ Before marking tests done, verify:
 - No test asserts on implementation — a refactor that preserves behavior must not break a passing test
 - No `expect(x).toBeTruthy()` / `expect(x).toBeDefined()` where `expect(x).toEqual(exactValue)` is possible; weak assertions pass for the wrong reasons
 - No raw `any` in test data that bypasses TypeScript's type checking
-- No skipped tests (`.skip`, `xit`, `xdescribe`, commented-out blocks) — if a test is skipped, document the latent gap and create a follow-up
+- No skipped tests (`.skip`, `xit`, `xdescribe`, commented-out blocks). When a test fails unexpectedly, exactly three responses are valid: (a) fix the production code if the test exposed a real regression, (b) fix or delete the test if the behavior it was specifying intentionally changed, or (c) record the gap immediately and create a tracked follow-up if fixing is genuinely blocked. Commenting out a failing test and continuing is never acceptable — a commented-out test is a silent lie: it records a gap that nobody knows exists and that will never be fixed.
 - No `setTimeout` / `sleep` calls — use `await` and structured async
 
 **Independence and reliability:**

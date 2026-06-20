@@ -130,7 +130,7 @@ approved — and capture the plan in your handoff summary instead.
 - Build incrementally in focused commits; add unit tests following
   `web/qa/unit-testing.md`: test behavior not structure, pin every condition of
   satisfaction from Phase 1, cover boundary values and error paths explicitly,
-  keep tests fast, independent, and self-validating.
+  keep tests fast, independent, and self-validating. When a new feature requires modifying a widely-used shared abstraction, avoid a long-lived feature branch. Instead, use **branch by abstraction** on trunk: (1) introduce the new abstraction alongside the old one, (2) migrate call sites one at a time while both coexist, (3) delete the old abstraction once all callers are migrated. Trunk stays deployable throughout and there is no merge cliff at the end.
 - Apply the **Boy Scout Rule** to any code you touch: if you can improve a name, remove a dead branch, or extract a muddled helper into a clear function without risk to the feature, do it. Leave the surrounding code slightly cleaner than you found it. This is not a license for unbounded cleanup — it means small, safe improvements that happen naturally while you're already in that code.
 - Keep accessibility and i18n consistent with the app; don't hardcode secrets.
 - Annotate non-obvious decisions with a brief comment on *why*, not *what*. If you find yourself writing a comment that explains *what* a function or variable does, that is a signal to rename or restructure until the comment is no longer needed.
@@ -141,7 +141,7 @@ approved — and capture the plan in your handoff summary instead.
 - Self-review the diff for convention drift, `any`/unsafe casts, missing auth
   checks, secrets crossing to the client, stale-cache-after-mutation, and
   leftover debug code.
-- Confirm the feature meets each acceptance criterion from Phase 1.
+- Confirm the feature meets each acceptance criterion from Phase 1. A feature is only **done** when it is demonstrable from a production-like environment — local green tests and a passing build are necessary but not sufficient. If the feature has not been exercised in a staging or production-like deployment, say so explicitly.
 - Summarize: what changed, files touched, any migrations to run, follow-ups or
   deferred items, and what reviewers should scrutinize.
 - Note any docs/`.env.example`/README updates needed (don't update silently).

@@ -86,15 +86,17 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   functions do one thing at one level of abstraction; comments compensate for
   failure to express in code; leave it cleaner than you found it / Boy Scout
   Rule; dependency rule; don't marry the framework; lean on the language to hold
-  boundaries; composition root; keep configurable data at high levels; resilience;
-  concurrency is a separate concern — synchronize as little as possible, prefer
-  encapsulated locking; tell don't ask / Law of Demeter; feature envy — move
-  methods to the type whose data they use; temporal coupling — expose execution
-  order in the signature; encapsulate boundary conditions; use explanatory
-  variables; return empty objects not nil / avoid sentinel error returns; true vs.
-  accidental duplication; implement boundaries at the inflection point). Every
-  `ios/` prompt instructs the LLM to read this file — it is the canonical lens
-  for architecture, implementation, refactoring, and audit decisions.
+  boundaries; composition root; keep configurable data at high levels — never
+  bake environment-specific values into the binary; if it hurts do it more
+  frequently; build quality in — testing is not a phase; resilience; concurrency
+  is a separate concern — synchronize as little as possible, prefer encapsulated
+  locking; tell don't ask / Law of Demeter; feature envy — move methods to the
+  type whose data they use; temporal coupling — expose execution order in the
+  signature; encapsulate boundary conditions; use explanatory variables; return
+  empty objects not nil / avoid sentinel error returns; true vs. accidental
+  duplication; implement boundaries at the inflection point). Every `ios/` prompt
+  instructs the LLM to read this file — it is the canonical lens for
+  architecture, implementation, refactoring, and audit decisions.
 - `web/common/engineering-principles.md`: Platform-wide web/Next.js engineering
   principles (simplicity is the deliverable; names reveal intent — including
   scope-based name length, side-effect naming, and encapsulate/prefer-positive
@@ -102,15 +104,17 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   compensate for failure to express in code; leave it cleaner than you found it /
   Boy Scout Rule; dependency rule; don't marry the framework; lean on the
   toolchain to hold boundaries; composition root; minimize dependencies; keep
-  configurable data at high levels; resilience; concurrency is a separate concern
-  — synchronize as little as possible, prefer encapsulated locking; tell don't
-  ask / Law of Demeter; feature envy — move functions to the module whose data
-  they use; temporal coupling — expose execution order in types; encapsulate
-  boundary conditions; use explanatory variables; return empty objects not null /
-  avoid sentinel error returns; true vs. accidental duplication; implement
-  boundaries at the inflection point). Every `web/` prompt instructs the LLM to
-  read this file — it is the canonical lens for architecture, implementation,
-  refactoring, and audit decisions.
+  configurable data at high levels — never bake environment-specific values into
+  the artifact, smoke-test config after deploy; if it hurts do it more frequently;
+  build quality in — testing is not a phase; resilience; concurrency is a
+  separate concern — synchronize as little as possible, prefer encapsulated
+  locking; tell don't ask / Law of Demeter; feature envy — move functions to the
+  module whose data they use; temporal coupling — expose execution order in types;
+  encapsulate boundary conditions; use explanatory variables; return empty objects
+  not null / avoid sentinel error returns; true vs. accidental duplication;
+  implement boundaries at the inflection point). Every `web/` prompt instructs
+  the LLM to read this file — it is the canonical lens for architecture,
+  implementation, refactoring, and audit decisions.
 
 Meta-prompt (library maintenance — not a product workflow):
 
