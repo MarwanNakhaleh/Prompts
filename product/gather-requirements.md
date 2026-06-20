@@ -37,6 +37,18 @@ Before writing anything, interrogate the idea. Ask me as many clarifying questio
 - **Integrations:** anything external — APIs, auth, payments, notifications,
   analytics — and whether they exist yet.
 - **Risks & unknowns:** what's still undecided and who decides it.
+- **Implied convenience features:** for each major capability the user described,
+  think through the supporting actions a user would naturally expect alongside it
+  — the things they'll reach for the first time they use the feature even if they
+  didn't think to mention them. If they want to *save* something, do they want to
+  *edit* or *delete* it? If there's a list, do they want to *reorder*, *search*,
+  or *filter* it? If there's content creation, do they want *timestamps*,
+  *history*, or *undo*? If there's sharing, do they want *copy link* or
+  *privacy controls*? Propose the obvious, low-effort companions — label each
+  "Recommended" or "Optional" with a one-line reason — and ask the user whether
+  to include, defer, or cut each one. The goal is to catch what makes a feature
+  feel complete vs. half-finished, without inflating scope with speculative
+  nice-to-haves.
 
 Ask the questions one at a time with multiple choice selections, then STOP and wait for my answers. Where I leave a gap, make
 a clearly-labeled recommendation with your reasoning rather than a silent
@@ -104,5 +116,8 @@ still need a product answer before build starts.
 - Every requirement should be testable — if you can't write an acceptance
   criterion for it, it's not specified yet.
 - Hold detail and big picture together: protect the user outcome while nailing
-  the specifics.
+  the specifics. For every stated feature, think through the companion actions a
+  user will naturally reach for — edit alongside save, delete alongside create,
+  search alongside list — and surface them as explicit choices rather than letting
+  the user discover the gap after build.
 - If you're AT ALL unsure, ask questions one at a time with multiple choice selections. A question now is cheaper than a rebuild later.

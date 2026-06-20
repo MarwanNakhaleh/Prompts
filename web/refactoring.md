@@ -2,6 +2,8 @@
 
 > Acting as a principal full-stack engineer specializing in maintainability and large Next.js/TypeScript codebases, perform a comprehensive refactoring audit of this codebase. **Do not implement any changes** — document a prioritized refactoring plan only. Every proposed refactoring must be behavior-preserving; flag any that would change observable behavior as out of scope for a refactor. Prioritize by churn × complexity, not aesthetics. Do not propose refactoring stable, working, untouched code unless it actively blocks something.
 
+Read `web/common/engineering-principles.md` — it is the canonical reference for why findings in this audit are flagged (dependency rule, don't marry the framework, toolchain-enforced boundaries, composition root, true vs. accidental duplication, and more).
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)
@@ -53,6 +55,7 @@
 - Check that the data-access, domain, and presentation layers have clean seams that make them independently testable
 - Apply the **Dependency Rule**: source-code dependencies should point inward toward higher-level policy (the domain / business rules), with the framework, ORM, and third-party SDKs as outer *details* that depend on the domain — never the reverse. Flag inward-pointing violations (domain code importing Prisma/Next.js types, an entity whose shape is dictated by a DB row or an API DTO) and name the fix: introduce an interface/port the domain owns and push the detail behind it
 - Draw boundaries along **axes of change** — where two concerns change at different rates and for different reasons (UI vs. business rules, business rules vs. a vendor SDK) — not on instinct. Where fast-churning and slow-churning code are fused in one unit, propose the seam; where a "boundary" only separates things that always change together, flag it as needless indirection to collapse
+- Flag the **relaxed-layering cheat**: a component, route handler, or Server Action that bypasses the service/domain layer to hit the data-access layer or ORM directly. Even when the dependency graph stays acyclic, skipping the layer that enforces authorization, validation, and business rules is a smell — name the fix (route the access back through the service seam) and call out where the bypass also drops a security or invariant check. Convention alone ("controllers shouldn't call repositories") won't hold; pair the fix with a mechanical guard (see §9)
 - Apply the **Humble Object** move for testability: when hard-to-test logic (branching, formatting, entitlement decisions) is welded into a framework-bound shell (a component body, route handler, or Server Action), split it — keep the shell humble (it only moves data) and extract the decision logic into a plain, framework-free function/module that can be unit-tested directly. This is often the highest-leverage refactor for a low-coverage hotspot, because it converts an E2E-only behavior into a unit-testable one
 
 ## 5. Data Fetching & Caching Patterns
@@ -90,6 +93,8 @@
 - Identify circular imports and barrel-file (`index.ts`) re-export chains that obscure dependencies or bloat bundles. Break cycles by inverting a dependency (extract an interface) or hoisting the shared piece into a lower-level module
 - Flag tight coupling and unclear dependency direction (UI importing infrastructure directly) — candidates for clean seams. Dependencies should run toward **stability**: volatile code (UI, a specific vendor adapter) may depend on stable, abstract core code, but a stable/widely-depended-on module that imports a volatile one is a refactoring target — the volatile detail makes the stable core hard to change
 - Assess opportunities to extract shared code into internal packages/modules (or a monorepo workspace) to enforce boundaries
+- Enforce boundaries mechanically rather than by discipline. Where the architecture depends on convention to keep illegal imports out, lean on the toolchain: module/package boundaries, ESLint import rules (`no-restricted-imports`/`import/no-restricted-paths`), TypeScript project references, and `server-only`/`client-only` markers so a forbidden dependency (UI importing the data layer, server-only code pulled into a Client Component, a feature reaching into another's internals) fails the build instead of slipping through review. Flag barrel files (`index.ts` re-export hubs) and overly-broad public exports that defeat this by making everything reachable from everywhere
+- Also watch for coupling that hides in the **data model**: a Prisma/Drizzle row or an API DTO shape threaded through many modules couples them all to that schema, so a column rename ripples everywhere. Map at the boundary to a type you own (see §7) so the schema can change behind one seam
 
 ---
 

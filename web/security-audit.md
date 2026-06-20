@@ -2,6 +2,8 @@
 
 > Acting as a principal cybersecurity engineer specializing in full-stack TypeScript and Next.js, perform a comprehensive security audit of this codebase. **Do not implement any fixes** — document findings only. Reason about the framework's real attack surface: Server Actions and route handlers are public endpoints, the Server/Client boundary can leak secrets, and server-side `fetch` is an SSRF vector.
 
+Read `web/common/engineering-principles.md` — violations of the dependency rule, framework boundaries, and composition root are frequent root causes of security findings (client-side enforcement that belongs server-side, secrets leaking across the Server/Client boundary, business logic bypassed through the relaxed-layering cheat).
+
 **Method — work from the attack surface inward, and think like an attacker.**
 - **Map the attack surface first.** Before scoring findings, enumerate every untrusted input and reachable resource: every route handler, Server Action, middleware matcher, webhook, public API, form, query/path param, header, cookie, file upload, and every outbound `fetch`/SDK call built from user input. This inventory is the spine of the audit — a vulnerability you never mapped is one you never tested.
 - **Drive testing from abuse/misuse cases, not just features.** For each capability, write the adversary's version: "as an attacker, can I read another tenant's record by changing this ID? replay this webhook? smuggle a redirect host? exhaust this endpoint?" Prioritize by architectural risk and known attack patterns, not by code coverage.

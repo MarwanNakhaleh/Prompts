@@ -91,6 +91,11 @@ approved — and capture the plan in your handoff summary instead.
   and architecture — not your defaults.
 - Reuse existing components, layers, and helpers; add new abstractions only
   with a present, concrete need.
+- Construct any new dependency through the codebase's existing composition
+  root / DI pattern rather than instantiating clients, stores, or SDKs inline in a
+  view or view model; keep third-party framework/SDK types out of the domain
+  (wrap them behind the protocol the codebase already uses) so the feature stays
+  testable and the dependency stays swappable.
 - Map wire/persistence DTOs to domain/view types using the codebase's existing
   pattern rather than reusing one across the boundary; read responses tolerantly
   (decode only the fields you use, handle unknown enum cases with a fallback).
@@ -118,8 +123,14 @@ approved — and capture the plan in your handoff summary instead.
 - Note any docs/READMEs that should be updated (don't update silently).
 
 # Operating Principles (apply throughout)
-- Fit in before standing out. Consistency with the codebase beats personal
-  preference.
+
+Read `ios/common/engineering-principles.md` for the platform-wide principles
+(dependency rule, don't marry the framework, compiler-enforced boundaries,
+composition root, resilience, true vs. accidental duplication, etc.) that apply
+to every decision in this prompt.
+
+Principles specific to feature development:
+- Fit in before standing out. Consistency with the codebase beats personal preference.
 - Reuse before you build; the best new code is often no new code.
 - Minimize blast radius — the smallest correct change wins.
 - Don't gold-plate; solve the stated feature, not imagined future ones.

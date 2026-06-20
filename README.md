@@ -69,6 +69,17 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
 - `shared/testing-quadrants.md`: The canonical four-testing-quadrants model and
   context-driven-testing framing. Single source of truth for the QA-audit and
   refactoring-audit prompts so the iOS and web variants don't drift apart.
+- `ios/common/engineering-principles.md`: Platform-wide iOS engineering principles
+  (dependency rule, don't marry the framework, compiler-enforced boundaries,
+  composition root, resilience, true vs. accidental duplication, etc.). Every
+  `ios/` prompt instructs the LLM to read this file — it is the canonical lens
+  for architecture, implementation, refactoring, and audit decisions.
+- `web/common/engineering-principles.md`: Platform-wide web/Next.js engineering
+  principles (dependency rule, don't marry the framework, toolchain-enforced
+  boundaries, composition root, minimize dependencies, resilience, true vs.
+  accidental duplication, etc.). Every `web/` prompt instructs the LLM to read
+  this file — it is the canonical lens for architecture, implementation,
+  refactoring, and audit decisions.
 
 ## Recommended Workflow
 

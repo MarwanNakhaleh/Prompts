@@ -165,6 +165,13 @@ feature is delivered later through `web/feature-dev.md`.
   loading, the resilience helpers (timeout/retry/idempotency wrappers), and the
   test harness. These conventions, set once here, are what `web/feature-dev.md`
   mirrors per feature — so make them clean and obvious.
+- Wire dependencies in one **composition root** rather than constructing them
+  inline across route handlers, Server Actions, and components. A single wiring
+  module (or a per-request factory) builds the data-access clients, external-SDK
+  adapters, and services and hands them to consumers through interfaces you own;
+  business logic should not `new` up a Prisma/Drizzle client or an SDK directly.
+  This keeps the framework and SDKs as swappable outer details, gives tests one
+  seam to substitute fakes, and stops framework/vendor types leaking inward.
 - Build **one representative "steel thread"** end-to-end: the simplest happy path
   from UI through server/data layer, following a write-test → write-code → run →
   learn loop. This proves the architecture and the hosting wiring connect before
@@ -236,40 +243,24 @@ The inherited decisions each `web/feature-dev.md` run must **not** re-derive:
   performance budgets, and the test conventions and CI scripts.
 
 # Operating Principles (apply throughout)
-- Stand up the foundation, then delegate features. Establish architecture, shared
+
+Read `web/common/engineering-principles.md` — it contains the platform-wide
+principles (dependency rule, don't marry the framework, toolchain-enforced
+boundaries, composition root, minimize dependencies, resilience, true vs.
+accidental duplication, and more) that are the lens for every decision in this
+prompt.
+
+Principles specific to this prompt:
+- **Parallel specialist agents:** use them when workstreams are separable —
+  current-doc research, confirmed-host constraints, implementation, test strategy,
+  performance/load review, accessibility review, or code review. Synthesize their
+  findings before making architecture decisions.
+- **Foundation first, then delegate:** establish architecture, shared
   infrastructure, and one proving slice here; then decompose the rest into
   feature-sized chunks and fan them out as parallel `web/feature-dev.md` agents,
   partitioned by file ownership so per-feature work inherits — not re-derives —
   these decisions and parallel agents don't collide.
-- Use parallel specialist agents when the task has separable workstreams, such
-  as current-doc research, confirmed-host constraints, implementation, test
-  strategy, performance/load review, accessibility review, or code review.
-  Synthesize their findings before making architecture decisions.
-- Simplicity is the deliverable. If two solutions work, ship the one that's
-  easier to read and delete.
-- Treat hosting as a prerequisite decision. If it is unresolved or contradicted
-  by the app's needs, pause and run the dedicated hosting prompt rather than
-  guessing.
-- Don't gold-plate. Solve the stated problem, not imagined future scale.
-- Distinguish true duplication from coincidental similarity before unifying code.
-  Two blocks that look alike but serve different use cases (two screens, two
-  endpoints, two flows) tend to diverge over time; collapsing them into one shared
-  abstraction couples things that change for different reasons and is painful to
-  pull apart later. Only deduplicate code that is genuinely one concept with one
-  reason to change. When a database row and a view/response model happen to look
-  identical, keep them as separate types rather than passing the row straight
-  through — the resemblance is usually accidental. When in doubt, let the
-  duplication stand until the shared rule is proven.
-- Minimize dependencies; each one is a liability. Prefer the platform and the
-  framework's built-ins.
-- Keep high-level policy independent of low-level detail. The framework, the
-  database, and any external SDK are details that should depend on your domain
-  logic, not define it — so they stay swappable and the logic stays testable in
-  isolation.
-- Assume the network and every dependency can fail or stall. Bound every
-  out-of-process call with a timeout, fail fast rather than hang, degrade
-  gracefully, and make retried effects idempotent.
-- Surface trade-offs explicitly rather than hiding them in code.
-- If you're uncertain, ask — a question is cheaper than a wrong rewrite.
-- Cite Next.js and confirmed-host docs when a decision rests on current platform
-  behavior.
+- **Treat hosting as a prerequisite:** if the hosting target is unresolved or
+  contradicted by the app's needs, pause and run `web/set-up-hosting.md` rather
+  than guessing — the hosting decision shapes the implementation and is not
+  recoverable cheaply after the fact.

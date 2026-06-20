@@ -95,6 +95,11 @@ approved — and capture the plan in your handoff summary instead.
   conventions and rendering model — not your defaults.
 - Reuse existing components, the data layer, validation schemas, and auth
   guards; add new abstractions only with a present, concrete need.
+- Construct any new dependency through the codebase's existing wiring/composition
+  pattern rather than `new`-ing a DB client or SDK inline in a route handler,
+  Server Action, or component; keep framework/SDK types out of the domain (wrap
+  them behind the boundary the codebase already uses) so the feature stays testable
+  and the dependency stays swappable.
 - Default to Server Components; reach for `'use client'` only where
   interactivity requires it, and keep the boundary as low as sensible.
 - Add authorization and input validation to every new endpoint/action — never
@@ -127,6 +132,13 @@ approved — and capture the plan in your handoff summary instead.
 - Note any docs/`.env.example`/README updates needed (don't update silently).
 
 # Operating Principles (apply throughout)
+
+Read `web/common/engineering-principles.md` for the platform-wide principles
+(dependency rule, don't marry the framework, toolchain-enforced boundaries,
+composition root, minimize dependencies, resilience, true vs. accidental
+duplication, etc.) that apply to every decision in this prompt.
+
+Principles specific to feature development:
 - Fit in before standing out. Consistency with the codebase beats preference.
 - Reuse before you build; the best new code is often no new code.
 - Minimize blast radius — the smallest correct change wins.

@@ -2,6 +2,8 @@
 
 > Acting as a principal iOS engineer specializing in maintainability and large-codebase health, perform a comprehensive refactoring audit of this codebase. **Do not implement any changes** — document a prioritized refactoring plan only. Every proposed refactoring must be behavior-preserving; flag any that would change observable behavior as out of scope for a refactor. Prioritize by churn × complexity (the code most often edited and hardest to read pays back the most), not by what's merely ugly. Do not propose refactoring code that is stable, untouched, and working unless it actively blocks something.
 
+Read `ios/common/engineering-principles.md` — it is the canonical reference for why findings in this audit are flagged (dependency rule, don't marry the framework, compiler-enforced boundaries, composition root, true vs. accidental duplication, and more).
+
 ---
 
 ## 0. App-Specific Context (fill this in before running)
@@ -58,6 +60,7 @@
 - Identify `@ObservedObject` used where `@StateObject` is correct (this is also a correctness issue — flag as such)
 - Audit prop/binding drilling that a better state-ownership or environment design would simplify
 - Find scattered/global mutable state and singletons that obstruct testing — candidates for dependency injection
+- Flag dependency construction and DI-framework/singleton references scattered through feature, domain, and view types. Consolidating object-graph construction into a single **composition root** at the app entry point (`@main` `App`/`AppDelegate`) — and passing dependencies inward through protocols — is a behavior-preserving move that restores testability and lets the same core run under different configurations (dev/test/prod, previews). A domain or view type that reaches for a shared container or singleton directly is the target
 
 ## 6. Type Safety & Swift Idiom
 
@@ -87,6 +90,7 @@
 - Identify circular dependencies and unclear dependency direction (UI depending on infrastructure, etc.). Break cycles by inverting a dependency (extract a protocol) or hoisting the shared piece into a lower-level module/package
 - Flag tight coupling that obstructs testing or reuse — candidates for protocol seams / dependency inversion. Dependencies should run toward **stability**: volatile code (a view, a specific vendor adapter) may depend on stable, abstract core types, but a stable/widely-depended-on type that imports a volatile one is a refactoring target — the volatile detail makes the stable core hard to change
 - Assess opportunities to extract independent code into Swift packages/modules to enforce boundaries and speed builds
+- Enforce boundaries with the language, not just convention. Where the architecture relies on review/discipline to keep illegal dependencies out (a view reaching into networking, a feature importing another feature's internals, a use case touching a `Codable` DTO), use access control (`private`/`fileprivate`/`internal`) and separate modules/SPM packages so the forbidden dependency fails to compile rather than passing review. Flag widely-`public` types that leak implementation detail across a boundary where a tighter access level — or moving the type behind a module seam — would let the compiler hold the line; the smallest-access default is the cheapest enforcement
 
 ---
 

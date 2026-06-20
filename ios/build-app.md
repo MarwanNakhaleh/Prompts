@@ -124,6 +124,14 @@ feature is delivered later through `ios/feature-dev.md`.
   helpers, the design-system components and view modifiers, and the resilience
   helpers (request timeout/retry/idempotency). These conventions, set once here,
   are what `ios/feature-dev.md` mirrors per feature — so make them clean and obvious.
+- Wire dependencies in a single **composition root** at the app's entry point (the
+  `@main` `App` / `AppDelegate`), not scattered across the codebase. That entry
+  point is the one "dirty" place allowed to know concrete types, the DI framework,
+  and configuration: it constructs the object graph and hands it inward. Domain
+  logic and views receive their dependencies through protocols and never reach for
+  the container, a shared singleton, or the DI framework directly — so the same
+  core runs unchanged under a different configuration (dev/test/prod, or a SwiftUI
+  preview) by swapping only what the root injects.
 - Build **one representative "steel thread"** end-to-end: the simplest happy path
   from UI through to persistence/network, following a write-test → write-code →
   run → learn loop. This proves the architecture connects before features pile on;
@@ -197,34 +205,19 @@ The inherited decisions each `ios/feature-dev.md` run must **not** re-derive:
   and test conventions and CI schemes.
 
 # Operating Principles (apply throughout)
-- Use parallel specialist agents when the task has separable workstreams, such
-  as Apple-doc research, architecture, implementation, test strategy,
+
+Read `ios/common/engineering-principles.md` — it contains the platform-wide
+principles (dependency rule, don't marry the framework, compiler-enforced
+boundaries, composition root, resilience, true vs. accidental duplication, and
+more) that are the lens for every decision in this prompt.
+
+Principles specific to this prompt:
+- **Parallel specialist agents:** use them when workstreams are separable —
+  Apple-doc research, architecture, implementation, test strategy,
   performance/profiling review, accessibility review, or code review. Synthesize
   their findings before committing to the design.
-- Stand up the foundation, then delegate features. Establish architecture, shared
+- **Foundation first, then delegate:** establish architecture, shared
   infrastructure, and one proving slice here; then decompose the rest into
   feature-sized chunks and fan them out as parallel `ios/feature-dev.md` agents,
   partitioned by file/target ownership so per-feature work inherits — not
   re-derives — these decisions and parallel agents don't collide.
-- Simplicity is the deliverable. If two solutions work, ship the one that's
-  easier to read and delete.
-- Don't gold-plate. Solve the stated problem, not imagined future ones.
-- Distinguish true duplication from coincidental similarity before unifying code.
-  Two types that look alike but serve different use cases (two screens, two flows)
-  tend to diverge over time; collapsing them into one shared abstraction couples
-  things that change for different reasons and is painful to pull apart later.
-  Only deduplicate code that is genuinely one concept with one reason to change.
-  When a wire/persistence DTO happens to look identical to a domain or view type,
-  keep them separate rather than reusing one across the boundary — the resemblance
-  is usually accidental. When in doubt, let the duplication stand until the shared
-  rule is proven.
-- Keep high-level policy independent of low-level detail. The UI framework, the
-  network stack, and the persistence layer are details that should depend on your
-  domain logic, not define it — so they stay swappable and the logic stays
-  testable in isolation.
-- Assume the network and every backend can fail or stall. Bound every request
-  with a timeout, fail fast rather than hang the UI, degrade gracefully, and make
-  retried writes idempotent.
-- Surface trade-offs explicitly rather than hiding them in code.
-- If you're uncertain, ask — a question is cheaper than a wrong rewrite.
-- Cite Apple docs / sources when a decision rests on current platform guidance.

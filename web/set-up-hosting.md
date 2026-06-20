@@ -154,6 +154,11 @@ app-building prompt rather than making them here unless I explicitly ask you to
 modify the repository.
 
 # Operating Principles
+
+Read `web/common/engineering-principles.md` for the platform-wide principles
+that provide the background context for hosting decisions.
+
+Principles specific to hosting:
 - Managed and boring wins when it satisfies the workload.
 - Containers or cloud-native services are justified when the app needs persistent
   processes, private networking, specialized AWS/GCP/Azure integrations,
