@@ -111,6 +111,15 @@ The most important delivery metric is **cycle time**: the elapsed time between d
 
 When defects accumulate in a backlog, make them visible: display count, trend, and priority alongside features rather than hiding them in a separate system. A growing silent backlog is a sign that cycle time for bugs is too long, and that quality issues are not being resolved at the rate they are discovered. Bugs that are never fixed tend to be bugs nobody knows about.
 
+## Model stable data concepts as value objects
+When a concept in your domain is defined entirely by its attributes and has no meaningful identity beyond them — money, coordinates, date ranges, phone numbers, color values — model it as an immutable value type. All state is set at construction; there are no setters. Operations return new values rather than mutating the receiver: `function add(a: Money, b: Money): Money`. In TypeScript, `Readonly<{ amount: number; currency: string }>` or a plain immutable `class` with no public mutation methods is the shape. Value semantics make equality straightforward (same attributes = same thing), eliminate aliasing bugs, and let you reason about a value without tracing who else holds a reference to it. Passing one of these through several layers leaves the original unchanged; spreading or cloning is safe and cheap.
+
+## Translate exceptions at architectural boundaries
+When an error crosses an architectural boundary — from the data-access layer into the service layer, from the service layer into a Server Action or route handler — translate it before passing it up. A Prisma `PrismaClientKnownRequestError` or a raw `fetch` network error belongs to the outer layer's vocabulary; leaking it into the domain forces the domain to import ORM or HTTP types and couples it to an implementation detail. Map the low-level error to a domain-level error type appropriate to the receiving layer, preserving the original cause for diagnostics. Each layer then handles only the error vocabulary it owns, and the Dependency Rule stays intact.
+
+## Design APIs with symmetry
+Symmetric APIs are easier to learn and harder to misuse. When you add a concept — `add()`, `register()`, `open()` — also provide the reversal: `remove()`, `unregister()`, `close()`. When several functions share the same parameter shape, a fourth that diverges without reason is a design flaw — investigate whether it should conform. When the same idea appears in two adjacent places with two different names (`count` vs. `size`, `fetch` vs. `load`), pick one and apply it throughout. Inconsistency adds a mental load on readers that accumulates across a codebase; symmetry removes it.
+
 ## Surface trade-offs explicitly
 Don't bury decisions in code. A constraint, a risk, or a rejected alternative worth knowing belongs in a plan, a comment, or a handoff note — not silent in the implementation.
 

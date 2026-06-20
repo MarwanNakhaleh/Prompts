@@ -52,6 +52,8 @@ Take each condition of satisfaction from the `web/feature-dev.md` Phase 1 sessio
 ## Confirm the testing seam
 The service function's / validator's / formatter's public TypeScript API — inputs, return type, thrown error type — is the seam. Tests call that API and assert on the return value or thrown error. Tests must not reach into a function's internal closures, mock its private helpers, or assert on intermediate steps. A seam that requires reaching into internals means the logic needs extraction.
 
+**Private method urge → extract signal.** When a private function or method is complex enough that you feel the urge to test it directly, that is the module telling you the logic belongs in its own separately-testable export — not a reason to reach around TypeScript `private` with casts or `as any`. The fix is to extract the logic into a standalone exported function or class where it is naturally public and independently testable. Private helpers that are trivial shorthands are fine tested only through the public surface; private helpers with real decision logic should not be private at all.
+
 ## Allow queries; expect commands
 When writing mock expectations, apply this rule to keep tests focused and non-brittle:
 

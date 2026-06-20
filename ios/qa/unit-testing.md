@@ -48,6 +48,8 @@ Take each condition of satisfaction from the `ios/feature-dev.md` Phase 1 sessio
 ## Confirm the testing seam
 The view model's / use case's public API — method inputs, returned values, `@Published` / `@Observable` state changes — is the seam. Tests call that API and assert on the observable results. Tests must not reach into private properties, call private methods, or assert on intermediate steps of the implementation. A seam that requires reaching into internals means the type needs extraction or the boundary needs redrawing.
 
+**Private method urge → extract signal.** When a private method is complex enough that you feel the urge to test it directly, that is the type telling you the logic belongs in a new, separately-testable public type — not a reason to reach around visibility modifiers with reflection or force-cast. The fix is to extract the logic into its own struct or class where it is naturally public and independently testable. Private methods that are trivial shorthands (making a public method read cleanly) are fine tested only through that public method; private methods that have real decision logic should not be private at all.
+
 ## Allow queries; expect commands
 When writing mock expectations, apply this rule to keep tests focused and non-brittle:
 
