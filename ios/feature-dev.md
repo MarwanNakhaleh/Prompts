@@ -25,6 +25,13 @@ design. Group them and cover at least:
 - **Conditions of satisfaction:** the concrete input→output examples that define
   "done" for each behavior — real values, including worst-case and best-case, not
   abstractions. These become the acceptance tests, so capture them now.
+- **Nonfunctional acceptance criteria:** if the feature has performance, throughput,
+  or reliability requirements, make them concrete and measurable now — not vague.
+  "Fast" is not a requirement; "P95 response under 400 ms under 50 concurrent
+  requests in staging" is. Clarify: at what percentile? under what load? in what
+  environment? for which interactions (all, or only the common path)? when
+  dependencies are healthy vs. degraded? A vague NFR cannot be tested and will
+  be dropped or under-implemented.
 
 Ask, then STOP and wait **when run standalone**. Where I leave a gap, state the
 assumption you're making and why before continuing.
@@ -69,7 +76,7 @@ Present a short, concrete plan before implementing:
 - Files to create and files to modify, with the responsibility of each.
 - Integration points: navigation, state ownership, data flow, where it plugs
   into existing systems.
-- Data/model changes and any migration implications.
+- Data/model changes and any migration implications. Prefer **additive-first migrations**: add new attributes or entities before removing old ones, and design the transitional app version to work with both the old and new schema. This lets you ship the app first, confirm it is stable, then apply the data migration in a separate release — keeping each step independently rollback-able. Avoid migrations that destroy information (remove attribute, rename with data loss) until a subsequent release confirms the old shape is no longer needed.
 - **Resilience:** for any network/persistence call the feature adds, put an
   explicit timeout on every request, bound retries with backoff, and degrade
   gracefully when a service is slow or down (cached/partial content with a retry

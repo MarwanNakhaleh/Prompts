@@ -25,6 +25,13 @@ design. Group them and cover at least:
 - **Conditions of satisfaction:** the concrete input→output examples that define
   "done" for each behavior — real values, including worst-case and best-case, not
   abstractions. These become the acceptance/E2E tests, so capture them now.
+- **Nonfunctional acceptance criteria:** if the feature has performance, throughput,
+  or reliability requirements, make them concrete and measurable now — not vague.
+  "Fast" is not a requirement; "P95 response under 300 ms for the /api/orders
+  endpoint at 100 RPS in staging" is. Clarify: at what percentile? under what load?
+  in what environment? for which endpoints (all, or only the hot paths)? when
+  dependencies are healthy vs. degraded? A vague NFR cannot be tested and will be
+  dropped or under-implemented.
 
 Ask, then STOP and wait **when run standalone**. Where I leave a gap, state the
 assumption you're making and why before continuing.
@@ -71,7 +78,7 @@ Present a short, concrete plan before implementing:
 - The approach in a few sentences, and which existing feature/pattern it mirrors.
 - Files to create and modify, with each one's responsibility.
 - Rendering decisions per route/component (server vs client, cached vs dynamic).
-- Data layer: schema changes, queries, where they live, migration plan.
+- Data layer: schema changes, queries, where they live, migration plan. Prefer **additive-first migrations**: add new columns or tables before removing old ones, and design the transitional app version to work with both the old and new schema. This lets you deploy the app first, confirm it is stable, then run the database migration separately — keeping each step independently rollback-able. Avoid migrations that destroy information (drop column, rename column with data loss) until a subsequent release confirms the old shape is no longer needed.
 - **Security:** auth/authorization checks for any new route/action/handler,
   input validation (shared schema), and what data crosses the Server/Client
   boundary.
