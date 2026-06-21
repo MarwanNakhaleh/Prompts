@@ -26,6 +26,17 @@ Once you have completed this step, compact your context and repeat this process 
 - knowledge-base/building-microservices.txt
 - knowledge-base/clean-architecture.txt
 - knowledge-base/clean-code.txt
+- knowledge-base/dsa-cplusplus.txt
+- knowledge-base/effective-unit-testing.txt
+- knowledge-base/enterprise-integration-patterns.txt
+- knowledge-base/growing-object-oriented-software.txt
+- knowledge-base/continuous-delivery.txt 
+- knowledge-base/implementation-patterns.txt
+- knowledge-base/intro-to-algorithms.txt
+- knowledge-base/designing-interfaces.txt 
+- knowledge-base/object-oriented-design-patterns.txt
+- knowledge-base/designing-data-intensive-applications.txt
+- knowledge-base/domain-driven-refactoring.txt
 
 I approve all reads and edits for this session. Thank you
 
