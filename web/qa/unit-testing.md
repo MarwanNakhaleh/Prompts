@@ -47,6 +47,8 @@ Take each condition of satisfaction from the `web/feature-dev.md` Phase 1 sessio
 
 **Never mock what you own** (domain logic, formatters, validators, entitlement resolvers). Mocking the thing under test makes the test a transcription of the implementation, not a specification of behavior. **Mock what you don't own** (database drivers, external HTTP, email providers, the system clock).
 
+**Don't mock value types** — plain immutable objects or records that carry data with no side effects should be instantiated directly with the values relevant to the test. Mocking a value type (e.g., mocking a `Money` or `Address` object to control what `.amount` returns) adds ceremony for no benefit and signals you should use a factory function or test data builder instead. The heuristic: if you can't think of a meaningful interface name for the type other than `XInterface` or `IXImpl`, it is a value — create it, don't mock it.
+
 **Test Zod/Valibot schemas directly** — call `.parse()` / `.safeParse()` with valid and invalid inputs and assert the output. A schema that is never tested against bad input cannot catch server-side injection or shape drift.
 
 ## Confirm the testing seam
@@ -162,6 +164,13 @@ Unit-test a React component when it contains real logic (formatting, conditional
 
 ### Server Actions and route handlers
 The handler / action itself should be humble (read request → call service → write response). Unit-test the service function, not the handler. Test the handler only when you need to verify it applies auth / validation correctly — and do that with an integration test or with direct invocation of the exported handler in a test that supplies a fake `Request`.
+
+## Property-based testing — describe invariants, let the framework find the violations
+Where example-based tests say "for input X, expect output Y," property-based tests describe an invariant that must hold for *all* valid inputs in a class: "for any two `Money` values, adding them and splitting the total should equal the originals," or "for any valid serialized order, `encode(decode(x))` should equal `x`." A testing framework then generates hundreds of random inputs and tries to falsify the invariant — and shrinks any failing case to its minimal counterexample.
+
+This is especially powerful for: serializers and parsers (round-trip properties), formatters (idempotency), Zod/Valibot schema validators (any value that passes should round-trip cleanly), and any pure function with a mathematical invariant. `fast-check` is the standard property-based testing library for TypeScript and works with both Vitest and Jest.
+
+Use property-based tests alongside example-based tests, not instead of them — examples document intent and pin known regressions; properties find edge cases no one thought to enumerate. When a property test finds a failure, add the minimized counterexample as a permanent example-based regression test before moving on, so the regression is pinned even if the property test is later disabled.
 
 
 # Phase 4 — Review the Test Suite

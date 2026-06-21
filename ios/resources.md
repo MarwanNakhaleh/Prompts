@@ -341,6 +341,12 @@ These are the intellectual sources `ios/common/engineering-principles.md` distil
 - **Agile Testing** — Crispin & Gregory (Addison-Wesley, 2009) — https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468
   Source for the four-quadrant testing model in `shared/testing-quadrants.md`.
 
+- **Design Patterns: Elements of Reusable Object-Oriented Software** — Gamma, Helm, Johnson & Vlissides (Addison-Wesley, 1994) — https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612
+  Source for "favor composition over inheritance" and "inheritance breaks encapsulation" in `ios/common/engineering-principles.md`, and for the named pattern targets (Strategy, State, Observer, Decorator, Factory Method, etc.) referenced in `ios/refactoring.md` as concrete refactoring destinations when replacing large conditionals with polymorphism.
+
+- **Implementation Patterns** — Kent Beck (Addison-Wesley, 2007) — https://www.amazon.com/Implementation-Patterns-Kent-Beck/dp/0321413091
+  Source for the field-lifetime and rate-of-change diagnostics in `ios/common/engineering-principles.md` (a field valid only during a method's execution belongs as a local, not persistent state; fields that change at different rates signal mixed responsibilities). Also the source of the Method Object move in `ios/refactoring.md`.
+
 ---
 
 ## Quick Reference — Slice to Primary Doc

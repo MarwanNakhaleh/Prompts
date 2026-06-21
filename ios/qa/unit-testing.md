@@ -45,6 +45,8 @@ Take each condition of satisfaction from the `ios/feature-dev.md` Phase 1 sessio
 
 **Never mock what you own** (domain logic, formatters, validators). Mocking the thing under test makes the test a transcription of the implementation, not a specification of behavior. **Mock what you don't own** (network, OS clock, third-party SDKs, system APIs).
 
+**Don't mock value types** — immutable structs that carry data with no side effects should be instantiated directly with the values relevant to the test. Mocking a value type (e.g., mocking a `Money`, `Coordinate`, or `DateRange` struct to control what `.amount` returns) adds ceremony for no benefit and signals you should use a factory function or test data builder instead. The heuristic: if you can't think of a meaningful protocol name for the type other than `XProtocol` or `XProviding`, it is a value — create it, don't mock it.
+
 ## Confirm the testing seam
 The view model's / use case's public API — method inputs, returned values, `@Published` / `@Observable` state changes — is the seam. Tests call that API and assert on the observable results. Tests must not reach into private properties, call private methods, or assert on intermediate steps of the implementation. A seam that requires reaching into internals means the type needs extraction or the boundary needs redrawing.
 
@@ -135,6 +137,13 @@ The four-step TDD cycle is **red → (read the failure) → green → refactor**
 - **`@StateObject` / `@Observable` lifecycle:** test observable state through the view model's public API, not by driving SwiftUI views directly
 - **Combine pipelines:** collect values with `XCTestExpectation` or async iteration; assert the exact sequence emitted, including completion and failure cases
 - **StoreKit:** use `StoreKitTest`'s `SKTestSession` for in-app purchase flows — do not hit the real StoreKit sandbox
+
+## Property-based testing — describe invariants, let the framework find the violations
+Where example-based tests say "for input X, expect output Y," property-based tests describe an invariant that must hold for *all* valid inputs in a class: "for any two `Money` values, adding them and splitting the total should equal the originals," or "for any `DateRange`, encoding it and decoding it should produce an equal value." A testing framework then generates hundreds of random inputs and tries to falsify the invariant — and shrinks any failing case to its minimal counterexample.
+
+This is especially powerful for: parsers and serializers (round-trip properties), formatters (idempotency), `Codable` models (encode → decode → equal), and any algorithm with a mathematical invariant. `SwiftCheck` is the primary property-based testing library for Swift; Swift Testing's parameterized `@Test(arguments:)` macro supports structured parameterization that complements property-based approaches.
+
+Use property-based tests alongside example-based tests, not instead of them — examples document intent and pin known regressions; properties find edge cases no one thought to enumerate. When a property test finds a failure, add the minimized counterexample as a permanent example-based regression test before moving on, so the regression is pinned even if the property test is later disabled.
 
 
 # Phase 4 — Review the Test Suite

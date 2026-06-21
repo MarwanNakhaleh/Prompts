@@ -352,3 +352,9 @@ The intellectual sources `web/common/engineering-principles.md` distills. Cite t
 
 - **Enterprise Integration Patterns** — Hohpe & Woolf (Addison-Wesley, 2003) — https://www.amazon.com/Enterprise-Integration-Patterns-Designing-Deploying/dp/0321200683
   Background for the resilience requirements in `web/feature-dev.md`: idempotent retries, bounded backoff, and the command/query distinction. The side-effect-before-await race is a classic messaging anti-pattern documented here.
+
+- **Design Patterns: Elements of Reusable Object-Oriented Software** — Gamma, Helm, Johnson & Vlissides (Addison-Wesley, 1994) — https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612
+  Source for "favor composition over inheritance" and "inheritance breaks encapsulation" in `web/common/engineering-principles.md`, and for the named pattern targets (Strategy, State, Observer, Decorator, Factory Method, etc.) referenced in `web/refactoring.md` as concrete refactoring destinations when replacing large conditionals with polymorphism.
+
+- **Implementation Patterns** — Kent Beck (Addison-Wesley, 2007) — https://www.amazon.com/Implementation-Patterns-Kent-Beck/dp/0321413091
+  Source for the field-lifetime and rate-of-change diagnostics in `web/common/engineering-principles.md` (a field valid only during a function's execution belongs as a local, not module-level state; fields that change at different rates signal mixed responsibilities). Also the source of the Method Object move in `web/refactoring.md`.
