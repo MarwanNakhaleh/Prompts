@@ -1,10 +1,19 @@
 # Prompt Library Guide
 
-This repository is a library of prompts for turning product ideas into
-requirements, implementation plans, production code, hosting decisions, and
-post-build audits. The prompts are written for an LLM that can inspect a
-codebase, ask clarifying questions, research current platform guidance, and
-pause for human approval at the right moments.
+This repository is a library of prompts for taking a product from a rough idea
+all the way to revenue: validating that the problem and demand are real,
+positioning it, turning it into requirements, implementation plans, production
+code, and hosting decisions, and running post-build audits. The prompts are
+written for an LLM that can inspect a codebase, ask clarifying questions,
+research current platform guidance, and pause for human approval at the right
+moments.
+
+The work splits into two arcs that meet in the middle. The **company-building**
+prompts (`validation/`, `product/`, `marketing/`) de-risk *what* to build and
+*who it's for* before and around the engineering. The **engineering** prompts
+(`ios/`, `web/`) build, test, and harden it. Validation feeds product scoping,
+product scoping feeds the build, and positioning feeds go-to-market — so a prompt
+that ends by handing a clean brief to the next one is doing its job.
 
 Use the prompts as workflows, not as passive reference docs. Each prompt defines
 a role, the required input, the order of work, and the points where the LLM must
@@ -18,8 +27,41 @@ the latter.
 
 ## Prompt Map
 
+- `validation/customer-interviews.md`: Run customer-discovery interviews that
+  surface the truth instead of flattery (the Mom Test). Pins down the riskiest
+  belief and the decision the answers will inform, builds a bias-free interview
+  script with an explicit bad-questions list, role-plays or coaches the
+  conversations, and synthesizes the notes into a persevere / pivot /
+  inconclusive call — counting only real problems people already spend time or
+  money to solve. Run this first, before scoping or building anything.
+- `validation/demand-test.md`: Manufacture and read a real willingness-to-*pay*
+  signal before building the solution — the narrow validation experiment focused
+  on commitment and money. Picks the method (pricing-anchored fake-door / pre-sell
+  / deposit / paid-ad smoke test / concierge pre-sell / LOI), sets the pass
+  threshold and minimum sample *before* spending a dollar, runs it without
+  stranding any real buyer, and reads conversion-to-a-costly-action honestly
+  (discounting warm-audience bias). Assumes the problem is already validated (run
+  `validation/customer-interviews.md` first); a pass yields pre-customers and feeds
+  `product/mvp-scoping.md`. Use when the question is "will they actually pay?",
+  not "do they like it?".
+- `product/mvp-scoping.md`: Cut a *validated* idea down to the smallest product
+  that tests one falsifiable hypothesis, with a pass/fail metric set before any
+  build. Picks the lightest MVP type (landing page / fake-door / concierge /
+  Wizard-of-Oz / single-feature / thin slice), states what's built vs. faked vs.
+  deferred, and outputs an experiment brief whose "build for real" rows hand off
+  to `product/gather-requirements.md`. The bridge from validation to engineering;
+  it does not re-litigate whether the problem is real or gather full requirements.
 - `product/gather-requirements.md`: Turn a rough product idea into a clear,
   testable requirements document.
+- `product/activation-onboarding.md`: Design the first-run experience so a new
+  user reaches the "aha" (first real value) as fast as possible, and define +
+  instrument the activation metric that predicts retention. Identifies the aha
+  moment, sets a behavioral activation metric within a time window (derived from
+  where retained users diverge from churned ones), maps and de-frictions the path
+  to it, and designs onboarding as a guided path — not a feature tour — with empty
+  states as teachers and work done *for* the user. Buildable parts hand off to
+  `product/gather-requirements.md` / the platform `feature-dev.md`; the metric and
+  events feed analytics. Run it once there's a product to activate into.
 - `ios/build-app.md`: Stand up an iOS app from approved requirements —
   architecture, project structure, shared infrastructure, and one proving
   end-to-end slice — then decompose the app into feature chunks and orchestrate
@@ -83,12 +125,66 @@ the latter.
   churn × complexity. Report a plan only; establishes the existing test suite
   (and any `web/qa/qa-audit.md` findings) as the regression safety net the
   refactoring must keep green.
+- `marketing/customer-avatars.md`: Synthesize discovery evidence (interviews,
+  sales calls, support tickets, analytics cohorts) into a small, distinct set of
+  customer avatars — segmented by job-to-be-done and triggering situation, not
+  demographics — each profiled with its current alternative, pains, where it
+  already is, buying role, and objections, and every field tagged Evidence vs.
+  Assumption. Names one primary beachhead and an explicit anti-avatar. The
+  targeting foundation: its beachhead/anti-avatar feed
+  `marketing/positioning-messaging.md`, and its "where they already are" fields
+  feed channel and launch planning. Refuses to invent personas — run
+  `validation/customer-interviews.md` first so the set rests on evidence.
+- `marketing/positioning-messaging.md`: Define who the product is for, the
+  competitive alternative it displaces (including "do nothing"), the unique
+  wedge, the value it enables, and the market category — then write the message
+  hierarchy (positioning statement, headline, outcome-tied value props with
+  proof, objection handling, words to use/avoid). The foundational marketing
+  artifact: its brief feeds the landing page, sales script, ads, and launch
+  plan. Strongest after `validation/customer-interviews.md`, since it anchors
+  every claim in a real customer and a real alternative rather than hype.
+- `marketing/connect-ad-platforms.md`: Set up MCP connections to ad platforms
+  (Meta/Facebook/Instagram, Google Ads, LinkedIn, etc.) so the LLM can research
+  and — when explicitly gated — execute campaigns. Clarifies research-vs-execution
+  intent and budget authority, recommends official servers over third-party,
+  connects and verifies each platform **read-only first**, and enforces hard
+  guardrails: platform-level budget caps, human approval before every spend or
+  campaign mutation (no autonomous spend), least-privilege OAuth, and secrets kept
+  out of chat/logs. An operational setup prompt, not a strategy one — its
+  read-only connections feed the paid-ad smoke test in `validation/demand-test.md`
+  and future channel/launch research; write access is used only inside an
+  explicitly-gated execution step. Note: ad-platform MCP servers and their
+  read/write capabilities change fast — the prompt verifies current capability
+  against official docs rather than trusting a fixed list.
+- `marketing/landing-page.md`: Design a conversion-first landing page — the
+  argument, structure, and copy aimed at one visitor and one action. Owns
+  message-match to the traffic source, the above-the-fold 5-second promise, the
+  section skeleton (hero → problem → solution → proof → objections → CTA),
+  outcome-led value props with proof placed where doubt peaks, inline objection
+  handling, and friction-stripped CTAs — then *delegates the visual/component
+  build to the `frontend-design` skill and the wiring/instrumentation to
+  `web/feature-dev.md`*. Consumes `marketing/positioning-messaging.md` and the
+  beachhead avatar from `marketing/customer-avatars.md`; outputs a content +
+  conversion spec with an A/B test plan.
 
 Shared reference (not a standalone prompt — read when a prompt points to it):
 
 - `shared/testing-quadrants.md`: The canonical four-testing-quadrants model and
   context-driven-testing framing. Single source of truth for the QA-audit and
   refactoring-audit prompts so the iOS and web variants don't drift apart.
+- `shared/founder-principles.md`: Platform-wide company-building principles
+  (evidence over invention; the only real validation is a costly action; talk to
+  customers and trust behavior over predictions; the smallest test that settles the
+  question wins, fake before you build; define the metric and threshold before you
+  run; vanity metrics are forbidden; narrow beats broad; lead with the customer's
+  outcome in the customer's words; every claim needs proof and you never fabricate
+  it; sequence the de-risking problem→demand→solution→activation→channel; make
+  assumptions visible — separate evidence from inference from hope; treat every
+  conclusion as a living hypothesis; a cheap "no" now beats an expensive one later;
+  outward-facing and money-spending actions need a human gate). The business-side
+  counterpart to the engineering-principles files: every prompt in `validation/`,
+  `product/`, and `marketing/` instructs the LLM to read it first — it is the
+  canonical lens for validation, product, and marketing decisions.
 - `ios/common/engineering-principles.md`: Platform-wide iOS engineering principles
   (simplicity is the deliverable; names reveal intent — including scope-based
   name length, side-effect naming, and encapsulate/prefer-positive conditionals;
@@ -128,33 +224,57 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
 Meta-prompt (library maintenance — not a product workflow):
 
 - `improvement.md`: Reading-loop prompt that advances the library's knowledge
-  base. It reads all prompts in `ios/` and `web/`, then reads the current book
-  in `reading_progress.json` starting at the saved position, extracts
-  engineering insights from the material, and applies them to the relevant
-  prompts. At the end of each run it updates `reading_progress.json` and
-  `README.md` if the prompt structure changed. Run this to improve the prompts
-  as new material is read; do not run it as part of a product workflow.
+  base. It runs in two arcs against the current book in `reading_progress.json`,
+  starting at the saved position: the **technical** loop reads all prompts in
+  `ios/` and `web/` and applies engineering insights from the technical books
+  (`knowledge-base/technical/`), and the **business** loop reads all prompts in
+  `validation/`, `product/`, and `marketing/` plus `shared/founder-principles.md`
+  and applies company-building insights from the business books
+  (`knowledge-base/business/`). Use the block matching the current book's domain.
+  At the end of each run it updates `reading_progress.json` and `README.md` if the
+  prompt structure changed. Run this to improve the prompts as new material is
+  read; do not run it as part of a product workflow.
 
 ## Recommended Workflow
 
 For a new product:
 
-1. Start with `product/gather-requirements.md`.
-2. For web apps, run `web/set-up-hosting.md` before the build prompt unless
+1. De-risk before you build. Run `validation/customer-interviews.md` to confirm
+   the problem is real, frequent, and painful enough that people already spend
+   time or money on it. Don't skip to requirements on the strength of an idea you
+   like — a false positive caught here is the cheapest one you'll ever catch.
+   Then run `validation/demand-test.md` to prove they'll actually *pay* — a
+   pricing-anchored fake-door, pre-sell, or paid-ad smoke test — before you commit
+   to building. A pass here hands you pre-customers; a fail is the cheapest save
+   you'll ever get.
+2. Once the problem and demand are validated, run `product/mvp-scoping.md` to decide the
+   smallest thing that tests your riskiest assumption, with a pass/fail metric
+   set up front. It hands the "build for real" parts to the next step and keeps
+   the faked/manual parts out of engineering.
+3. Run `product/gather-requirements.md` on the parts the MVP actually needs built.
+4. In parallel with build, run `marketing/customer-avatars.md` to synthesize your
+   discovery into a small set of evidence-backed avatars with one beachhead, then
+   `marketing/positioning-messaging.md` to lock the wedge; the avatar set feeds
+   positioning, and the positioning brief feeds the landing page, sales, and launch.
+5. For web apps, run `web/set-up-hosting.md` before the build prompt unless
    hosting has already been decided.
-3. Run the platform `build-app.md` with the approved requirements. It stands up
+6. Run the platform `build-app.md` with the approved requirements. It stands up
    the foundation (architecture, shared infrastructure, and one proving
    end-to-end slice), then **decomposes the product into feature-sized chunks and
    orchestrates `feature-dev.md`** — fanning out independent chunks as parallel
    agents partitioned by file ownership, and serializing chunks that share files
    or depend on each other.
-4. To add a feature later to the now-living codebase, run the platform
+7. To add a feature later to the now-living codebase, run the platform
    `feature-dev.md` directly (it inherits the established architecture and
    conventions, so it confirms only what's genuinely unresolved). Run
    `qa/unit-testing.md` alongside or immediately after to write the unit tests
    for that feature — it takes the Phase 1 conditions of satisfaction as input.
-5. After implementation, run the relevant security and QA audit prompts; reach
+8. After implementation, run the relevant security and QA audit prompts; reach
    for the refactoring audit when maintainability degrades.
+9. With the product live, run `product/activation-onboarding.md` to drive new
+   users to first value and instrument the activation metric, and
+   `marketing/landing-page.md` to convert the traffic your positioning and
+   channels send — both consume the briefs produced upstream.
 
 For an existing app:
 
@@ -326,6 +446,30 @@ Respect these gates unless the user explicitly overrides them:
 
 - Product requirements: stop after clarifying questions, then stop again after
   pressure-testing scope.
+- `validation/customer-interviews.md`: stop after clarifying the learning goal
+  (riskiest belief + the decision the answers inform), then again after the
+  interview script and commitment ask, before any fieldwork.
+- `validation/demand-test.md`: stop after clarifying the costly buying signal and
+  the decision it informs, then again on the offer, price, pass metric, and
+  threshold, before spending on traffic or making any promise to a real person.
+- `product/mvp-scoping.md`: stop after clarifying the hypothesis, then again on
+  the scope cut AND the pass/fail metric + threshold, before anything is built.
+- `product/activation-onboarding.md`: stop after clarifying the aha moment, then
+  again on the activation metric AND the target path, before designing the flow.
+- `marketing/landing-page.md`: stop after clarifying the conversion goal and
+  visitor, then again on the page structure and above-the-fold promise, before
+  writing full copy.
+- `marketing/connect-ad-platforms.md`: stop after clarifying which platforms,
+  research-vs-execution intent, and budget authority, then again on the chosen
+  servers and the guardrail model, before touching any configuration. Connect
+  read-only first; any spend or campaign mutation is a separate, explicitly
+  human-approved step — never autonomous.
+- `marketing/customer-avatars.md`: stop after clarifying the evidence and the
+  decision the avatars drive, then again on the candidate avatar set (count,
+  distinguishing dimensions, proposed beachhead), before fleshing out full profiles.
+- `marketing/positioning-messaging.md`: stop after clarifying the five
+  positioning inputs, then again on the assembled positioning frame, before
+  writing the messaging.
 - `build-app.md`: stop after clarifying questions, then again after the
   architecture plan. After that approval, Phase 5 proceeds automatically —
   decomposing the product into features and fanning out parallel `feature-dev.md`
