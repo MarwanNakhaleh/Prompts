@@ -29,6 +29,10 @@ the latter.
   architecture and conventions while minimizing blast radius. This is the unit of
   work `ios/build-app.md` fans out; also run it directly to add a single feature
   to a living codebase.
+- `ios/bug-fix.md`: Diagnose and fix a bug in an existing iOS codebase.
+  Reproduces the bug reliably, writes a failing test that pins the root cause,
+  applies the minimal fix, and verifies no regression. Separate from
+  `ios/feature-dev.md` — a bug fix must never silently include refactoring.
 - `ios/security-audit.md`: Audit an iOS codebase for security issues. Report
   findings only.
 - `ios/qa/qa-audit.md`: Audit iOS test coverage across all four testing quadrants
@@ -56,6 +60,11 @@ the latter.
   its rendering model and conventions, with authorization and input validation
   built in. This is the unit of work `web/build-app.md` fans out; also run it
   directly to add a single feature to a living codebase.
+- `web/bug-fix.md`: Diagnose and fix a bug in an existing Next.js/TypeScript
+  codebase. Reproduces the bug reliably, writes a failing test that pins the
+  root cause, applies the minimal fix, and verifies no regression. Covers
+  Next.js-specific failure classes: stale cache, Server/Client boundary
+  violations, ORM type coercion, webhook idempotency, and client self-rate-limiting.
 - `web/security-audit.md`: Audit a Next.js codebase for security issues. Report
   findings only.
 - `web/qa/qa-audit.md`: Audit Next.js and full-stack TypeScript test coverage
