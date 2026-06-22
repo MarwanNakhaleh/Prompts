@@ -214,6 +214,33 @@ Deferred work, background fetch, and long-running processing.
 
 ---
 
+## PDF Rendering & Generation (PDFKit)
+
+Displaying, annotating, searching, and programmatically creating PDF documents.
+
+- **PDFKit Documentation** — https://developer.apple.com/documentation/pdfkit
+  Top-level framework reference. Available on iOS 11.0+. Covers the four core classes — `PDFView` (the display widget), `PDFDocument` (the document model), `PDFPage` (per-page rendering, text, and annotation access), and `PDFAnnotation` (interactive and drawn annotations). Check here before accepting any community tutorial; the API surface has expanded meaningfully across OS versions.
+
+- **PDFView** — https://developer.apple.com/documentation/pdfkit/pdfview
+  The single widget that encapsulates display, navigation, zoom, text selection, and user interaction. Embed in SwiftUI via `UIViewRepresentable`. Controls display mode (single page, continuous scroll, two-up), auto-scaling behavior, and background color. Required reading before adding a PDF viewer feature — many behaviors the security and QA audits flag (uncontrolled zoom, missing accessibility, unsanitized annotation inputs) are controlled through `PDFView` settings.
+
+- **PDFDocument** — https://developer.apple.com/documentation/pdfkit/pdfdocument
+  Load, search, select, write, and build PDF documents programmatically. Supports `init(url:)`, `init(data:)`, and `dataRepresentation()` for round-tripping. Use `find(string:)` for full-document text search and `page(at:)` to access individual pages. When writing a generated PDF to disk, apply the appropriate `NSFileProtection` class to the resulting file — the security audit prompt checks this.
+
+- **PDFPage** — https://developer.apple.com/documentation/pdfkit/pdfpage
+  Per-page rendering, annotation management, and text extraction. `attributedString` returns all text on the page; iterate pages and append to extract a full document's text. `thumbnail(of:for:)` generates page thumbnails for navigation UIs. `addAnnotation(_:)` / `removeAnnotation(_:)` manage annotations at the page level.
+
+- **PDFAnnotation** — https://developer.apple.com/documentation/pdfkit/pdfannotation
+  Create and configure interactive annotations (highlights, underlines, freehand ink, stamps, text notes, links). When mutating annotations, use `setValue(_:forAnnotationKey:)` with typed `PDFAnnotationKey` constants rather than stringly-typed key paths. User-supplied annotation text is an injection surface — sanitize before writing to the document and before displaying in any web or email context.
+
+- **WWDC 2017 — Introducing PDFKit on iOS** — https://developer.apple.com/videos/play/wwdc2017/241/
+  The session that brought PDFKit to iOS 11. Covers the class hierarchy, the annotation key API, rendering pipeline, and bridging to UIKit. Required background before working in any PDFKit codebase; explains decisions that are not obvious from the headers alone.
+
+- **WWDC 2022 — What's new in PDFKit** — https://developer.apple.com/videos/play/wwdc2022/10089/
+  iOS 16 additions: `PDFPageOverlayViewProvider` (live, fully interactive `UIView` overlays rendered on top of PDF pages — the correct pattern for embedding custom UI into a PDF viewer); image-based PDF page creation (a new API for building PDF pages from `UIImage` inputs); automatic form-field recognition; and Live Text integration for scanned documents. If the app targets iOS 16+, prefer `PDFPageOverlayViewProvider` over manual drawing in a custom `PDFPage` subclass.
+
+---
+
 ## Dependency Injection & Composition Root
 
 Wiring the object graph at startup and keeping dependencies injectable.
@@ -368,6 +395,7 @@ These are the intellectual sources `ios/common/engineering-principles.md` distil
 | Payments (StoreKit 2) | https://developer.apple.com/documentation/storekit/in-app-purchase |
 | Push Notifications | https://developer.apple.com/documentation/usernotifications/unusernotificationcenter |
 | Background Tasks | https://developer.apple.com/documentation/backgroundtasks/bgtaskscheduler |
+| PDF (PDFKit) | https://developer.apple.com/documentation/pdfkit |
 | Testing (Swift Testing) | https://developer.apple.com/documentation/testing |
 | Privacy / Permissions | https://developer.apple.com/documentation/bundleresources/privacy-manifest-files |
 | HIG | https://developer.apple.com/design/human-interface-guidelines/ios |
