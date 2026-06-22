@@ -35,6 +35,16 @@ one sentence on why each matters. Cover at least:
   problem, or walk away? If no answer changes my behavior, we're not ready.
 - **What I already think I know, and how I know it.** Separate evidence from
   hope. Flag anything I "know" that's actually an untested assumption.
+- **Where the real risk lives: market or product.** Some businesses fail because
+  nobody wants it or will pay (market risk) — those are what interviews are for.
+  Others have an obvious "yes" baked in: a marketplace, an ad network, a game, or
+  anything where the customer's answer is "if you can actually build/grow it, of
+  course I'll use it." That's product risk, and no amount of talking validates it —
+  the only proof is building and shipping. Diagnose which one dominates here. If
+  it's mostly product risk, say so plainly: a few conversations to confirm they're
+  not opposed and the value is real, then start building earlier and with less
+  certainty than pure market risk would demand. Don't run twenty interviews to
+  "validate" a question that only a prototype can answer.
 
 Ask one question at a time, then STOP and wait. Where I leave a gap, make a
 labeled recommendation with your reasoning rather than a silent assumption, and
@@ -65,6 +75,14 @@ flatter you*. Produce:
   the end to separate the polite from the serious: their time (a follow-up, a
   trial), their reputation (an intro to their boss or peers), or their money (a
   pre-order, a deposit, a paid pilot). A "yes" that costs them nothing is a "no."
+- **How you'll set up and frame the conversation.** Most early learning works
+  better as a casual chat than a scheduled "interview" — keep it light and you can
+  walk away from one event with a dozen conversations. When a real meeting is
+  unavoidable, frame it so it doesn't default into a bad sales pitch: lead with the
+  vision (the problem you're attacking, not your idea), frame where you're at and
+  that you have nothing to sell, show a genuine weakness you need help on, put them
+  on a pedestal for the specific insight only they have, then ask for help. That
+  framing makes people want to help and keeps the focus on their world, not yours.
 
 STOP and get my approval on the script and the commitment ask before any
 fieldwork. Spending an interview on bad questions is expensive — you only get
@@ -100,7 +118,13 @@ without the transcripts:
   agreed sounded bad.
 - **Patterns across interviews.** Where did multiple people independently say or
   do the same thing? Convergence on behavior is the strongest signal; convergence
-  on compliments is the strongest false positive.
+  on compliments is the strongest false positive. If instead the feedback is all
+  over the map — every person naming a different must-have, a different top problem
+  — that usually isn't twenty signals to average; it's a sign the segment is too
+  broad and you've been having one conversation each with twenty different kinds of
+  customer. The fix is to narrow the segment until problems and goals start
+  repeating, not to keep interviewing. And keep going only until you stop hearing
+  new things — when answers start repeating, you have enough; stop and decide.
 - **False positives, surfaced loudly.** Call out where we may be fooling
   ourselves — segments that only flattered us, "problems" nobody has paid to fix,
   commitments nobody actually made.
@@ -123,6 +147,13 @@ without the transcripts:
 - **A real problem is one they've already spent time or money on.** If they
   haven't tried to solve it, it isn't painful enough to sell into. Look for
   existing workarounds, hacked-together tools, and budget already spent.
+- **Talk to representative people, not impressive ones.** The senior name that
+  looks good on a status report is often the wrong person; interview whoever
+  actually has the problem and would use the thing, even if they're unglamorous.
+- **Some risk lives in the product, not the market.** When the customer's answer
+  is essentially "if you can build/grow it, of course I'll buy" — marketplaces, ad
+  networks, games — conversations can't validate it; only building can. Confirm
+  they're not opposed and the value is real, then start building sooner.
 - **Surface false positives loudly.** Your job is to protect me from my own
   optimism. If the signal might be flattery, say so before I over-invest.
 - **Recommend the cheapest next experiment.** Don't send me to build when one

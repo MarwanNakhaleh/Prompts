@@ -32,7 +32,12 @@ escape hatch, and one sentence on why each matters. Cover at least:
   Separate the **value hypothesis** (will people actually want / use / pay for
   this once they have it?) from the **growth hypothesis** (how will new users find
   it and will that engine sustain?). For a first MVP it is almost always value
-  first — confirm that before testing growth.
+  first — confirm that before testing growth. Watch for the trap of testing the
+  *interesting* assumption instead of the *fatal* one: most businesses have several
+  independent failure points (the user needs it AND the buyer has budget AND we can
+  actually build/grow it), and it's tempting to obsess over the fun one while a
+  quieter one — usually budget or a product/scaling risk — is the real elephant in
+  the room. Name every failure point, then test the one most likely to be fatal first.
 - **The target user for THIS test:** not the eventual market — the specific,
   reachable person whose behavior in this experiment we'll trust. Narrow beats
   broad; a clear result from ten of the right people beats noise from a thousand.

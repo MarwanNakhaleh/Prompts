@@ -37,7 +37,12 @@ web for the primary sources rather than reproducing them here.
   not your idea: what they did, the last time the problem bit, what they already
   tried, what they already pay for. What someone has done is evidence; what they
   say they'll do is a guess they're bad at. And a compliment is a warning sign that
-  you pitched instead of listened.
+  you pitched instead of listened. Know what conversations can and can't prove:
+  where the risk is in the *market* (do they want it, will they pay), talking
+  settles it; where the risk is in the *product* (a marketplace, an ad network, a
+  game — anything where "if you can build/grow it, of course I'll buy" is the
+  honest answer), no conversation validates it, so confirm they're not opposed and
+  start building sooner.
 
 - **The smallest test that settles the question wins.** Optimize for validated
   learning, not for shipping features or looking impressive. Fake before you build:
