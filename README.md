@@ -44,6 +44,28 @@ the latter.
   `validation/customer-interviews.md` first); a pass yields pre-customers and feeds
   `product/mvp-scoping.md`. Use when the question is "will they actually pay?",
   not "do they like it?".
+- `validation/riskiest-assumption-test.md`: The meta-experiment-design prompt —
+  surface the leap-of-faith assumptions a venture rests on (desirability /
+  viability / feasibility), rank them by impact × uncertainty, isolate the single
+  riskiest one, and design the cheapest experiment that would confirm or kill it
+  with a pre-set threshold. Routes to the right specific test for execution
+  (`customer-interviews` for problem risk, `demand-test` for willingness-to-pay,
+  `pricing-validation` for price, `mvp-scoping` for a build experiment) and names
+  the next assumption to test. Use when you're not sure *what* to validate first.
+- `validation/pricing-validation.md`: Discover a defensible price and pricing
+  model before hardcoding a number — value-based pricing anchored to the
+  alternative's cost, the right pricing metric (per seat / usage / outcome),
+  good-better-best tiering, and Van Westendorp-style sensitivity questions as a
+  *soft* signal that must be confirmed with a real charge (routes to
+  `validation/demand-test.md`). Distinct from demand-test, which proves they'll pay
+  *at* a price; this finds the right price. Biased hard against underpricing.
+- `validation/competitive-landscape.md`: Map the alternatives a customer uses
+  today — always including "do nothing," a spreadsheet, or a manual workaround —
+  their switching costs, and where the differentiated wedge / market whitespace is.
+  Researches with cited sources, compares on customer-valued dimensions (not
+  feature checklists), and feeds the competitive-alternative input to
+  `marketing/positioning-messaging.md` and the current-alternative field of
+  `marketing/customer-avatars.md`.
 - `product/mvp-scoping.md`: Cut a *validated* idea down to the smallest product
   that tests one falsifiable hypothesis, with a pass/fail metric set before any
   build. Picks the lightest MVP type (landing page / fake-door / concierge /
@@ -62,6 +84,20 @@ the latter.
   states as teachers and work done *for* the user. Buildable parts hand off to
   `product/gather-requirements.md` / the platform `feature-dev.md`; the metric and
   events feed analytics. Run it once there's a product to activate into.
+- `product/metrics-instrumentation.md`: Choose the North Star metric (tied to
+  delivered customer value), map the AARRR / pirate funnel (Acquisition,
+  Activation, Retention, Referral, Revenue), pick the few actionable metrics that
+  matter at the current stage, and specify what to instrument so the team learns
+  instead of guessing. Anti-vanity throughout; situates the activation metric from
+  `product/activation-onboarding.md` inside the whole funnel and routes the
+  instrumentation build to `gather-requirements.md` / the platform `feature-dev.md`.
+- `product/prioritization.md`: Triage a backlog / feature requests / competing
+  bets against the *one* current bottleneck so the team works on the
+  highest-leverage thing, not the loudest. Scores items with a fit-for-purpose
+  framework (RICE / ICE / now-next-later), discounts impact by evidence, reframes
+  feature requests into the underlying job, and defaults to cut — outputting a
+  ranked now/next/later list tied to the bottleneck. Top items route to
+  `gather-requirements.md` / the platform `feature-dev.md`.
 - `ios/build-app.md`: Stand up an iOS app from approved requirements —
   architecture, project structure, shared infrastructure, and one proving
   end-to-end slice — then decompose the app into feature chunks and orchestrate
@@ -166,6 +202,33 @@ the latter.
   `web/feature-dev.md`*. Consumes `marketing/positioning-messaging.md` and the
   beachhead avatar from `marketing/customer-avatars.md`; outputs a content +
   conversion spec with an A/B test plan.
+- `marketing/founder-led-sales.md`: Land the first ~10 customers by hand through
+  personal, targeted founder outreach and a discovery-to-close motion that leads
+  with diagnosis over pitch (Mom-Test discipline applied to selling). Consumes the
+  beachhead/objections from `marketing/customer-avatars.md` and the message from
+  `marketing/positioning-messaging.md`; qualifies hard, asks for the close, and
+  mines every call for learning that feeds positioning and prioritization. The
+  deliberately-unscalable first-sales playbook.
+- `marketing/channel-strategy.md`: Choose *one* acquisition channel to test first
+  and design the experiment with a kill criterion, instead of spreading thin.
+  Brainstorms the full channel set, ranks to the few matched to where the beachhead
+  avatar already is and the economics (CAC vs. price), and specs a cheap test with
+  its metric, double-down threshold, and kill criterion. Paid channels route to
+  `marketing/connect-ad-platforms.md` for execution under its spend guardrails.
+- `marketing/launch-plan.md`: Sequence a launch (Product Hunt / Show HN / waitlist
+  / email list / communities) as one concentrated moment with a single goal and
+  metric — won in pre-launch prep. Picks channels where the beachhead avatar is,
+  builds the audience and assets ahead, scripts the day-of run-of-show and fast
+  founder response, and points the spike at a destination that converts. Consumes
+  `marketing/positioning-messaging.md`, `marketing/customer-avatars.md`, and
+  `marketing/landing-page.md`; sets honest spike-not-hockey-stick expectations.
+- `marketing/lifecycle-email.md`: Design behaviorally-triggered email sequences
+  across the lifecycle (welcome/onboarding → activation nudge → retention →
+  win-back, plus key transactional moments). Each email serves the activation /
+  retention metric, has one goal and one CTA, fires on behavior rather than a
+  time-based blast, and measures the downstream action (not opens). Consumes the
+  aha moment from `product/activation-onboarding.md` and the voice from
+  `marketing/customer-avatars.md`; triggers route to product/engineering to wire up.
 
 Shared reference (not a standalone prompt — read when a prompt points to it):
 
@@ -452,10 +515,25 @@ Respect these gates unless the user explicitly overrides them:
 - `validation/demand-test.md`: stop after clarifying the costly buying signal and
   the decision it informs, then again on the offer, price, pass metric, and
   threshold, before spending on traffic or making any promise to a real person.
+- `validation/riskiest-assumption-test.md`: stop after enumerating the
+  assumptions, then again on which assumption is riskiest and which experiment +
+  threshold will test it, before specifying or running anything.
+- `validation/pricing-validation.md`: stop after clarifying value, alternative,
+  and segment, then again on the pricing model and the test plan, before fielding
+  any pricing question or charge.
+- `validation/competitive-landscape.md`: no implementation gate (research/report),
+  but stop after presenting the landscape map and recommended wedge for sign-off
+  before writing the brief.
 - `product/mvp-scoping.md`: stop after clarifying the hypothesis, then again on
   the scope cut AND the pass/fail metric + threshold, before anything is built.
 - `product/activation-onboarding.md`: stop after clarifying the aha moment, then
   again on the activation metric AND the target path, before designing the flow.
+- `product/metrics-instrumentation.md`: stop after clarifying the core value and
+  bottleneck, then again on the North Star and the funnel metrics, before
+  specifying instrumentation.
+- `product/prioritization.md`: stop after clarifying the current bottleneck and
+  candidates, then again on the ranked list and cut pile, before any item routes
+  to build.
 - `marketing/landing-page.md`: stop after clarifying the conversion goal and
   visitor, then again on the page structure and above-the-fold promise, before
   writing full copy.
@@ -470,6 +548,14 @@ Respect these gates unless the user explicitly overrides them:
 - `marketing/positioning-messaging.md`: stop after clarifying the five
   positioning inputs, then again on the assembled positioning frame, before
   writing the messaging.
+- `marketing/founder-led-sales.md`: stop after clarifying the target, offer, and
+  prospect list, then again on the outreach + discovery plan, before any outreach.
+- `marketing/channel-strategy.md`: stop after clarifying the avatar and economics,
+  then again on the channel(s) to test and the kill criteria, before spending.
+- `marketing/launch-plan.md`: stop after clarifying the launch goal and audience,
+  then again on channels and the backward-planned timeline, before producing assets.
+- `marketing/lifecycle-email.md`: stop after clarifying the activation/retention
+  goal and lifecycle stages, then again on the sequence map, before writing copy.
 - `build-app.md`: stop after clarifying questions, then again after the
   architecture plan. After that approval, Phase 5 proceeds automatically —
   decomposing the product into features and fanning out parallel `feature-dev.md`
