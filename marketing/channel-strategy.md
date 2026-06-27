@@ -40,6 +40,17 @@ Cover at least:
   and how much we can pay to acquire a customer and still come out ahead. A
   channel that works for a $2,000 product is a different channel than one that
   has to pay for itself on a $9 one — the economics decide what's even viable.
+- **Which engine of growth actually powers this business.** Sustainable growth
+  comes from the actions of past customers, and it runs on one of three engines:
+  *paid* (each customer is worth more than they cost to acquire, and the surplus
+  buys the next one), *viral* (using the product naturally exposes new people to it,
+  so growth is a side effect of use, governed by how many new users each user
+  brings), or *sticky* (low churn compounds a high retention rate into growth). The
+  engine decides whether this prompt is even the right tool: a paid engine is a
+  channel hunt, but a viral engine is won inside the product (the referral loop) and
+  a sticky engine is won on retention — buying a channel for either is pouring water
+  into a leaking bucket. Name the engine before ranking channels, and pursue one at
+  a time.
 - **Current traction and what's been tried.** What acquisition we've already run,
   what it cost, and what it returned — so we don't re-test a dead channel or
   abandon one that was actually working before it had a fair shot.
@@ -64,8 +75,11 @@ the channel(s) and the kill criteria signed off before any spending.
   reachable there at all.
 - **Rank to the top 2–3.** Score each channel on two axes: does the avatar
   already live there, and do the economics work (can we plausibly hit acceptable
-  CAC). Promote only the few that pass both. Most channels are a "no" for this
-  avatar — say so, and say why, rather than keeping a long hopeful list.
+  CAC). Promote only the few that pass both. As a tiebreaker between channels that
+  both pass, favor the one that builds an audience you *own* — an opt-in list, a
+  community — over one that only rents you attention you lose the moment you stop
+  paying. Most channels are a "no" for this avatar — say so, and say why, rather than
+  keeping a long hopeful list.
 - **For the top pick, design the cheap test.** Define: the experiment (the
   smallest version that produces a real signal), the metric (CAC, cost-per-signal,
   or conversion to the costly action — never a vanity total), the sample or
@@ -130,9 +144,19 @@ queue, not a to-do list to run all at once.
 - **One channel dominated beats ten dabbled.** Most early growth comes from a
   single channel. The job is to find that one and focus everything on it — not to
   keep a portfolio of half-run experiments alive.
+- **Match the work to the engine of growth.** Paid, viral, and sticky engines grow
+  for different reasons and reward different work — only the paid engine is
+  fundamentally a channel hunt. Confirm which engine you're on before sending the
+  budget at a channel; for a viral or sticky engine the lever is in the product,
+  not the ad account.
 - **Go where the avatar already is.** Pick channels by where the beachhead already
   spends attention, not by what's easiest to set up or what worked for someone
   else's product.
+- **Prefer channels that build an asset you own.** Some channels only rent attention
+  for the moment you pay; others convert that attention into an owned, opt-in audience
+  you can reach again at near-zero cost and rising relevance. All else equal, a channel
+  that compounds into permission you own beats one that resets to zero the day the
+  spend stops — weigh that, not just today's CAC.
 - **Cheap test before commit.** Brainstorm wide, rank to a few, run small tests on
   the top before pouring in budget or building anything channel-specific. A
   cheaper test that would change your mind runs first.

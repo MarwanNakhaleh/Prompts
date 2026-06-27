@@ -151,6 +151,12 @@ After the run, turn the raw numbers into a decision — honestly.
   of your first customers.
 - **A fail here is the cheapest save you'll ever get.** Finding out nobody will pay
   *before* you build is the whole point — celebrate it, don't bury it.
+- **A "yes" at the wrong price isn't a pass.** A costly action only validates demand
+  if it's at a price that can sustain the business. A flood of pre-orders at a number
+  below your durable unit margin proves people want something you can't profitably
+  deliver — that's a pricing problem to fix (route to validation/pricing-validation.md),
+  not a green light to build. Check the margin behind the conversion, not just the
+  conversion.
 - **Recommend the cheapest next test.** If a price change or a re-run on cold
   traffic would settle it, don't send me to build.
 - **When unsure, ask — one question at a time, multiple choice.** A wrong offer

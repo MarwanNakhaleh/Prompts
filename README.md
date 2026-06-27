@@ -8,12 +8,24 @@ written for an LLM that can inspect a codebase, ask clarifying questions,
 research current platform guidance, and pause for human approval at the right
 moments.
 
-The work splits into two arcs that meet in the middle. The **company-building**
-prompts (`validation/`, `product/`, `marketing/`) de-risk *what* to build and
-*who it's for* before and around the engineering. The **engineering** prompts
-(`ios/`, `web/`) build, test, and harden it. Validation feeds product scoping,
-product scoping feeds the build, and positioning feeds go-to-market — so a prompt
-that ends by handing a clean brief to the next one is doing its job.
+The work splits into two arcs that meet in the middle, with a third sitting on
+top. The **company-building** prompts (`validation/`, `product/`, `marketing/`)
+de-risk *what* to build and *who it's for* before and around the engineering. The
+**engineering** prompts (`ios/`, `web/`) build, test, and harden it. Validation
+feeds product scoping, product scoping feeds the build, and positioning feeds
+go-to-market — so a prompt that ends by handing a clean brief to the next one is
+doing its job.
+
+Above both arcs sit the **leadership/organization** prompts (`ceo/`, `cto/`,
+`cmo/`, `sales/`, `design/`), which direct *who runs the company and how the org
+executes*: company and technical strategy, org design, hiring, the operating
+cadence, fundraising, reliability, brand, the repeatable sales motion, and the
+design of the product itself. `sales/` scales the founder-led motion into a
+repeatable function, and `design/` finally gives UX and visual design its own
+home. These are not a linear step in the build flow — they're invoked when an
+organization-level job arises — and each reads the leadership spine
+(`shared/leadership-principles.md`) first, plus the founder or engineering spine
+wherever a customer-evidence or engineering judgment is involved.
 
 Use the prompts as workflows, not as passive reference docs. Each prompt defines
 a role, the required input, the order of work, and the points where the LLM must
@@ -230,6 +242,358 @@ the latter.
   aha moment from `product/activation-onboarding.md` and the voice from
   `marketing/customer-avatars.md`; triggers route to product/engineering to wire up.
 
+The `ceo/` prompts run the company-altitude jobs — strategy, story, money, people,
+and the operating system (each reads `shared/leadership-principles.md` first):
+
+- `ceo/company-strategy.md`: Turn raw company inputs into a real strategy — a small
+  set of hard choices (where to play, how to win, what to deliberately *not* do)
+  anchored to one hedgehog at the intersection of best-in-world × economic engine ×
+  what the company is driven to do. Gathers the raw material one question at a time,
+  pressure-tests the hedgehog and the few bets against the brutal facts, names the
+  deliberate NOs and the disconfirming condition, and gates the strategy (a one-way
+  door pointing the whole company) before writing the brief. Consumes
+  `marketing/positioning-messaging.md` and `validation/competitive-landscape.md`;
+  its brief sets the goals for `ceo/operating-cadence.md`, the story for
+  `ceo/vision-narrative.md`, and the bottleneck `product/prioritization.md` ranks
+  against.
+- `ceo/vision-narrative.md`: Build the company-altitude narrative — the mission, the
+  vision, and the "why now" — used to recruit, raise, and rally, kept grounded
+  enough to sound inevitable rather than hyped. Clarifies the inputs, shapes and
+  pressure-tests the arc (testing the "why now" hardest and killing every
+  superlative), then writes the one-liner, short, and full narratives with a
+  claims-and-proof ledger. The narrative is a trust act, so it's gated before any
+  outward use. Consumes `ceo/company-strategy.md` (ladders to the hedgehog); feeds
+  the investor story in `ceo/fundraising-narrative.md`, the recruiting story in
+  `ceo/hiring-key-roles.md` and `ceo/culture-values.md`, and sits above
+  `marketing/positioning-messaging.md`.
+- `ceo/fundraising-narrative.md`: Run a raise as a deliberate sales process —
+  narrative, deck arc, metrics, and a momentum-creating outreach plan — never as a
+  moment of being judged. Researches current round/dilution/valuation norms and
+  cites them, sizes the round to the milestones it must buy, pre-empts the diligence
+  questions, and **gates every investor contact and every send behind explicit human
+  approval** (no deck forwarded, no commitment made autonomously). Consumes
+  `ceo/financial-model.md` (numbers, runway, use of funds) and
+  `ceo/vision-narrative.md` (the story); a closed round feeds
+  `ceo/board-investor-update.md` and resets `ceo/financial-model.md` and
+  `ceo/hiring-key-roles.md`.
+- `ceo/financial-model.md`: Build a driver-based financial model a team can steer by
+  — the few real levers, honest unit economics (CAC, LTV, payback), and base/bull/
+  bear scenarios that name what kills the company and when. Anti-vanity and
+  anti-hockey-stick; tags every input observed/inferred/hoped and gates the drivers,
+  economics, and steering dashboard before the model is used to raise, hire, or
+  budget. Consumes `validation/pricing-validation.md`, `validation/demand-test.md`,
+  `product/metrics-instrumentation.md`, and `ceo/company-strategy.md`; supplies the
+  numbers to `ceo/fundraising-narrative.md`, `ceo/board-investor-update.md`,
+  `cmo/budget-allocation.md`, and the runway constraint to `ceo/hiring-key-roles.md`
+  and `ceo/operating-cadence.md`.
+- `ceo/hiring-key-roles.md`: Hire a senior or first-critical role by the rule "first
+  who, then what" — define the seat as a scorecard of outcomes (not a résumé), run a
+  structured, evidence-gathering loop with real reference checks, and decide with a
+  default-to-no-hire when the signal is mixed. **Gates the offer — a one-way,
+  trust-laden act — behind explicit human approval.** Consumes `ceo/culture-values.md`
+  (the behaviors tested) and `ceo/company-strategy.md` (which seats matter); hands
+  function-specific loops to `cto/hire-engineers.md` and `sales/hire-train-reps.md`;
+  comp draws against `ceo/financial-model.md` and the first-90-days criteria feed
+  `ceo/operating-cadence.md`.
+- `ceo/operating-cadence.md`: Install the lightest operating system that turns
+  strategy into this week's action and feeds results back fast — goals that ladder
+  to the bets, a meeting rhythm where each meeting has a distinct job, a metric
+  review with trigger thresholds, and a decision/unblock model. Cuts cadence
+  theater; gated before it becomes how the company runs. Consumes
+  `ceo/company-strategy.md` (the bets) and the metrics from
+  `product/metrics-instrumentation.md` and `ceo/financial-model.md`; produces the
+  metric narrative for `ceo/board-investor-update.md` and the priority signal that
+  frames `product/prioritization.md` each cycle.
+- `ceo/hard-decision.md`: Work a high-stakes, often irreversible call — a pivot, a
+  layoff, killing a line, firing an exec — by confronting the brutal facts while
+  keeping faith (the Stockdale paradox), weighing options by reversibility, and
+  hunting lead bullets over silver ones. Plans the communication as half the
+  decision. **Gates any irreversible or outward-facing action (the layoff, firing,
+  pivot, or announcement) behind explicit human approval.** A pivot routes back into
+  `ceo/company-strategy.md`; a layoff updates `ceo/financial-model.md` and
+  `ceo/operating-cadence.md`; any of it becomes honest material for
+  `ceo/board-investor-update.md`. Reaches into `shared/founder-principles.md` for
+  pivot-or-persevere.
+- `ceo/culture-values.md`: Name the few behaviors that actually make this company win
+  — defined as things people *do*, concrete enough to hire, promote, reward, and fire
+  against — and operationalize them into the systems that shape behavior, refusing
+  poster values that cost nothing. Confronts the brilliant-jerk test directly; gated
+  before rollout, because announcing values you won't enforce spends credibility you
+  don't get back. Consumes `ceo/company-strategy.md`; supplies the behavioral screens
+  to `ceo/hiring-key-roles.md`, `cto/hire-engineers.md`, and
+  `sales/hire-train-reps.md`, and the bar `ceo/operating-cadence.md` and
+  `ceo/hard-decision.md` enforce.
+- `ceo/board-investor-update.md`: Turn the board meeting and the investor update into
+  a tool, not a performance — lead with the honest narrative (bad news near the top,
+  owned), show real metrics, frame the one or two decisions you need the room's
+  judgment on, and make every ask assignable to a person. **Gates the send or
+  circulation behind explicit human approval**, since it shapes investor trust.
+  Consumes `ceo/financial-model.md` (metrics, runway) and `ceo/operating-cadence.md`
+  (goals graded); decisions route into `ceo/hard-decision.md`, a fundraise signal
+  connects to `ceo/fundraising-narrative.md`, and the narrative ladders to
+  `ceo/vision-narrative.md`.
+
+The `cto/` prompts set technical direction and run the engineering organization
+above any single app (each reads `shared/leadership-principles.md` plus the relevant
+`*/common/engineering-principles.md` first):
+
+- `cto/technical-strategy.md`: Set technical direction across many teams and systems
+  — the altitude above any one app — as a small set of deliberate bets tied to the
+  business bet, an architecture north star, and an explicit list of what *not* to
+  build. Locates the real constraint with delivery evidence (the four DORA-style
+  signals), separates core from context, and states the thesis with a disproof
+  condition; gated as a multi-team one-way-ish door. Consumes
+  `ceo/company-strategy.md`; hands new systems to `web/build-app.md` /
+  `ios/build-app.md`, cross-team sequencing to `cto/tech-roadmap.md`, team shape to
+  `cto/eng-org-design.md`, contested core-vs-context calls to `cto/build-vs-buy.md`,
+  and the reliability bet to `cto/reliability-incident.md`.
+- `cto/eng-org-design.md`: Design the engineering organization as system design —
+  draw team boundaries first (Conway's law used deliberately) so the architecture you
+  want falls out of them. Sorts work into stream-aligned / platform / enabling /
+  complicated-subsystem teams, bounds each team's cognitive load, picks the
+  interaction modes, and makes "you build it, you run it" real. Gated as a
+  one-way-ish door that lands on people's careers. Consumes
+  `cto/technical-strategy.md`; the open seats feed `cto/hire-engineers.md`, the
+  on-call and ownership model feeds `cto/reliability-incident.md`, and the team
+  boundaries reconcile with the strategy's north star.
+- `cto/tech-roadmap.md`: Sequence *technical* investment across teams — feature
+  enablement, platform, reliability, and debt paydown — with dependencies made
+  visible, the investment balance made deliberate (not defaulting to all-features),
+  and every item priced against what it displaces. The technical-investment altitude
+  above `product/prioritization.md`, which it consumes as one input. Consumes
+  `cto/technical-strategy.md` and `cto/eng-org-design.md`; routes new systems to
+  `web/build-app.md` / `ios/build-app.md`, single features to the platform
+  `feature-dev.md`, debt to `web/refactoring.md` / `ios/refactoring.md`, and
+  reliability to `cto/reliability-incident.md`.
+- `cto/build-vs-buy.md`: Make a build-vs-buy call on total cost of ownership over the
+  life of the thing, on whether it touches the company's differentiation (build your
+  core, buy your context), and on reversibility — refusing both the build-everything
+  and outsource-everything reflexes. Prices "free" OSS and vendor lock-in honestly
+  and designs for exit behind an interface you own. **Gates the irreversible
+  commitment — signing a contract, committing a budget — behind explicit human
+  approval, preferring a reversible pilot first.** If build, routes to
+  `web/build-app.md` / `ios/build-app.md` or the platform `feature-dev.md`; if buy,
+  the integration to `feature-dev.md` behind the owned interface; vendor compliance
+  to `cto/security-compliance-program.md`.
+- `cto/hire-engineers.md`: Build the engineering hiring *system* — a leveling ladder,
+  a scorecard of outcomes, a structured work-sample loop that predicts on-the-job
+  performance, a bar-raiser guarding consistency, and a closing motion — cutting
+  trivia and unstructured culture chats, and defaulting to no-hire on a mixed signal.
+  The engineering specialization of `ceo/hiring-key-roles.md`; the *system* gets a
+  gate even though each interview doesn't. Consumes `cto/eng-org-design.md` (the
+  seats) and `ceo/culture-values.md` (the behaviors); a hire's onboarding ties to
+  `cto/eng-org-design.md` and `cto/reliability-incident.md`.
+- `cto/delivery-pipeline.md`: Treat the path from commit to happy user as the most
+  important product engineering owns — trunk-based development, an automated pipeline
+  that builds the artifact once and promotes it, progressive delivery, rehearsed
+  rollback, and the four DORA metrics — applying "if it hurts, do it more often."
+  Gated before changing how every deploy works. Test-coverage gaps route to
+  `web/qa/qa-audit.md` / `ios/qa/qa-audit.md` and the unit-testing prompts; pipeline/
+  infra changes to the platform `feature-dev.md`; the reliability side to
+  `cto/reliability-incident.md`; team ownership from `cto/eng-org-design.md`.
+- `cto/reliability-incident.md`: Stand up reliability as a discipline rather than a
+  heroic habit — SLIs from the user journey in, SLOs and an error budget that
+  arbitrates speed vs. stability, a humane on-call, incident command, and blameless
+  postmortems that produce systemic fixes. **Report + plan first: assess and propose,
+  get sign-off, and implement only on a separate, explicitly-gated task** (putting
+  people on a pager and committing to an SLO are not analysis side effects).
+  Implementation routes to the platform `feature-dev.md`; rollback-on-budget-burn to
+  `cto/delivery-pipeline.md`; on-call from `cto/eng-org-design.md`; architectural
+  causes to `cto/architecture-review.md` and `cto/tech-roadmap.md`.
+- `cto/architecture-review.md`: Review a large system or RFC to make the design
+  better and the risks visible — pressure-testing failure modes, the next order of
+  magnitude, maintainability, data consistency, and always the simpler alternative
+  the author skipped — refusing both the ego pass and the rubber stamp. **Report-only:
+  produce findings by severity and a proceed / proceed-with-changes / go-back call; do
+  not implement or rewrite the design in the same run.** If it proceeds, build routes
+  to `web/build-app.md` / `ios/build-app.md` or the platform `feature-dev.md` carrying
+  the required changes; deep scaling to `cto/scaling-plan.md`; security to
+  `cto/security-compliance-program.md`; checked against the north star in
+  `cto/technical-strategy.md`.
+- `cto/scaling-plan.md`: Plan a system to the next order of magnitude (10x, not 10%)
+  without guessing — capture a baseline first, build a whole-system load model (app,
+  datastore, network, per-instance limits, third-party quotas), find the one binding
+  constraint with evidence, and weigh each scaling lever's real consistency/operational
+  cost. Names the scaling work deliberately *not* done yet. Gated on the one-way-door
+  commitments (a partitioning scheme, a datastore swap). Implementation routes to the
+  platform `feature-dev.md`; the SLOs it must hold come from
+  `cto/reliability-incident.md`; a major boundary reshape feeds
+  `cto/architecture-review.md`.
+- `cto/security-compliance-program.md`: Stand up security and compliance as an
+  ongoing program — a lightweight threat model, the few controls that move risk at
+  this stage, least-privilege identity and secrets posture, vendor/data-flow risk,
+  and a framework decision only if a real driver requires it — refusing cargo-culted
+  enterprise process and treating a certificate as security. **Report + plan first; a
+  standing commitment (adopting a framework, signing a customer security obligation,
+  committing budget) is gated separately as an outward-facing promise.** Consumes the
+  point-in-time `web/security-audit.md` / `ios/security-audit.md` as recurring inputs;
+  control implementation to the platform `feature-dev.md`; CI security gates to
+  `cto/delivery-pipeline.md`; control ownership onto `cto/eng-org-design.md`.
+
+The `cmo/` prompts run marketing at the function altitude — the motion, the brand,
+the demand engine, and the budget (each reads `shared/leadership-principles.md` and
+`shared/founder-principles.md` first):
+
+- `cmo/gtm-strategy.md`: Choose the *one* dominant go-to-market motion (product-led /
+  sales-led / community-led / marketplace) the business is built to win on, sequence
+  the segments behind a single beachhead, and set the funnel plan and budget shape —
+  refusing the portfolio of half-run motions and letting the economics veto the
+  fashionable choice. **Gated before any budget is committed, any campaign launches,
+  or any outreach goes out.** Consumes `marketing/positioning-messaging.md` and
+  `marketing/customer-avatars.md`; routes channel tests to
+  `marketing/channel-strategy.md`, the sales motion to `sales/sales-playbook.md` and
+  `marketing/founder-led-sales.md`, demand scaling to `cmo/demand-generation.md`,
+  content to `cmo/content-seo-strategy.md`, brand to `cmo/brand-strategy.md`,
+  measurement to `cmo/marketing-analytics.md`, and dollars to
+  `cmo/budget-allocation.md`.
+- `cmo/brand-strategy.md`: Build the company-altitude brand as the promise the
+  company makes and keeps — the positioning, the few associations worth owning, the
+  story (customer as hero), and a voice the whole team can write in — refusing
+  logo-worship and borrowed grandeur, and backing every association with a behavior.
+  **Outward brand expression (a public manifesto, a rebrand, a new claim) is
+  human-gated.** Sits above (never overrides) `marketing/positioning-messaging.md`;
+  consumes `marketing/customer-avatars.md`; sets the tone for
+  `cmo/content-seo-strategy.md`, `marketing/landing-page.md`,
+  `marketing/lifecycle-email.md`, `cmo/pr-influencer-community.md`, and
+  `marketing/launch-plan.md`.
+- `cmo/demand-generation.md`: Build the demand engine that *scales* a channel already
+  proven (it won't scale a loss) — find the power-law channel, push it to its
+  efficient frontier under a CAC/LTV/payback ceiling, reserve a disciplined experiment
+  slice with kill criteria, and build loops over funnels. **No autonomous spend —
+  every dollar is human-gated and paid execution inherits the
+  `marketing/connect-ad-platforms.md` guardrails.** Consumes the proven first channel
+  from `marketing/channel-strategy.md`; nurture to `marketing/lifecycle-email.md`;
+  measurement to `cmo/marketing-analytics.md`; dollars to `cmo/budget-allocation.md`;
+  sits inside the motion from `cmo/gtm-strategy.md`.
+- `cmo/content-seo-strategy.md`: Build the content/organic engine as a compounding
+  asset starting from the buyer's jobs, not the keyword tool — a few owned topic
+  clusters tied to the unfair angle, a sustainable production system, distribution
+  planned with each piece, and measurement of the downstream action (not pageviews).
+  **Outward publishing and paid amplification are human-gated.** Consumes the avatar's
+  jobs from `marketing/customer-avatars.md` and the voice from `cmo/brand-strategy.md`;
+  feeds `marketing/lifecycle-email.md` and `marketing/landing-page.md`; sits inside
+  `cmo/gtm-strategy.md` and reports into `cmo/marketing-analytics.md`.
+- `cmo/marketing-analytics.md`: Build marketing measurement that drives reallocation —
+  the few behavioral metrics per funnel stage, attribution that's honest about what it
+  can't see (triangulation over a prettier last-click chart), and CAC/LTV/payback by
+  channel (never only blended). Gated before instrumentation is built, and **no
+  flattering-but-false number ships upward as fact**. Consumes the funnel from
+  `product/metrics-instrumentation.md` and the channels from `cmo/demand-generation.md`
+  / `cmo/gtm-strategy.md`; the instrumentation build routes to
+  `product/gather-requirements.md` / the platform `feature-dev.md`; feeds
+  `cmo/budget-allocation.md`.
+- `cmo/pr-influencer-community.md`: Earn attention rather than buy it across three
+  motions — PR (an honestly newsworthy angle), influencers/creators (borrowed trust
+  that's real, not bought), and community (a durable owned audience worth belonging
+  to) — refusing astroturf, fake reviews, and paid placement disguised as editorial.
+  **Every pitch, partnership, community launch, and spend is human-gated.** Consumes
+  `cmo/brand-strategy.md`, `marketing/positioning-messaging.md`, and
+  `marketing/customer-avatars.md`; feeds the launch-moment push in
+  `marketing/launch-plan.md` and builds the owned audience `cmo/demand-generation.md`
+  and `marketing/lifecycle-email.md` reach for free; reports into
+  `cmo/marketing-analytics.md`.
+- `cmo/budget-allocation.md`: Allocate the marketing budget like a portfolio — by
+  expected payback and reversibility, funding proven channels to (not past) their
+  efficient frontier, reserving a disciplined experiment slice with kill criteria, and
+  reallocating on payback evidence by a rule set in advance. **Every committed dollar
+  is human-gated; paid execution inherits the `marketing/connect-ad-platforms.md`
+  guardrails (no autonomous spend), and one-way-door commitments earn a firmer gate.**
+  Consumes CAC/payback from `cmo/marketing-analytics.md`, the budget envelope from
+  `ceo/financial-model.md`, and the channels from `cmo/demand-generation.md` /
+  `cmo/gtm-strategy.md`; paid execution routes to `marketing/connect-ad-platforms.md`.
+
+The `sales/` prompts scale the founder-led motion into a repeatable function (each
+reads `shared/leadership-principles.md` and `shared/founder-principles.md` first, and
+follows the first-deals motion in `marketing/founder-led-sales.md`):
+
+- `sales/sales-playbook.md`: Codify the proven founder-led motion into a playbook
+  another person can run — stage definitions with buyer-commitment exit criteria, a
+  qualification framework adapted (not cargo-culted) to this deal, and an
+  outcome-anchored value narrative — never codifying a step that only worked because
+  the founder was in the room. The scaling of `marketing/founder-led-sales.md`. Gated
+  before it becomes the thing reps run; nothing points at a real prospect without
+  approval. Consumes `marketing/positioning-messaging.md`,
+  `marketing/customer-avatars.md`, and the founder-led learnings; feeds
+  `sales/hire-train-reps.md`, `sales/discovery-demo.md`,
+  `sales/outbound-prospecting.md`, and `sales/pipeline-forecast.md`.
+- `sales/discovery-demo.md`: Make the diagnose-before-propose half of selling
+  teachable — a problem-first question flow anchored in past behavior (with an explicit
+  bad-questions list), discovery that doubles as qualification, and a tailored demo
+  that proves the *one* outcome the buyer named rather than touring features. Treats a
+  compliment as a warning, not a win. Gated before it's run on real buyers; no demo
+  misrepresents the product to manufacture an "aha." Details two stages of
+  `sales/sales-playbook.md`; new language rolls up to
+  `marketing/positioning-messaging.md`; the qualification it surfaces feeds
+  `sales/pipeline-forecast.md`.
+- `sales/outbound-prospecting.md`: Scale the personal-outreach half of
+  `marketing/founder-led-sales.md` into a system that doesn't become spam — a sharp
+  ICP and a real trigger, a list of named humans, sequences personalized by research
+  (not merge tokens), and value-adding follow-up, measured by positive replies (not
+  sends). **Every send is human-gated; start with a small approved batch, read the
+  metrics, then scale — never autonomous blasting.** Booked meetings hand to
+  `sales/discovery-demo.md` and the playbook; objections roll up to
+  `marketing/positioning-messaging.md`; funnel metrics feed
+  `sales/pipeline-forecast.md`; paid amplification routes through
+  `marketing/connect-ad-platforms.md` under its spend guardrails.
+- `sales/hire-train-reps.md`: Hire the first reps to *scale* a proven motion, not
+  discover one — a rep scorecard, a comp/quota/OTE plan designed not to reward bad-fit
+  closes, and a ramp built on the playbook — and may tell you *not to hire yet* if the
+  motion isn't repeatable. The sales sibling of `ceo/hiring-key-roles.md` and
+  `cto/hire-engineers.md`. **The offer, comp plan, and any verbal commitment are
+  human-gated one-way doors.** The rep ramps on `sales/sales-playbook.md`,
+  `sales/discovery-demo.md`, and `sales/outbound-prospecting.md`; pipeline flows into
+  `sales/pipeline-forecast.md`; quota plans inform `ceo/operating-cadence.md`.
+- `sales/pipeline-forecast.md`: Run the pipeline review and forecasting discipline
+  that makes a number mean something — stage hygiene locked to buyer-commitment exit
+  criteria, conversion math instead of eyeballing, a weighted commit/best-case/coverage
+  forecast, and a review cadence where bad news travels up safely. Refuses
+  raw-pipeline vanity and moving goalposts. **A forecast going into a board update or a
+  spend decision is an outward-facing commitment — human-gated and defensible.** Stage
+  definitions from `sales/sales-playbook.md`, qualification from
+  `sales/discovery-demo.md`; feeds `ceo/operating-cadence.md` and the revenue section
+  of `ceo/board-investor-update.md`; attainment feeds back into
+  `sales/hire-train-reps.md`.
+- `sales/objection-negotiation.md`: Build the objection-handling and negotiation
+  discipline that closes without giving the company away — surface the *real* objection
+  before answering the stated one, defend price by re-anchoring to the outcome (never a
+  reflexive discount), reverse risk instead of dropping price, and trade every
+  concession for a commitment. Refuses to rescue a bad-fit deal with a discount. **A
+  signed contract, a discount, or a custom term is a human-gated one-way door that sets
+  precedent for every deal after.** Consumes `marketing/positioning-messaging.md`,
+  `marketing/founder-led-sales.md`, and `validation/pricing-validation.md`; plugs into
+  the late stages of `sales/sales-playbook.md` and `sales/pipeline-forecast.md`;
+  recurring deal-killers feed product prioritization.
+
+The `design/` prompts give UX and visual design its own home — the flows, the system,
+and the review (each reads `shared/leadership-principles.md` and
+`shared/founder-principles.md` first):
+
+- `design/ux-flows.md`: Design the flows and information architecture for the user's
+  job, not the screen — starting from the job-to-be-done and the aha moment, reaching
+  for proven patterns over novel invention, designing every state (empty as teacher,
+  loading, error, success), and counting steps to first value. Gated on the IA and the
+  flows before the full spec. Consumes `product/gather-requirements.md`,
+  `marketing/customer-avatars.md`, and `product/activation-onboarding.md`; hands the
+  visual language to `design/design-system.md`, the production visual build to the
+  `frontend-design` skill, and the wiring to `web/feature-dev.md` /
+  `ios/feature-dev.md`.
+- `design/design-system.md`: Build the visual language a product is assembled from —
+  tokens (primitive → semantic), a small deliberate component set with every state and
+  variant, and a distinctive identity that fits the user's job — refusing generic AI
+  aesthetics and baking accessibility in from the first token. Gated on the identity
+  direction and token foundations before the full spec. Consumes `design/ux-flows.md`
+  (the components the flows need), `marketing/positioning-messaging.md`, and
+  `marketing/customer-avatars.md`; hands the coded build to the `frontend-design` skill
+  (or the figma skills) and the wiring to `web/feature-dev.md` / `ios/feature-dev.md`.
+- `design/usability-review.md`: Review an interface that already exists against
+  usability heuristics and WCAG — walking each critical flow as the user, auditing the
+  off-happy-path states, running the accessibility pass, and separating observed from
+  inferred from needs-a-usability-test. **Report-only: diagnose and prioritize by
+  impact on the job and on access; do not redesign in the same run.** Fixes route as
+  separate tasks to `design/ux-flows.md` (flow/IA), `design/design-system.md` (systemic
+  component/token defects), and `web/feature-dev.md` / `ios/feature-dev.md` (build).
+  Consumes `marketing/customer-avatars.md` and `product/activation-onboarding.md`.
+
 Shared reference (not a standalone prompt — read when a prompt points to it):
 
 - `shared/testing-quadrants.md`: The canonical four-testing-quadrants model and
@@ -248,6 +612,27 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   counterpart to the engineering-principles files: every prompt in `validation/`,
   `product/`, and `marketing/` instructs the LLM to read it first — it is the
   canonical lens for validation, product, and marketing decisions.
+- `shared/leadership-principles.md`: Platform-wide leadership, management, and
+  strategy principles (first who, then what; Level-5 leadership — ambition for the
+  mission, humility about yourself; confront the brutal facts while keeping faith
+  you'll prevail / the Stockdale paradox; find the hedgehog — one simple idea at the
+  intersection; turn the flywheel, don't chase the miracle moment; management is a
+  learnable skill, not a prize for tenure; delegate the outcome and the context,
+  never abdicate the accountability; clarity is a kindness — over-communicate the
+  why; culture is what you reward, tolerate, and walk past — not what's on the wall;
+  protect focus — the scarcest act is choosing what *not* to do; decide by
+  reversibility — speed on two-way doors, rigor on one-way doors; there are no silver
+  bullets, only lead bullets; have a definite plan, not vague optimism; build the
+  machine, not the output — systems over heroics; install an operating rhythm that
+  turns strategy into action and back; make assumptions visible — separate known from
+  inferred from hoped; outward-facing and irreversible actions need a human gate). The
+  organizational counterpart to `shared/founder-principles.md` (which guards the
+  learning) and the engineering-principles files (which guard the code): every prompt
+  in `ceo/`, `cto/`, `cmo/`, `sales/`, and `design/` instructs the LLM to read it
+  first — it is the canonical lens for the decisions *about the organization and its
+  direction* that sit on top of both. Where a judgment is about validation, pricing,
+  or positioning it defers to `shared/founder-principles.md`; where it's about
+  architecture or implementation it defers to the engineering principles.
 - `ios/common/engineering-principles.md`: Platform-wide iOS engineering principles
   (simplicity is the deliverable; names reveal intent — including scope-based
   name length, side-effect naming, and encapsulate/prefer-positive conditionals;
@@ -347,6 +732,18 @@ For an existing app:
 2. Fill in any context block at the top of the prompt.
 3. Let the LLM inspect the repository before asking questions.
 4. Preserve the prompt's stop points and approval gates.
+
+The leadership prompts (`ceo/`, `cto/`, `cmo/`, `sales/`, `design/`) are not a
+linear step in the build flow — they're invoked when an *organization-level* job
+arises: set the company or technical strategy, design the org, run a raise, install
+the operating cadence, scale the system, build the sales or marketing engine, or
+design the UX. Each cites the leadership spine (`shared/leadership-principles.md`)
+first, and where a customer/evidence or engineering judgment is involved it also
+reads the founder spine (`shared/founder-principles.md`) or the relevant
+engineering-principles file. Several are report- or plan-only in a single run
+(`cto/architecture-review.md`, `cto/reliability-incident.md`,
+`cto/security-compliance-program.md`, `design/usability-review.md`), like the audit
+prompts — they diagnose and recommend, and implementation is a separate, gated task.
 
 When the job is improving maintainability of code that already works, run the
 QA audit first and the refactoring audit second: the refactoring prompt consumes
@@ -556,6 +953,114 @@ Respect these gates unless the user explicitly overrides them:
   then again on channels and the backward-planned timeline, before producing assets.
 - `marketing/lifecycle-email.md`: stop after clarifying the activation/retention
   goal and lifecycle stages, then again on the sequence map, before writing copy.
+
+Leadership (`ceo/`, `cto/`, `cmo/`, `sales/`, `design/`) — each reads
+`shared/leadership-principles.md` first, and outward-facing or irreversible actions
+need a human gate:
+
+- `ceo/company-strategy.md`: stop after clarifying the raw material (the hedgehog
+  inputs and the brutal facts), then again on the hedgehog and the few bets, before
+  writing the final strategy — a one-way door pointing the whole company.
+- `ceo/vision-narrative.md`: stop after clarifying the narrative inputs, then again
+  on the story arc; the narrative goes out only after explicit approval, because
+  recruiting and raising on a story is a trust act.
+- `ceo/fundraising-narrative.md`: stop after clarifying the raise, then again on the
+  narrative, deck arc, and process; no investor is contacted, no deck sent, and no
+  commitment made without explicit human approval — every investor email is gated.
+- `ceo/financial-model.md`: stop after clarifying the drivers, then again on the
+  drivers and unit economics, before the model is used to raise, hire, or budget.
+- `ceo/hiring-key-roles.md`: stop after clarifying the seat, then again on the
+  scorecard and interview loop; no offer (verbal or written) is extended without
+  explicit human approval.
+- `ceo/operating-cadence.md`: stop after clarifying what the system must connect,
+  then again on the operating-system design, before it becomes how the company runs.
+- `ceo/hard-decision.md`: stop after confronting the brutal facts, then again on the
+  framing and options; no irreversible or outward-facing action (a layoff, firing,
+  public pivot, or committed bet) executes without explicit human approval.
+- `ceo/culture-values.md`: stop after clarifying the real culture, then again on the
+  few behaviors, then again on the values AND the enforcement mechanics, before
+  rollout.
+- `ceo/board-investor-update.md`: stop after clarifying the period and the ask, then
+  again on the narrative and deck; the update is not sent or circulated without
+  explicit human approval.
+- `cto/technical-strategy.md`: stop after clarifying the business before the
+  architecture, then again on the proposed strategy (a multi-team one-way-ish door),
+  before the handoff.
+- `cto/eng-org-design.md`: stop after clarifying before redrawing boundaries, then
+  again on the org design; reorganizing people needs an explicit human decision.
+- `cto/tech-roadmap.md`: stop after clarifying the horizon and the investment
+  balance, then again on the sequence AND the cut pile, before work commits.
+- `cto/build-vs-buy.md`: stop after clarifying the strategic stakes, then again on
+  the recommendation; signing a contract or committing a budget needs explicit human
+  approval, with the reversible path (a pilot, a short contract) preferred first.
+- `cto/hire-engineers.md`: stop after clarifying the seat and the bar, then again on
+  the hiring system before the loop runs — the system is gated even though each
+  individual interview is not.
+- `cto/delivery-pipeline.md`: stop after clarifying the current pipeline and the
+  pain, then again on the pipeline and metrics plan, before changing how every deploy
+  works.
+- `cto/reliability-incident.md`: report + plan first — present the assessment and the
+  proposed system for sign-off; implementation is a separate, explicitly-gated task,
+  because putting people on a pager and committing to an SLO are not analysis side
+  effects.
+- `cto/architecture-review.md`: report-only — produce findings by severity and a
+  proceed / proceed-with-changes / go-back call; do not implement or rewrite the
+  design in the same run.
+- `cto/scaling-plan.md`: stop after clarifying the target and the evidence, then
+  again on the scaling plan, before committing a one-way-door change (a partitioning
+  scheme, a datastore swap).
+- `cto/security-compliance-program.md`: report + plan first — sign off on the
+  program; any standing commitment (adopting a framework, a customer security
+  obligation, a budget) is a separately human-gated step.
+- `cmo/gtm-strategy.md`: stop after clarifying the motion, segment, and economics,
+  then again on the GTM plan and budget shape, before any budget is committed, any
+  campaign launches, or any outreach goes out.
+- `cmo/brand-strategy.md`: stop after clarifying what the brand must carry, then
+  again on the brand platform; any outward brand expression (a manifesto, a rebrand,
+  a new claim) is human-gated.
+- `cmo/demand-generation.md`: stop after clarifying the proven channel and the
+  economics, then again on the engine and the spend gates; no autonomous spend —
+  every committed dollar is human-gated and paid execution inherits the
+  `marketing/connect-ad-platforms.md` guardrails.
+- `cmo/content-seo-strategy.md`: stop after clarifying the jobs and the goal, then
+  again on the topic strategy and distribution; outward publishing and paid
+  amplification are human-gated.
+- `cmo/marketing-analytics.md`: stop after clarifying the decisions and the data,
+  then again on the metric set and the attribution approach; no flattering-but-false
+  number ships upward as fact.
+- `cmo/pr-influencer-community.md`: stop after clarifying the angle and the audience,
+  then again on the earned-attention plan; every pitch, partnership, community
+  launch, and spend is human-gated.
+- `cmo/budget-allocation.md`: stop after clarifying the budget and the returns, then
+  again on the allocation and reallocation rules; every committed dollar is
+  human-gated (no autonomous spend), and one-way-door commitments earn a firmer gate.
+- `sales/sales-playbook.md`: stop after clarifying the motion you're codifying, then
+  again on the assembled playbook; nothing points at a real prospect (no outreach,
+  template, or sequence) without explicit human approval.
+- `sales/discovery-demo.md`: stop after clarifying the buyer and the diagnosis, then
+  again on the discovery flow and demo structure, before any call is run on a real
+  buyer.
+- `sales/outbound-prospecting.md`: stop after clarifying the ICP and the trigger,
+  then again on the sequence and the gating metrics; no message sends and no list is
+  contacted without explicit human approval — start with a small approved batch.
+- `sales/hire-train-reps.md`: stop after clarifying readiness and the seat (which may
+  be "don't hire yet"), then again on the scorecard, comp plan, and ramp; no offer or
+  comp plan reaches a candidate without explicit human approval.
+- `sales/pipeline-forecast.md`: stop after clarifying the pipeline and what the
+  forecast is for, then again on the forecast discipline; any forecast leaving the
+  room (a board update, a spend or hiring decision) is a human-gated, defensible
+  commitment.
+- `sales/objection-negotiation.md`: stop after clarifying the real objections and
+  what's negotiable, then again on the objection and negotiation system; no contract,
+  discount, or custom term is offered without explicit human approval.
+- `design/ux-flows.md`: stop after clarifying the job and context, then again on the
+  IA and the flows, before writing the full spec.
+- `design/design-system.md`: stop after clarifying the audience and scope, then again
+  on the identity direction and token foundations, before producing the full
+  component spec.
+- `design/usability-review.md`: report-only — diagnose and prioritize the findings;
+  do not redesign in the same run, and route the fixes out as separate tasks.
+
 - `build-app.md`: stop after clarifying questions, then again after the
   architecture plan. After that approval, Phase 5 proceeds automatically —
   decomposing the product into features and fanning out parallel `feature-dev.md`

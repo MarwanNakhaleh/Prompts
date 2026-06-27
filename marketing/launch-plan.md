@@ -122,6 +122,10 @@ without reading this conversation:
 - **The day-of run-of-show:** the hour-by-hour script, who's on, and the prepared responses.
 - **The post-launch follow-up:** what happens in the days after the spike — thanking supporters,
   following up with signups and leads, capturing what the launch taught us, and the next moment.
+  The highest-leverage move here is converting a one-time spike of attention into an audience you
+  *own* — get the people who showed up onto an opt-in list or into a community where you can reach
+  them again, and connect them to each other, not only to you. A spike you can't contact again is
+  gone; an owned, connected audience is what a spike compounds into.
 
 End with: the metric restated, honest expectations stated plainly (most launches are a spike, not a
 hockey stick — and that's fine if the spike hits the goal), the single riskiest assumption (almost

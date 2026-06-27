@@ -146,7 +146,18 @@ this conversation — honest about what's proven and what's still a guess.
   hypothesis; confirm with money before you trust the number.
 - **Bias toward charging more.** Underpricing is the most common and most expensive
   mistake. Name a number that feels slightly uncomfortable; it's easier to discount
-  than to raise.
+  than to raise. Price is also the fastest profit lever you have: a small move in
+  price, with volume and costs held constant, falls almost entirely to the bottom
+  line and shifts profit far more than the same effort spent cutting costs or
+  chasing units. A few points left on the price is the quietest way to underperform.
+- **For high-touch sales, agree on value before you name a price.** In B2B and
+  other high-touch deals, reach the person who actually controls the budget — not a
+  gatekeeper — and get shared agreement on the outcome they want, how they'll
+  measure success, and what hitting it is worth to them *before* you quote a number.
+  A price named before that agreement is negotiated in a vacuum. And when a real
+  budget-holder pushes back on price, it usually means the value wasn't established,
+  not that the number was too high — answer by re-quantifying the value, not by
+  reflexively discounting.
 - **The pricing metric must scale with customer value.** Charge on the thing that
   grows as the customer's benefit grows. A metric that taxes adoption or bills for
   value not received is a worse mistake than the wrong number.

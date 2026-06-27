@@ -26,7 +26,7 @@ find which one, and to test it before the bet. -->
 # Phase 1 — Enumerate the Assumptions (do this first, always)
 Before ranking anything, surface the leap-of-faith beliefs this venture rests on.
 Every business is a stack of them; we can't pick the riskiest until they're all on
-the table. Walk the three families one at a time — don't let me skip one because
+the table. Walk the four families one at a time — don't let me skip one because
 it feels obvious. Ask me questions one at a time, multiple choice, recommended
 option first, with one sentence on why each matters. Cover at least:
 
@@ -39,6 +39,15 @@ option first, with one sentence on why each matters. Cover at least:
   contact with reality?
 - **Feasibility — can we build and deliver it?** Can we actually make the thing?
   Can we deliver it repeatedly, at quality, at the scale the model needs?
+- **Team & connectedness — are we the ones who can win this, and do we know the
+  right people?** Does the venture actually fit what the founders want and the
+  risk they'll take (a mismatch quietly kills ventures that are otherwise sound)?
+  Can this specific team execute the two or three things this business *must* get
+  right? And do we have — or can we reach — the relationships across the value
+  chain (suppliers, channels, the person who controls the budget, the first
+  customers) that the model depends on? A real opportunity the wrong team can't
+  execute, or can't reach the right people to sell into, is still a no — and it's
+  an assumption founders almost never write down.
 
 For each assumption you elicit, write it as a falsifiable belief ("We believe that
 [specific customer] will [specific behavior] because [reason]"), and ask me to
@@ -49,7 +58,7 @@ assumption — those are the dangerous ones.
 Ask one question at a time, then STOP and wait. Where I leave a gap, make a
 clearly-labeled recommendation with your reasoning rather than a silent
 assumption, and let me confirm or override. Do not move to ranking until the
-assumption list is honest and reasonably complete across all three families.
+assumption list is honest and reasonably complete across all four families.
 
 # Phase 2 — Rank, Isolate the Riskiest, Pick the Test (approval gate)
 Now map every assumption from Phase 1 on two axes and find the one to test first.

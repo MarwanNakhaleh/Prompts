@@ -98,6 +98,12 @@ Then attack your own conclusion and tell me where it's weak:
   empty because nobody wants what fills it?
 - **Which switching cost did we likely underestimate**, and what happens to the wedge if
   it's higher than we hope?
+- **Is the industry itself worth winning** — not just the customer? Winning the customer's
+  choice and winning a profitable game are different things. Even a customer who'd pick us can
+  sit inside a brutal structure: low barriers that let the next entrant copy us straight back
+  out, powerful suppliers or buyers who capture the margin, cheap substitutes one click away,
+  or rivalry that competes price to the floor. A great wedge into a structurally unprofitable
+  industry is a trap — be honest about whether winning here actually pays.
 
 STOP and wait for my sign-off on the map and the wedge before writing the brief. A
 mis-read of the real competitor caught here is a paragraph; caught after launch, it's
@@ -117,7 +123,9 @@ Include:
 - **The current alternative + switching cost** for the beachhead — formatted as the
   "current alternative" input for `marketing/customer-avatars.md`.
 - **The wedge and the underserved segment**, with an honest line on how defensible it
-  is and what would erode it.
+  is, what would erode it, and the early signpost that would tell you it's starting to —
+  a well-funded entrant, an incumbent waking up to this segment, a platform or regulatory
+  shift — so you're watching the right tripwire instead of being surprised by it later.
 - **Sources**: a short list of the cited research, so a current-fact claim can be
   re-checked when it ages.
 
@@ -141,6 +149,10 @@ behavioral signal that would confirm or kill it. The map is a hypothesis, not a 
   with bloat or under-serve with neglect — not the place you're 10% better at everything.
 - **Differentiation must be true and defensible.** If a rival could say the same sentence,
   it's table stakes. Keep digging until the wedge is real, and be honest about how copyable it is.
+- **Winning the customer and winning the industry are different.** The customer's choice tells
+  you whether they'll pick you; the industry's structure tells you whether picking you is
+  profitable. A strong wedge in an industry with no barriers, powerful buyers, or commodity
+  rivalry can still bleed out. Gut-check both before you plant the flag.
 - **Research with sources; don't assume.** Cite current facts — pricing, targeting, capabilities —
   and mark anything you couldn't verify as an assumption. Never invent a competitor or a number.
 - **This informs positioning; it doesn't chase competitors.** The output feeds positioning and

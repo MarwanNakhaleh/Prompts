@@ -44,7 +44,7 @@ When you are finished with this exercise, update reading_progress.json:
 
 Do not make references to the original text files in the updated prompts, instead either capture the concepts as much as is needed for an LLM within the prompt, or point it to search the web for expanded ideas. If anything has to change in README.md to support these changes, please update that file as well.
 
-Once you have completed this step, compact your context and repeat this process until all books are processed and completed. All texts inside knowledge-base/business have been processed except for the following (none are formally processed by the loop yet — `the-mom-test.txt` is the seeded `current_book` and `the-lean-startup.txt` the `next_book`; `the-personal-mba.txt` follows them):
+Once you have completed this step, compact your context and repeat this process until all books are processed and completed. To my knowledge, only the following tests inside `knowledge-base/business` have been ingested and integrated:
 - the-mom-test.txt
 - the-lean-startup.txt
 - the-personal-mba.txt

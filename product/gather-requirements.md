@@ -100,7 +100,12 @@ concrete, unambiguous, testable. Use this structure:
 # Phase 4 — Hand Off
 After I approve the document, output a clean final version formatted so it can be
 pasted directly into the iOS engineering agent's requirements block. Keep it
-self-contained — the engineer should not need access to this conversation. End
+self-contained — the engineer should not need access to this conversation. Open
+with the single core intent — the one outcome this feature exists to deliver,
+stated in one plain sentence — so that when the spec is silent on an edge case (and
+it will be), the engineer can resolve it by steering toward that intent rather than
+guessing or stalling. A spec lists what to build; the intent is what lets someone
+build rightly past the spec's edges. End
 with a short "Notes for the engineer" section flagging the two or three
 decisions most likely to affect architecture, and list any open questions that
 still need a product answer before build starts.

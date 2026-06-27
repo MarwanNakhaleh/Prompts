@@ -88,16 +88,25 @@ After I approve the structure, write the page section by section. Lead with the
 visitor's outcome everywhere; the feature is supporting evidence, never the headline.
 
 - **Headline + subhead, with variations.** Clear over clever, message-matched to the
-  source. Give me two or three headline/subhead pairs to A/B — for example one plain
-  and direct, one sharper and more opinionated — anchored to the same promise.
+  source. Pressure-test each headline against four marks — is it *useful* (promises a
+  benefit), *ultra-specific* (a concrete claim, not a vague abstraction), *unique* (says
+  something a competitor's page couldn't), and *urgent* (a reason to read now) — and
+  rewrite the weakest mark. Give me two or three headline/subhead pairs to A/B — for
+  example one plain and direct, one sharper and more opinionated — anchored to the same
+  promise.
 - **Outcome-led value props.** Each one leads with what the avatar gets to do or stop
   doing, with the feature as proof underneath. Attach concrete proof to each — a
   metric, a mechanism, a customer quote, a demonstrable fact. A value prop without
   proof is a claim; a claim without proof is noise.
 - **Social-proof blocks, placed for doubt.** Write the testimonial pull-quotes, the
   logo-bar caption, the stat callouts, the guarantee — and say exactly where each
-  sits (beside the price, under the headline, next to the CTA). Mark any proof we
-  don't yet have as an asset to gather; never fabricate one.
+  sits (beside the price, under the headline, next to the CTA). Reach deliberately for
+  the trust levers that move a hesitant visitor — proof that similar others already
+  chose this (social proof), real credentials or expertise (authority), a genuine limit
+  like a real deadline or seat cap (scarcity) — but only ever surface a lever that is
+  *true*. A real shortage earns the nudge; a manufactured countdown is a dark pattern
+  that breaks trust the moment it's caught. Mark any proof we don't yet have as an asset
+  to gather; never fabricate one.
 - **Inline objection handling.** Answer the avatar's top objections from the
   positioning brief, crisp and honest, woven into the relevant section — disarm the
   doubt where it surfaces, don't quarantine it all in the FAQ.
@@ -143,7 +152,9 @@ conversion, A/B the riskiest element, and learn from real visitors.
 - **Message-match or the visitor bounces.** The headline must pay off the exact
   promise that brought them. The click and the page tell one continuous story.
 - **Lead with the visitor's outcome, never your feature list.** They buy what they
-  get to do, not the thing you built. The feature is proof, not the pitch.
+  get to do, not the thing you built. The feature is proof, not the pitch. The strongest
+  pages also speak to who the visitor already believes they are — sell the identity and
+  the outcome, not the spec sheet.
 - **Every claim needs proof, placed where doubt peaks.** Put the testimonial beside
   the price, the stat beside the big claim, the guarantee beside the CTA.
 - **Clarity beats cleverness above the fold.** A stranger must pass the 5-second test

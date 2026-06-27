@@ -65,13 +65,23 @@ stress it. State it back to me plainly:
 - **The value** — what that wedge lets this customer do that they couldn't before.
 - **The market category** — the frame the customer should slot this into so they
   instantly grasp what it is and what to compare it against. The wrong category
-  invites the wrong comparison.
+  invites the wrong comparison. If we'd be a forgettable also-ran inside an existing
+  category, ask whether there's a narrower category we could be first in and define on
+  our own terms — leading a category you created beats being the seventh option in
+  someone else's. And name the single word or idea we want to own in this customer's
+  mind: focused positions are won one word at a time, and two products can't own the
+  same word.
 
 Then attack it, and tell me where it's weak:
 
 - **Is the differentiation real and defensible?** Could a competitor say the exact
   same sentence? If so, it's not differentiation — it's table stakes. Is the wedge
   hard to copy, or could a rival ship it next quarter?
+- **If there's a clear category leader, are we its opposite — not its "better"?** A
+  "me-too but improved" claim runs straight at the incumbent's strength, on the ground
+  where the customer already trusts them. Find the attribute the leader structurally
+  *can't* claim — usually the flip side of what makes them strong — and own that
+  instead of fighting for a word they already own.
 - **Is the target narrow enough to win a beachhead?** A wedge that's mildly useful to
   everyone beats nobody. Could this segment be the one place we're the obvious choice?
 - **Does it use the customer's language?** Hunt down internal jargon, invented category
@@ -133,6 +143,11 @@ a hypothesis; the brief is its current best version, not its final truth.
   mediocre in. "For everyone" is for no one.
 - Use the customer's words. Internal jargon, invented category names, and feature-speak
   are positioning poison — replace them with language a real customer used.
+- Confirm a worldview; don't fight one. The easiest customer to win already half-believes
+  what your positioning implies — frame the story to fit the belief they walk in with,
+  and tell them something about who they are, rather than arguing them out of their
+  current view. And it has to be true: a story the product can't live up to doesn't just
+  fail to convert, it burns the trust and word-of-mouth you never get back.
 - Every claim needs proof or it's noise. Tie each value prop to a metric, a mechanism,
   a quote, or a demonstrable fact, or cut it.
 - Lead with the outcome, not the feature. The customer buys what they get to do, not

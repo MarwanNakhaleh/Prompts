@@ -66,7 +66,10 @@ action waits for my explicit approval. Draft and present:
   avatar* — referencing their specific situation, not a mail-merge blast. This is
   targeted, not spray-and-pray: a handful of researched, personal reaches beats a
   thousand cold templates. Lead with their problem or a relevant observation, not
-  our product. Give me 2–3 variations to choose a register.
+  our product — and where you can, open by *giving* something genuinely useful (a
+  relevant insight, a useful intro, a quick teardown of their current setup) rather
+  than asking. A real, unprompted favor earns a reply and a meeting far better than a
+  pitch does. Give me 2–3 variations to choose a register.
 - **The discovery call structure.** A problem-first question flow that diagnoses
   before it proposes: questions about what they do today, the last time the problem
   bit, what they've already tried, what they already pay for — past behavior, not
@@ -77,7 +80,11 @@ action waits for my explicit approval. Draft and present:
 - **The objection responses.** Pull the top 3–5 objections straight from the
   positioning brief's objection-handling section (and the avatar's objections), and
   draft a crisp, honest answer to each. Disarm, don't dodge; never oversell to win
-  the sentence.
+  the sentence. Where the real blocker is perceived risk — "what if it doesn't work
+  for us" — answer it by moving the risk off the buyer and onto you: a pilot, a
+  pay-only-if-it-works or money-back guarantee, a short opt-out window. When backing
+  out is cheap and easy, saying yes gets easy — just make sure any guarantee you offer
+  is one you will actually honor.
 
 STOP and get my sign-off on the outreach message, the discovery flow, the
 qualification bar, and the objection answers before any outreach goes out.

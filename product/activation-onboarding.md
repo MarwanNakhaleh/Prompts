@@ -94,6 +94,15 @@ that drives to the milestone — and nothing else.
   aha moment with the fewest possible keystrokes.
 - **Progressive disclosure:** hide everything not needed for first value.
   Settings, advanced features, secondary flows — postpone until after activation.
+- **Feedback at every step:** the gap that loses users isn't only "what do I do
+  next?" — it's also "did that even work?" After every action, show immediate,
+  legible confirmation that it succeeded and that the user moved closer to value: a
+  changed state, a visible result, a step completing — not a silent reload that
+  leaves them guessing. Make the single next action an obvious signal, not a hidden
+  one they have to hunt for; if reaching it depends on something the user must
+  remember, put that knowledge on the screen instead of in their head. And forgive
+  first-run errors — a wrong tap or a bad input should be reversible and easy to
+  recover from, never a dead end that ejects them before the aha moment.
 - **Friction removal & nudges:** where to delay signup, where social proof
   belongs, and contextual nudges that pull the user toward the next action without
   a tour. No tooltip walls.
@@ -148,6 +157,11 @@ enshrine.
   improved and an un-measured metric is a story, not a number.
 - One primary next action per screen. If the user has to choose where to go, you've
   already lost some of them.
+- Confirm every action. A user who can't tell whether what they just did worked
+  assumes it didn't. Give immediate, legible feedback at each step so progress
+  toward value stays visible, signal the next action plainly rather than hiding it,
+  and make mistakes reversible — a forgiving first run keeps more users on the path
+  than a flawless one that punishes a single wrong move.
 - Treat the aha moment as a hypothesis to validate with cohort data, not a guess
   to enshrine. If activated users don't retain, you found the wrong moment — go
   find the right one.

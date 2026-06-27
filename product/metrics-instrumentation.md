@@ -76,6 +76,15 @@ because they decide what's worth measuring.
 - **Justify each as actionable, not vanity:** for every stage metric, name the
   decision it would change and the cohort you'd read it by. If you can't, it
   doesn't belong on the list — cut it and say so.
+- **Name the growth engine and its driver metric.** Sustainable growth runs on one
+  of three engines, and each makes a *different* funnel stage the real lever: a
+  *sticky* engine grows on retention (the compounding of growth rate over churn), a
+  *viral* engine on referral (how many new users each user brings — the loop has to
+  approach or exceed one), a *paid* engine on the margin between customer lifetime
+  value and acquisition cost. Identify which engine this business runs on and
+  elevate its driver metric above the rest; the others still get watched, but that
+  one is where growth is won or lost, and improving an off-engine metric won't move
+  the business.
 - **Identify the bottleneck stage** to watch most closely right now, tied to
   Phase 1, and say why the others can run on lighter measurement until it's
   fixed.
@@ -142,6 +151,23 @@ the North Star as a living hypothesis, not a trophy.
   cohort is vanity. If celebrating it wouldn't change what you do tomorrow, cut it.
 - Cohorts over cumulative totals. Per-cohort, per-segment is the default lens;
   cumulative totals hide the trend and flatter your optimism.
+- Metrics are a baseline to tune, not a trophy to display. Use the product's real
+  numbers to set an honest baseline, derive the ideal from the business model, and
+  judge every release by whether it moves the driver metric from baseline toward
+  that ideal — these are the learning milestones that say whether the team is
+  actually progressing. When repeated, well-run changes stop moving it, that's not a
+  cue to push harder; it's the signal that the strategy, not the execution, is wrong
+  — time for a pivot-or-persevere call.
+- Audit the data against reality. Numbers are only as trustworthy as their tie to
+  real behavior, so keep reports drawn from the source rather than a derived system,
+  and periodically spot-check a metric by talking to the actual customers behind it.
+  A dashboard that can't be checked against a real person is one the team will learn
+  to rationalize. And no single number tells the whole truth: cross-check the North
+  Star against an independent measure or two that rest on different assumptions —
+  revenue against usage, self-reported value against observed behavior — and when
+  they disagree, treat the conflict as a signal to find which assumption is wrong,
+  not noise to average away. Agreement across independent metrics is what earns
+  confidence; one clean number, standing alone, is a single point of failure.
 - Watch the bottleneck stage closest. Measure the funnel stage that is the current
   constraint most precisely; lighter instrumentation is fine everywhere else until
   it's fixed.

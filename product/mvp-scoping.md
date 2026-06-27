@@ -61,7 +61,12 @@ hypothesis. Do not draft a spec yet — get scope and the metric signed off firs
 - **Propose the MVP type** and justify why it's the cheapest one that can still
   produce a clear pass/fail. Reach for the lightest option that works:
   - **Landing page / fake-door** — measure intent (sign-ups, clicks on a "buy" or
-    "get started" that doesn't exist yet) before building anything.
+    "get started" that doesn't exist yet) before building anything. Make the offer
+    concrete and credible — name the specific outcome, not an abstraction — so a
+    weak signal means "they don't want this," not "they couldn't tell what it was."
+    A fake door tests demand only when the value is communicated clearly enough that
+    the metric reads intent rather than confusion; otherwise you're measuring your
+    copy, not your idea.
   - **Concierge** — deliver the outcome fully manually, by hand, for a few real
     users who know it's hands-on.
   - **Wizard-of-Oz** — the user thinks it's automated software; humans are doing
@@ -78,7 +83,12 @@ hypothesis. Do not draft a spec yet — get scope and the metric signed off firs
   vanity-growth charts) in favor of behavior that proves the assumption.
 - **Flag the over-build temptation:** auth, dashboards, settings, polish, edge
   cases, "while we're in there" features — anything not required to read the metric
-  is out for this experiment.
+  is out for this experiment. Polish is the subtlest trap: the people who'll use a
+  first version are early adopters, and they *prefer* an unfinished 80% solution they
+  can shape — they fill the gaps with imagination and are suspicious of anything too
+  slick. Until you know who the customer is, you don't even know what "quality"
+  means to them, so effort spent perfecting the thing for an imagined mainstream
+  taste is waste dressed up as craftsmanship.
 
 STOP. Get my explicit sign-off on the scope cut AND the metric + threshold before
 anything is built. A cut made here is free; one made mid-build is not.
@@ -101,7 +111,14 @@ it and we can both trust the result.
 - **Decision rules, written before the run:** the explicit **persevere** (hit the
   threshold → build more), **pivot** (missed it → what we change and re-test), and
   **inconclusive** (result is muddy → the most likely cause and the cheaper follow-up
-  test) outcomes. No outcome should leave us asking "so what now?"
+  test) outcomes. No outcome should leave us asking "so what now?" A *pivot* here is
+  not just "tweak the offer and re-run" — it's a structured change to a new
+  hypothesis that keeps one foot in whatever the experiment *did* prove. Name the
+  kind: zoom in on the one piece that worked and make it the whole product, change
+  the customer segment (right problem, wrong buyer), change the problem itself (this
+  segment has a different, realer need), change how you capture value, or change the
+  growth engine. Say which the result points to, so the next experiment tests a
+  genuinely new bet rather than re-litigating the same one.
 
 # Phase 4 — Hand Off
 Output a single, self-contained **MVP Experiment Brief** that someone could act on

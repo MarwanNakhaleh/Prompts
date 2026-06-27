@@ -150,6 +150,12 @@ without the transcripts:
 - **Talk to representative people, not impressive ones.** The senior name that
   looks good on a status report is often the wrong person; interview whoever
   actually has the problem and would use the thing, even if they're unglamorous.
+- **Separate the problem-holder from the budget-holder.** In B2B the person who
+  feels the problem is often not the one who can authorize the spend. Interview the
+  problem-holder for the truth of their life — but find out early who actually
+  controls the budget, so an enthusiastic "yes" from someone who can't pay doesn't
+  get mistaken for a viable sale. An intro to that decision-maker is itself a
+  commitment worth asking for.
 - **Some risk lives in the product, not the market.** When the customer's answer
   is essentially "if you can build/grow it, of course I'll buy" — marketplaces, ad
   networks, games — conversations can't validate it; only building can. Confirm

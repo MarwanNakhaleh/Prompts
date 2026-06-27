@@ -75,6 +75,15 @@ scoring work and surface what it reveals.
   outranks a higher-raw-score item that improves some other stage. Make that
   thumb-on-the-scale visible, not hidden inside the math — say "this scored lower
   but it's the only thing touching the actual bottleneck."
+- **Exploit before you elevate.** Moving the bottleneck rarely starts with building
+  something new. First ask whether the constrained stage can be squeezed harder with
+  what already exists — removing idle time, fixing the step that wastes its output,
+  re-sequencing, or cutting the low-value work that shouldn't reach it at all.
+  That's nearly always cheaper and faster than adding capacity, so rank "get more
+  out of the existing constraint" options above "build new capacity" options aimed
+  at the same stage, and reach for a build only once the cheap squeeze is genuinely
+  spent. The highest-impact item is often not the most obvious feature but a smaller
+  change to how the constrained stage already runs.
 - **Reframe feature requests as jobs.** Where an item is a customer asking for a
   specific feature, ask what underlying job it's hired for. Customers ask for
   faster horses; the request is a symptom, the job is the thing to prioritize. Flag
@@ -131,7 +140,10 @@ negative — so we de-risk the diagnosis, not just execute the list.
 - **Prioritize against the current bottleneck, nothing else.** A feature that
   doesn't move the constraint limiting the business right now is a distraction,
   however nice or loud. General improvement is not a reason; moving the bottleneck
-  is.
+  is. And the bottleneck moves: the moment one constraint is relieved another
+  becomes binding, so re-find it each cycle instead of ranking against last
+  quarter's constraint — and watch for the one that's a policy or a habit rather
+  than a feature, because no amount of building will fix it.
 - **Every yes is a no — plus maintenance.** Each item chosen displaces another and
   adds permanent drag to every future change. Count both costs, not just the
   build.

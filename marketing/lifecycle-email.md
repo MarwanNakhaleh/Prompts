@@ -63,7 +63,9 @@ to write against the wrong structure.
 - **Propose the sequences to build,** each as one line: trigger, single goal,
   single CTA, and the lifecycle stage it serves. Cover the core arc:
   - **Welcome / onboarding** — fires on signup; goal is the aha moment, NOT "say
-    hi." Every email pushes toward first value, not a feature tour.
+    hi." Every email pushes toward first value, not a feature tour. Sequence the
+    asks small-to-large — a tiny first action (one click, one setup step) makes the
+    next, bigger one more likely than demanding the full commitment up front.
   - **Activation nudge** — fires when a user signed up but hasn't hit the
     activation milestone within the window; goal is to get them over that line.
   - **Retention / engagement** — fires on a habitual or at-risk pattern; goal is
@@ -151,9 +153,18 @@ against real behavior.
 - **Win-back needs a real reason to return.** Target the freshly-lapsed while they
   still remember you, and give them something genuinely new or valuable — not guilt,
   not "we miss you" with nothing behind it.
-- **Respect the user — value every send.** One-click unsubscribe, no dark patterns,
-  real value in every email. The trust of your earliest customers is the scarcest
-  thing you have, and one manipulative send spends it.
+- **Respect the user — value every send.** Every email is a privilege the subscriber
+  granted, not a right you bought — so each one must clear three bars: *anticipated*
+  (they'd be glad to see it land), *personal* (it speaks to them and what they did),
+  and *relevant* (it's about something they actually care about). Miss any one and it
+  reverts to spam, however well-designed. One-click unsubscribe, no dark patterns, real
+  value in every email. The trust of your earliest customers is the scarcest thing you
+  have, and one manipulative send spends it.
+- **Permission compounds — escalate it gradually.** An opted-in audience that keeps
+  hearing welcome, relevant email is an asset that lowers cost and lifts response over
+  time; treat it like one. Ask for a little more commitment at each step rather than
+  forcing the biggest ask on the first send, and let the right you've earned grow with
+  the trust you've built — don't propose marriage on the first date.
 - **Measure the downstream action, not opens.** Opens are vanity; the click to the
   activating action, the return visit, the reactivation are the metric. Name it
   before you send.

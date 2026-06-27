@@ -24,7 +24,11 @@ web for the primary sources rather than reproducing them here.
   pay — traces to something a real person actually did, said unprompted, or paid
   for. Anything you can't trace is an assumption; label it as one and plan to test
   it. A persona, a market size, or a value prop spun from imagination is fiction
-  dressed as research, and it makes bad decisions feel safe.
+  dressed as research, and it makes bad decisions feel safe. Borrowed evidence
+  misleads just as badly: "what the company that won did" is a story
+  reverse-engineered from its outcome, not a proven cause — the same traits run
+  through the companies that lost, so copying a winner's playbook imports its
+  survivorship, not its success.
 
 - **The only real validation is a costly action.** Money, a signed commitment, a
   booked sales call, time spent, reputation staked. Likes, survey "yeses,"
@@ -95,6 +99,17 @@ web for the primary sources rather than reproducing them here.
   then keep testing it against real reactions and update. The brief is the current
   best version, never the final truth. And surface what's still unproven loudly, so
   it gets tested instead of enshrined.
+
+- **Steer with pivot-or-persevere, and pivot sooner than feels comfortable.**
+  Progress is validated learning, not features shipped or money spent — so plan in
+  reverse: decide what you need to learn, then what to measure, then the smallest
+  thing to build to measure it. Set a baseline, tune toward the model, and when
+  honest, well-run tuning stops moving the metric, that's the signal to *pivot* — a
+  structured change of strategy (the segment, the problem, how you capture value,
+  the growth engine) that keeps one foot in what you've already proven, not a fresh
+  start and not a cosmetic tweak. Almost everyone who pivots wishes they had done it
+  sooner; a venture's real runway is the number of pivots it has left, so get to
+  each decision faster and don't let going-nowhere "success" talk you out of it.
 
 - **A cheap "no" now beats an expensive one later.** Finding out that nobody has
   the problem, nobody will pay, or the channel doesn't work is the *point* of these
