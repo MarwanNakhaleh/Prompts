@@ -53,7 +53,10 @@ web for the primary sources rather than reproducing them here.
   a landing page, a concierge run done by hand, a Wizard-of-Oz, a pre-sell can
   answer the question for a fraction of the cost of the real thing. If a cheaper
   test would change your mind, run it first — be willing to say "don't build
-  anything yet."
+  anything yet." Smallest in *cost*, but never starved of *volume*: most people
+  wildly underestimate how much a fair test takes, and a test run at a fraction of
+  the volume it needs returns a false "no," not an answer. Name the volume a real
+  read requires before you run, and don't let a thin sample masquerade as a verdict.
 
 - **Define the metric and the threshold before you run.** Name the one behavioral
   metric that proves or kills the hypothesis, and the number that means pass and

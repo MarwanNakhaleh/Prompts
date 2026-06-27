@@ -72,7 +72,7 @@ because they decide what's worth measuring.
   - **Retention** — they come back and keep getting value (the metric where
     stayers diverge from leavers).
   - **Referral** — they bring others.
-  - **Revenue** — they pay / pay more.
+  - **Revenue** — they pay / pay more; for a paid engine, also track gross margin per cohort, not just top-line revenue.
 - **Justify each as actionable, not vanity:** for every stage metric, name the
   decision it would change and the cohort you'd read it by. If you can't, it
   doesn't belong on the list — cut it and say so.
@@ -81,7 +81,14 @@ because they decide what's worth measuring.
   *sticky* engine grows on retention (the compounding of growth rate over churn), a
   *viral* engine on referral (how many new users each user brings — the loop has to
   approach or exceed one), a *paid* engine on the margin between customer lifetime
-  value and acquisition cost. Identify which engine this business runs on and
+  **gross profit** and acquisition cost — not top-line revenue, because gross
+  profit is the money that actually funds the next customer; measuring against
+  revenue flatters the ratio and hides whether acquisition pays. That ratio wants
+  to reach roughly 3:1 or better before the engine scales. Pair it with a 30-day
+  payback check: does the gross profit a new customer generates in the first ~30
+  days cover what it cost to acquire and fulfill them? If yes, growth self-funds —
+  each customer pays for the next; if not, you're gated by cash even when the
+  lifetime ratio looks healthy. Identify which engine this business runs on and
   elevate its driver metric above the rest; the others still get watched, but that
   one is where growth is won or lost, and improving an off-engine metric won't move
   the business.
@@ -177,5 +184,6 @@ the North Star as a living hypothesis, not a trophy.
   actually reads and acts on outperforms a wall of charts nobody opens.
 - Leading indicators to act early. Pair every lagging metric with an early
   behavioral predictor so the team can move before the slow number confirms it.
+- For a paid engine, measure gross profit, not revenue, in the acquisition economics. Lifetime gross profit over acquisition cost — 3:1 or better is the rough floor before you scale; below that, the engine doesn't fund itself. Pair it with a 30-day payback check: if a customer's gross profit in the first ~30 days doesn't cover acquisition and fulfillment cost, you're funding growth from your balance sheet rather than from the engine, and every additional customer burns capital instead of spinning the flywheel.
 - If it can't be measured, it can't be improved. When a metric that matters isn't
   emittable, that's not a dead end — it's the next thing to instrument.

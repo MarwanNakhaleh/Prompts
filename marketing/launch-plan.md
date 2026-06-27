@@ -72,8 +72,13 @@ it back to me plainly:
 - **The pre-launch audience-building plan.** This is where launches are won. How we build the
   list or warm the audience in the weeks before — the waitlist, the build-in-public posts, the
   individual supporters we line up in advance (people who'll genuinely show up on launch day),
-  and the honest ask we'll make of each. No buying upvotes, no fake engagement — real people we
-  earned.
+  and the honest ask we'll make of each. Structure this in three stages: **WHISPER** early (hint
+  that something is coming, show the work over time without revealing the whole thing, embed a
+  question in the audience's mind and let the answer stay "not yet" — the longer something appears
+  to take, the more it's valued); **TEASE** closer in (reveal what it is, make the date public,
+  shift from mystery to the concrete outcome it delivers); **SHOUT** in the final days and hours
+  (clear, repeated calls to action, any real bonuses, genuine scarcity and urgency — never
+  manufactured). No buying upvotes, no fake engagement — real people we earned.
 - **The asset checklist.** Everything that must exist before launch day: channel-specific copy,
   the demo or video, the visuals/screenshots, the FAQ, and the prepared founder responses to the
   questions we know are coming. Prepared in advance, not written live while the clock runs.
@@ -138,6 +143,9 @@ audience cares; run it, measure the one metric, and let real people settle it.
   optimized for everything converts no one to anything.
 - **Launches are won in pre-launch.** The list you built and the supporters you warmed before the
   day decide the day. Showing up cold and hoping is not a plan.
+- **WHISPER → TEASE → SHOUT.** Build curiosity without revealing much early, pay it off with
+  substance closer in, then concentrate calls to action and genuine urgency in the final days —
+  the patience to earn attention before you ask for it is what makes the ask land.
 - **Channels where the avatar is, not all of them.** Pick the one or two places your beachhead
   actually congregates and cut the rest. Spread-thin presence converts nothing.
 - **Prepare assets and warm supporters in advance.** Copy, demo, visuals, FAQ, and founder

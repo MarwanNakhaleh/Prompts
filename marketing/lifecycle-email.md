@@ -71,7 +71,11 @@ to write against the wrong structure.
   - **Retention / engagement** — fires on a habitual or at-risk pattern; goal is
     the repeat action that predicts they'll stay.
   - **Win-back** — fires on recently-lapsed (define "recently"); goal is one
-    reason to return, aimed at the freshly-lapsed who still remember you.
+    reason to return, aimed at the freshly-lapsed who still remember you. Lead
+    with a plain-text 9-word email — one short question naming the outcome they
+    once wanted ("Are you still looking to [desired outcome]?"), no images, no
+    links, nothing else — to surface who's still in-market before you invest in
+    a full re-engagement send; the reply is the metric, not the open.
   - **Key transactional moments** — receipt, trial-ending, payment-failed,
     password-reset; goal is the specific action that moment requires.
 - **Define entry and exit conditions for each** in behavioral terms: who enters,
@@ -152,7 +156,11 @@ against real behavior.
   right person at the right moment; everyone else stays suppressed.
 - **Win-back needs a real reason to return.** Target the freshly-lapsed while they
   still remember you, and give them something genuinely new or valuable — not guilt,
-  not "we miss you" with nothing behind it.
+  not "we miss you" with nothing behind it. Triage first with a plain-text 9-word
+  email — one question, no images, no links — naming the outcome they once wanted;
+  a reply is a raised hand, so prioritize those people for a real human follow-up
+  instead of blasting the full lapsed list with a polished re-engagement send they
+  didn't ask for.
 - **Respect the user — value every send.** Every email is a privilege the subscriber
   granted, not a right you bought — so each one must clear three bars: *anticipated*
   (they'd be glad to see it land), *personal* (it speaks to them and what they did),

@@ -40,7 +40,14 @@ the question matters. Then STOP and wait. Cover at least:
   reachable target. Everyone is no one.
 - **The offer.** What exactly are they buying, at what price, with what commitment?
   Early sales tests a real offer with a real number — "we'll figure out pricing
-  later" means you're not actually selling, you're surveying.
+  later" means you're not actually selling, you're surveying. For a brand-new
+  offer with no prior customers, consider giving the first handful free in
+  exchange for three things: they use it, give honest feedback, and leave a
+  testimonial if it earns one. You get reps, forgiving early customers while
+  you're still rough, and social proof that makes every subsequent close easier.
+  Start charging when people begin referring others unprompted — that's the
+  signal the offer is real. Then raise the price in steps as it sharpens. (See
+  `validation/pricing-validation.md` for the pricing ladder.)
 - **The reachable list.** Who are the *actual* real prospects I can get in front of
   — by name, company, warm intro, or community I'm already in? Push me for a
   concrete list of specific humans, not a market-size abstraction. If I can't name
@@ -69,7 +76,12 @@ action waits for my explicit approval. Draft and present:
   our product — and where you can, open by *giving* something genuinely useful (a
   relevant insight, a useful intro, a quick teardown of their current setup) rather
   than asking. A real, unprompted favor earns a reply and a meeting far better than a
-  pitch does. Give me 2–3 variations to choose a register.
+  pitch does. When you're unsure whether someone is in-market, open with the
+  referral-framed ask instead of a direct pitch: "Do you know anyone who has
+  [the struggle] and wants [the outcome]?" Most people who say "yes, actually
+  me" have just opted themselves in without ever feeling sold to; the rest
+  hand you warm referrals. It surfaces demand and intros at the same time,
+  with zero pressure. Give me 2–3 variations to choose a register.
 - **The discovery call structure.** A problem-first question flow that diagnoses
   before it proposes: questions about what they do today, the last time the problem
   bit, what they've already tried, what they already pay for — past behavior, not
@@ -109,7 +121,13 @@ Once approved, run the founder-sales motion and mine it for learning. Give me:
 
 Run this as a loop: reach out, diagnose, propose, ask, capture, repeat — and
 notice patterns across calls (the same objection three times is a positioning fix,
-not a one-off).
+not a one-off). Contact each prospect more than once and in more than one way —
+most founders abandon after a single touch, and people respond to different
+channels at different moments. Expect two to three conversations before a
+higher-ticket yes, not one. And when you've worked a list to exhaustion, don't
+discard it: circumstances and timing change. Re-run it after a few months and
+you'll surface a fresh batch of people who weren't ready before. The motion is an
+inputs→outputs game: more researched, personal touches in, more meetings out.
 
 # Phase 4 — Hand Off the Founder-Sales Playbook
 Output a single, self-contained playbook someone could run without this

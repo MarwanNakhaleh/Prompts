@@ -103,6 +103,16 @@ that drives to the milestone — and nothing else.
   remember, put that knowledge on the screen instead of in their head. And forgive
   first-run errors — a wrong tap or a bad input should be reversible and easy to
   recover from, never a dead end that ejects them before the aha moment.
+- **Win early and win often:** users lock in a durable first impression within
+  the first 48 hours — deliberately front-load visible wins into that window
+  rather than backloading the payoff. Then break the path to value into the
+  smallest possible increments and surface a confirmation at each one. The same
+  real progress, expressed as more wins, builds more momentum and trust than a
+  single payoff at the end; every small promise made and visibly kept earns
+  another increment of confidence. Never leave the user in a gap between actions
+  wondering if anything is happening. (This is distinct from per-step feedback
+  above — it's about engineering the sequence so wins are both EARLY and
+  FREQUENT, not just legible.)
 - **Friction removal & nudges:** where to delay signup, where social proof
   belongs, and contextual nudges that pull the user toward the next action without
   a tour. No tooltip walls.
@@ -162,6 +172,14 @@ enshrine.
   toward value stays visible, signal the next action plainly rather than hiding it,
   and make mistakes reversible — a forgiving first run keeps more users on the path
   than a flawless one that punishes a single wrong move.
+- Win early and win often. Users form a lasting impression of the product within
+  the first 48 hours — concentrate visible wins into that opening window on
+  purpose, not as an afterthought. Make progress feel faster by breaking the path
+  to value into the smallest increments and delivering a win at each one; the same
+  distance traveled, surfaced as more wins, builds more momentum and trust than a
+  single payoff at the end. Every small promise made and visibly kept earns another
+  increment of confidence. Never leave a gap between steps where the user wonders
+  if anything is happening.
 - Treat the aha moment as a hypothesis to validate with cohort data, not a guess
   to enshrine. If activated users don't retain, you found the wrong moment — go
   find the right one.

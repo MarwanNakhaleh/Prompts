@@ -115,7 +115,11 @@ After the run, turn the raw numbers into a decision — honestly.
 
 - **Compute the real conversion to the costly action** (buyers ÷ qualified
   visitors, or LOIs ÷ qualified prospects), and the **cost to acquire one buyer**.
-  Report the costly-action number, not the click or email number.
+  Report the costly-action number, not the click or email number. Then judge the
+  cost-per-buyer against the customer's lifetime gross profit — revenue minus the
+  cost to deliver, not revenue alone — and treat cost-per-buyer ≤ ⅓ of that gross
+  profit as the rough bar for a channel that can scale. A great conversion that
+  fails this bar is a business-model problem, not a green light.
 - **Compare to the pre-set threshold** and discount for bias out loud — if the
   audience was warm, say how much you're shaving off and why.
 - **Recommend one:**
@@ -125,7 +129,11 @@ After the run, turn the raw numbers into a decision — honestly.
   - **Pivot** — the offer or the price is wrong, not the problem. Name the cheaper
     re-test: a different price point, a reframed offer, a different costly action.
   - **Inconclusive** — the signal is too thin (under-sampled) or the audience too
-    biased to trust. Name the specific fix and the cheapest way to re-run.
+    biased to trust. Name the specific fix and the cheapest way to re-run. Founders
+    systematically underestimate how much volume a trustworthy read requires — name
+    the real number a fair test needs before you run it, and hold to it: a result on
+    half that volume is not a fail, it's an incomplete test, and calling it a verdict
+    in either direction is a mistake.
 - **Output a self-contained result brief** someone could act on without this
   conversation: the offer and price tested, the audience and channel, the pass
   metric and threshold set in advance, the actual conversion and cost-per-buyer,
@@ -155,8 +163,10 @@ After the run, turn the raw numbers into a decision — honestly.
   if it's at a price that can sustain the business. A flood of pre-orders at a number
   below your durable unit margin proves people want something you can't profitably
   deliver — that's a pricing problem to fix (route to validation/pricing-validation.md),
-  not a green light to build. Check the margin behind the conversion, not just the
-  conversion.
+  not a green light to build. By the same token, even a healthy price fails if the
+  channel costs more than roughly ⅓ of the customer's lifetime gross profit to
+  acquire a buyer — that's a distribution problem masquerading as validation. Judge
+  cost-per-buyer against gross profit (revenue minus cost to deliver), not revenue.
 - **Recommend the cheapest next test.** If a price change or a re-run on cold
   traffic would settle it, don't send me to build.
 - **When unsure, ask — one question at a time, multiple choice.** A wrong offer

@@ -68,9 +68,15 @@ Now run the bullseye. Brainstorm wide, rank hard, and commit narrow — then get
 the channel(s) and the kill criteria signed off before any spending.
 
 - **Brainstorm across the full set of channels.** Go wide on purpose, so we don't
-  fixate on the obvious one: SEO, content marketing, paid social, paid search,
-  cold outreach (email/DM), existing communities and forums, partnerships and
-  integrations, virality/referral, PR, events and speaking, influencers,
+  fixate on the obvious one — but first, frame the brainstorm by the four ways any
+  party can let people know about something: *warm outreach* (1:1 to people who
+  already know you), *content/posting* (1:many to people who already know you),
+  *cold outreach* (1:1 to strangers), and *paid distribution* (1:many to
+  strangers). Most named channels are just placements inside one of these four
+  quadrants; use the quadrants as the frame so an entire quadrant isn't silently
+  skipped. Then go wide on specifics: SEO, content marketing, paid social, paid
+  search, cold outreach (email/DM), existing communities and forums, partnerships
+  and integrations, virality/referral, PR, events and speaking, influencers,
   marketplaces, offline. For each, one line on whether the avatar is plausibly
   reachable there at all.
 - **Rank to the top 2–3.** Score each channel on two axes: does the avatar
@@ -107,7 +113,11 @@ someone could execute without re-reading this conversation:
   metric you'll rationalize later.
 - **A cheap but trustworthy sample.** The budget, volume, and duration that
   produce a read we'd actually believe — big enough to settle the question, small
-  enough that a "no" is cheap. Spell out what "enough data" means before we start.
+  enough that a "no" is cheap. Set minimum volume to what a practitioner who runs
+  that channel would call a real test; people massively underestimate this
+  threshold, and a "dead" channel is usually one tested at a fraction of the volume
+  a fair trial requires, producing a false negative rather than a true signal.
+  Spell out what "enough data" means before we start.
 - **The decision rules.** Restate the kill criterion, the double-down threshold,
   and the iterate zone in between: if the result lands here, kill it; here, double
   down and focus; here, change one variable and re-run once. No moving goalposts
@@ -126,13 +136,19 @@ Output a single, self-contained **Channel Strategy Brief** I can keep and act on
 - **The first test:** the chosen channel, the experiment, the metric and how it's
   instrumented, the sample/budget/duration, and the kill criterion + double-down
   threshold.
-- **What to do on a win vs. a kill:** on a win — what "focus and dominate this
-  channel" looks like next, and the vanity-metric traps to avoid while scaling.
-  On a kill — the next-ranked channel to test, ready to pick up without
-  re-planning.
+- **What to do on a win vs. a kill:** on a win — do MORE first (raise volume to
+  capacity), then BETTER (test the single biggest drop-off or constraint, one
+  change at a time), then NEW (new placements → new platforms → a new quadrant);
+  exhaust more-and-better before reaching for new. The slice you advertised into
+  is almost never the whole market — "we saturated the channel" is usually "we
+  stopped scaling" — so avoid the vanity-metric traps that disguise a scaling
+  opportunity as a ceiling. On a kill — the next-ranked channel to test, ready
+  to pick up without re-planning.
 - **What feeds where:** the "where they already are" field came from
-  `marketing/customer-avatars.md`; any paid execution routes to
-  `connect-ad-platforms.md` under its spend gates.
+  `marketing/customer-avatars.md`; crafting the content, ads, or outreach itself
+  routes to the sibling execution prompts — `marketing/content-engine.md`,
+  `marketing/paid-ads.md`, and `marketing/founder-led-sales.md`; and any paid
+  spend routes to `connect-ad-platforms.md` under its spend gates.
 
 End with the **riskiest channel assumption** stated in one line — almost always:
 *can we reach this avatar here at an acceptable CAC?* — and exactly how the first
@@ -164,7 +180,14 @@ queue, not a to-do list to run all at once.
   named before the data lands. A threshold set afterward is a rationalization, not
   a test — no moving goalposts.
 - **Measure CAC against price and LTV.** A channel "works" only if it acquires
-  customers for less than they're worth. Cost-per-signal and conversion are the
+  customers for less than they're worth. The bar that predicts whether a channel
+  can scale is lifetime *gross profit* (revenue minus the cost to deliver) over
+  CAC, roughly ≥ 3:1 — below that, channels rarely scale regardless of headline
+  LTV. A channel that recovers acquisition cost plus fulfillment within ~30 days
+  lets you recycle cash into the next customer and scale without outside funding;
+  engineer for fast payback when the business model allows it. If CAC is already
+  at or below the industry norm, the lever is gross profit per customer — the
+  business model, not the channel. Cost-per-signal and conversion are the
   metrics; cumulative impressions and follower counts are vanity.
 - **Don't spread thin.** Testing everything at once is how startups die quietly —
   every channel underfunded, none given the focus to prove itself. Sequence the

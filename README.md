@@ -226,7 +226,39 @@ the latter.
   Brainstorms the full channel set, ranks to the few matched to where the beachhead
   avatar already is and the economics (CAC vs. price), and specs a cheap test with
   its metric, double-down threshold, and kill criterion. Paid channels route to
-  `marketing/connect-ad-platforms.md` for execution under its spend guardrails.
+  `marketing/connect-ad-platforms.md` for execution under its spend guardrails, and
+  the content/ads/outreach it picks route to `marketing/content-engine.md`,
+  `marketing/paid-ads.md`, and `marketing/founder-led-sales.md`.
+- `marketing/lead-magnet.md`: Design a lead magnet — a complete solution to one
+  narrow problem, free or low-cost, that engages a cold or expensive-offer audience
+  and reveals the next problem the *core offer* solves. Picks the type (reveal-the-
+  problem diagnosis / sample-or-trial / one-step-of-many), the delivery (software,
+  info, service, physical), tests the name/headline (the highest-leverage decision),
+  and demands give-away-the-secrets quality tied back to what you sell. Consumes
+  `marketing/customer-avatars.md` and `marketing/positioning-messaging.md`; the magnet
+  is the thing `marketing/content-engine.md`, `marketing/paid-ads.md`, and
+  `marketing/founder-led-sales.md` advertise, captured via `marketing/landing-page.md`.
+  A free take-rate is interest, not demand — confirm willingness to pay with
+  `validation/demand-test.md`.
+- `marketing/content-engine.md`: Build an audience-as-asset content machine on the
+  one platform the beachhead avatar is on — every piece built to hook, retain, and
+  reward, over-giving and under-asking, narrow-niche-first ("king of the puddle"),
+  measured by audience *growth rate* and engaged leads rather than vanity follower
+  counts. Sets the give:ask ratio and ask mechanics, commits a sustainable cadence,
+  and produces the unit toolkit (topic/headline/format hooks, list/step/story
+  retention). Asks point at `marketing/lead-magnet.md` or the core offer; the audience
+  it builds is the warm list `marketing/lifecycle-email.md` and
+  `marketing/founder-led-sales.md` work; the best pieces feed `marketing/paid-ads.md`.
+- `marketing/paid-ads.md`: Make and scale paid ad campaigns — the creative
+  (call-out + value + CTA), the targeting (lookalikes + filters), and the efficiency
+  economics (lifetime-gross-profit-to-CAC ≥ ~3:1, 30-day payback, track→lose→print,
+  kill losers / scale winners). Catches the *business-model-not-ad* problem before a
+  dollar is wasted. The strategy-and-creative complement to
+  `marketing/connect-ad-platforms.md`, which safely executes every dollar under its
+  human-approval guardrails — **no autonomous spend.** Consumes
+  `marketing/lead-magnet.md` or the core offer, the page from
+  `marketing/landing-page.md`, creative from `marketing/content-engine.md`, and the
+  LTGP:CAC math from `product/metrics-instrumentation.md`.
 - `marketing/launch-plan.md`: Sequence a launch (Product Hunt / Show HN / waitlist
   / email list / communities) as one concentrated moment with a single goal and
   metric — won in pre-launch prep. Picks channels where the beachhead avatar is,
@@ -241,6 +273,16 @@ the latter.
   time-based blast, and measures the downstream action (not opens). Consumes the
   aha moment from `product/activation-onboarding.md` and the voice from
   `marketing/customer-avatars.md`; triggers route to product/engineering to wire up.
+- `marketing/referral-program.md`: Turn delighted customers into the lowest-cost,
+  highest-quality, exponentially-growing lead source — product first (build goodwill
+  through six value levers), then the ask (treated as an offer: one/two-sided
+  incentives sized to CAC, point-of-sale asks, events, unlockable bonuses). Refuses
+  to bolt a referral hack onto an unremarkable product, measures referral *rate*
+  against churn, and protects the referrer's relationship by never stranding a
+  referred friend. Product improvements feed `product/prioritization.md` and
+  `product/activation-onboarding.md`; the ask copy feeds `marketing/lifecycle-email.md`
+  and `marketing/landing-page.md`; the referral-vs-churn economics feed
+  `product/metrics-instrumentation.md`.
 
 The `ceo/` prompts run the company-altitude jobs — strategy, story, money, people,
 and the operating system (each reads `shared/leadership-principles.md` first):
@@ -723,6 +765,16 @@ For a new product:
    users to first value and instrument the activation metric, and
    `marketing/landing-page.md` to convert the traffic your positioning and
    channels send — both consume the briefs produced upstream.
+10. To get customers flowing, work the acquisition engine. Pick *one* channel with
+    `marketing/channel-strategy.md`, build the free `marketing/lead-magnet.md` that
+    channel advertises, and run it through the matching method:
+    `marketing/content-engine.md` (audience-building on one platform),
+    `marketing/paid-ads.md` (spend, executed only under
+    `marketing/connect-ad-platforms.md`'s human-gated guardrails), or
+    `marketing/founder-led-sales.md` (by hand). Nurture the audience with
+    `marketing/lifecycle-email.md`, and once the product is genuinely good enough to
+    earn it, compound growth with `marketing/referral-program.md`. Dominate one
+    channel before adding the next.
 
 For an existing app:
 

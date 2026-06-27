@@ -73,6 +73,21 @@ before anything goes in front of a real buyer.
   a defensible share of the gap. Bias the recommendation *upward* — name a number
   that feels slightly uncomfortable, because underpricing is the more common and
   more expensive error and it's far easier to discount later than to raise.
+- **For a brand-new offer with no price history, find the ceiling empirically rather
+  than guessing.** Start the first handful of buyers at a very low number — or even
+  free, in exchange for real use, candid feedback, and a usable testimonial. The
+  signal to begin charging is referrals: when customers are sending you business
+  without being prompted, the value is real. From there, raise in steps of roughly
+  20% every few sales and watch close rates — the last price that still closed cleanly
+  is your current ceiling. Route the early-sales motion to
+  `marketing/founder-led-sales.md`, which runs this exact sequence.
+- **Price and package so gross profit from a new customer's first ~30 days covers
+  acquisition and delivery cost** — usually via an immediate upsell or order-bump
+  alongside the core sale. Recovering that cost fast lets you recycle the same cash
+  into the next customer and grow without outside capital; a price that only breaks
+  even months later is a cash-flow trap even when the lifetime ratio looks healthy.
+  The question isn't only "is it enough over a lifetime?" but "does it pay us back
+  fast enough to fund the next sale?"
 - **Propose a good-better-best tier structure.** Three tiers anchor the buyer (the
   middle becomes the obvious choice), let high-value segments self-select up, and
   give you a price-discrimination lever without a separate negotiation. Name what
@@ -150,6 +165,9 @@ this conversation — honest about what's proven and what's still a guess.
   price, with volume and costs held constant, falls almost entirely to the bottom
   line and shifts profit far more than the same effort spent cutting costs or
   chasing units. A few points left on the price is the quietest way to underperform.
+  For an offer with no price history, find the ceiling empirically: start low, raise
+  in ~20% steps every few sales, and read close rates — the last price that closed
+  cleanly is your ceiling today, and referrals are the signal to start charging at all.
 - **For high-touch sales, agree on value before you name a price.** In B2B and
   other high-touch deals, reach the person who actually controls the budget — not a
   gatekeeper — and get shared agreement on the outcome they want, how they'll
@@ -163,6 +181,12 @@ this conversation — honest about what's proven and what's still a guess.
   value not received is a worse mistake than the wrong number.
 - **Tiers anchor and segment.** Good-better-best frames the choice, lets high-value
   buyers self-select up, and discriminates on price without a negotiation. Use three.
+- **Price for fast payback, not just lifetime ratio.** If a new customer's first ~30
+  days of gross profit don't cover acquisition and delivery cost — typically via an
+  immediate upsell or order-bump — you have a cash-flow trap even when the lifetime
+  math looks fine. You need to recycle that cash into the next customer to grow
+  without outside capital, so ask not just "is this price enough?" but "does it pay
+  us back fast enough to fund the next sale?"
 - **Stated willingness-to-pay is a hypothesis.** Never enshrine a survey range as
   the price. It points you at a band; a real charge confirms a point inside it.
 - **Surface underpricing loudly.** If the reasoning points to a higher number than

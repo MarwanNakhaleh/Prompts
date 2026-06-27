@@ -97,7 +97,12 @@ visitor's outcome everywhere; the feature is supporting evidence, never the head
 - **Outcome-led value props.** Each one leads with what the avatar gets to do or stop
   doing, with the feature as proof underneath. Attach concrete proof to each — a
   metric, a mechanism, a customer quote, a demonstrable fact. A value prop without
-  proof is a claim; a claim without proof is noise.
+  proof is a claim; a claim without proof is noise. Push each prop further on two axes:
+  through the eyes of the people whose regard the avatar lives with — a boss, a partner,
+  a rival — and how they'll treat them differently once the result is theirs (people buy
+  status as much as utility); and across the avatar's own timeline — the months stuck,
+  today's cost of staying there, the position they'll stand in when it's solved. Same
+  outcome, more angles, more reasons to act.
 - **Social-proof blocks, placed for doubt.** Write the testimonial pull-quotes, the
   logo-bar caption, the stat callouts, the guarantee — and say exactly where each
   sits (beside the price, under the headline, next to the CTA). Reach deliberately for
@@ -153,8 +158,9 @@ conversion, A/B the riskiest element, and learn from real visitors.
   promise that brought them. The click and the page tell one continuous story.
 - **Lead with the visitor's outcome, never your feature list.** They buy what they
   get to do, not the thing you built. The feature is proof, not the pitch. The strongest
-  pages also speak to who the visitor already believes they are — sell the identity and
-  the outcome, not the spec sheet.
+  pages also speak to who the visitor already believes they are — sell the identity, the
+  status it earns with the people whose regard they live with, and the cost of staying
+  put, not the spec sheet.
 - **Every claim needs proof, placed where doubt peaks.** Put the testimonial beside
   the price, the stat beside the big claim, the guarantee beside the CTA.
 - **Clarity beats cleverness above the fold.** A stranger must pass the 5-second test
