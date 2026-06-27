@@ -159,6 +159,15 @@ negative — so we de-risk the diagnosis, not just execute the list.
 - **Default to cut.** The backlog's natural state is too long. The bar to add is
   high and the bar to keep is "still moves the bottleneck"; when in doubt, it goes
   to the cut pile, surfaced and explained.
+- **The hard no is to a *good* opportunity.** Cutting weak items is easy; the
+  discipline that separates focused teams is declining strong, attractive, even
+  "once-in-a-lifetime" bets that don't move the current constraint or fit the core.
+  A healthy product is far more likely to die of indigestion from too many good
+  options than starvation from too few — the job is opportunity *selection*, not
+  opportunity creation, and "once-in-a-lifetime" is irrelevant if it doesn't move
+  the bottleneck. And when you do commit, concentrate rather than hedge: fully fund
+  the few bets that fit instead of spreading a thin layer of effort across many, so
+  the things that matter actually get enough to break through.
 - **Make the opportunity cost visible.** Never rank silently. For the top bets,
   state what choosing them costs us — and flag the diagnosis risk loudly, so we
   test whether it's the real bottleneck instead of enshrining the guess.

@@ -83,7 +83,15 @@ the guardrails, and get them signed off. State it back to me plainly:
     labels ("[city] homeowners"), yes-questions ("do you…?"), if-then statements, or
     a striking result — verbally and, where the platform allows, visually (contrast,
     looking the part, showing the scene). Specific enough to catch the right people,
-    broad enough to catch enough of them.
+    broad enough to catch enough of them. And match the hook's *angle* to how aware
+    the audience already is: the warmest, smallest audiences act on a plain **offer**
+    ("50% off this week"); a notch colder wants **proof** ("why 9,000 people
+    switched"); colder still wants a **promise** ("the result you want, this fast");
+    colder wants the **pain** named ("tired of [problem]? there's a better way"); the
+    coldest, largest audience needs pure **curiosity** ("the hidden reason [bad thing]
+    keeps happening"). Most founders pile every hook into the warm/offer bucket and
+    quietly cap their reach — deliberately write hooks across the colder levels to
+    scale past your warm core into a bigger audience.
   - **Show the value** so the benefits look big and the costs look small. Work the
     angles: the dream outcome and its nightmare opposite, the likelihood they'll
     actually get it (proof, results from people like them, a guarantee) versus the
@@ -95,7 +103,11 @@ the guardrails, and get them signed off. State it back to me plainly:
     these angles; short ads work fewer — same callout, same CTA.
   - **The CTA** — spell out exactly what to do next ("click here," "book a call,"
     "reply YES"), quick and easy, with an honest reason to act now (real scarcity or
-    urgency only).
+    urgency only). Clear beats clever: say literally what to do, how, when, and what
+    they get for doing it. And don't just tell — *show* it: demonstrate the next step
+    (the button, the form, what lands in their inbox) so the click delivers exactly
+    what they expected and fewer people drop in the handoff. A sound CTA rarely breaks
+    a campaign, but no CTA does.
 - **The destination, matched to the ad.** The landing page must pay off the ad's
   exact promise — same words, same look — so the experience is continuous from click
   to close. Route the page itself to `marketing/landing-page.md`.
@@ -129,6 +141,19 @@ test plan that makes it efficient.
   best ad, and real customer-made testimonials (with permission) make strong creative
   at no extra work. Mark every result, number, or testimonial that isn't real yet as
   still-to-gather; never fabricate one.
+- **Produce at volume by assembling, not authoring.** Once an ad converts, scaling is
+  *more and better* of what works far more than something new — and the efficient way
+  to make a lot is to build ads in interchangeable parts and recombine them: a batch
+  of **hooks** (first impressions), a few **"meats"** (the body that pays off the
+  hook — a demonstration/before-after, a testimonial, an explainer, a story, or a
+  faceless screenshot/text/animation piece), and one or two **CTAs**, mixed and
+  matched into many variants. Concentrate the bulk of your effort on hooks — the
+  opening gets seen and used up fastest and decides whether the rest is seen at all —
+  and almost none on CTAs. Source new hooks from your own past winners, your
+  best-performing organic content (a hook that won in content usually wins as an ad,
+  and winning hooks often cross industries), and competitors' ads. Reuse the winners
+  to seed the next batch; new prospects enter the market daily, so a proven hook isn't
+  worn out — it's still their first time seeing it.
 - **The landing-page match.** Confirm the page mirrors the ad's promise and look, and
   captures the engaged lead simply. Hand the page build to `marketing/landing-page.md`.
 - **The test discipline.** Change **one variable at a time** so you learn what
@@ -182,7 +207,19 @@ it under the gate.
 - **Every ad: call out, value, CTA.** Catch the right person in the first seconds,
   make the benefits big and the costs small, and tell them exactly what to do next.
 - **Most of the effort is the first few seconds.** The opening earns the rest of the
-  ad. Test the call-out and first impression more than anything else.
+  ad. Test the call-out and first impression more than anything else — and because the
+  hook is what audiences burn through fastest, it's where most of your *production*
+  volume goes too: assemble ads from interchangeable hooks, meats, and CTAs rather
+  than authoring each one whole.
+- **Match the hook to the audience's awareness.** Warm audiences buy on an offer; cold
+  audiences need curiosity, with proof, promise, and pain in between. Writing hooks
+  across the colder levels — not just the warm/offer one everyone defaults to — is how
+  you scale past your warm core into a larger audience.
+- **A rising CAC at scale is usually a creative ceiling, not a saturated market.** When
+  ads stop scaling profitably, you've typically harvested the warm, low-hanging
+  audience and your creative isn't yet strong enough to convert colder traffic — the
+  fix is more and better ads aimed at colder awareness levels, not the comfortable
+  conclusion that the market is tapped.
 - **Match the page to the ad.** Same promise, same look, click to close. A broken
   handoff wastes the click you paid for.
 - **Aim ≥ 3:1 lifetime gross profit to CAC, and recover cost fast.** Below ~3:1 ads

@@ -92,6 +92,17 @@ because they decide what's worth measuring.
   elevate its driver metric above the rest; the others still get watched, but that
   one is where growth is won or lost, and improving an off-engine metric won't move
   the business.
+- **Find the single economic denominator — profit per _what_.** Beyond the
+  engine's driver, push for the one ratio that most drives sustainable
+  profitability: if you could systematically increase exactly one *profit-per-X*
+  over time, which X would compound the economics the most? The denominator is a
+  *choice*, and the choice quietly steers behavior — profit *per store* would tell
+  a convenient-pharmacy chain to close locations and cluster less, killing the very
+  convenience that made it work, whereas profit *per customer visit* unlocks it.
+  Pick the X that captures how this business actually creates value (per active
+  team, per visit, per transaction, per seat) rather than the obvious accounting
+  unit, and let it focus where the engine gets tuned. Pushing for a single
+  denominator forces sharper insight than settling for three or four.
 - **Identify the bottleneck stage** to watch most closely right now, tied to
   Phase 1, and say why the others can run on lighter measurement until it's
   fixed.
@@ -185,5 +196,6 @@ the North Star as a living hypothesis, not a trophy.
 - Leading indicators to act early. Pair every lagging metric with an early
   behavioral predictor so the team can move before the slow number confirms it.
 - For a paid engine, measure gross profit, not revenue, in the acquisition economics. Lifetime gross profit over acquisition cost — 3:1 or better is the rough floor before you scale; below that, the engine doesn't fund itself. Pair it with a 30-day payback check: if a customer's gross profit in the first ~30 days doesn't cover acquisition and fulfillment cost, you're funding growth from your balance sheet rather than from the engine, and every additional customer burns capital instead of spinning the flywheel.
+- One economic denominator, deliberately chosen. Distinct from the North Star (which measures delivered value), name the single profit-per-X that most drives the economics — and choose the X with care, because the wrong denominator steers the business toward the wrong behavior even as the number climbs.
 - If it can't be measured, it can't be improved. When a metric that matters isn't
   emittable, that's not a dead end — it's the next thing to instrument.

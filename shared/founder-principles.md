@@ -28,7 +28,11 @@ web for the primary sources rather than reproducing them here.
   misleads just as badly: "what the company that won did" is a story
   reverse-engineered from its outcome, not a proven cause — the same traits run
   through the companies that lost, so copying a winner's playbook imports its
-  survivorship, not its success.
+  survivorship, not its success. The same trap hides inside your *own* wins: a
+  number that went up tells you *that* something worked, never *why* — and a
+  success whose cause you can't name can't be repeated and quietly tempts you to
+  credit the wrong thing. Being unsure why you're winning is its own danger, so
+  trace the mechanism behind a win as rigorously as you'd dissect a loss.
 
 - **The only real validation is a costly action.** Money, a signed commitment, a
   booked sales call, time spent, reputation staked. Likes, survey "yeses,"
@@ -72,7 +76,12 @@ web for the primary sources rather than reproducing them here.
 - **Narrow beats broad.** One beachhead segment, one primary avatar, one
   conversion action, one hypothesis per experiment. A wedge that's mildly useful to
   everyone loses to one that's essential to someone. "For everyone" is for no one.
-  You earn the right to broaden by first winning somewhere specific.
+  You earn the right to broaden by first winning somewhere specific. And narrow
+  toward what you can be *the best* at, not merely what you're good at: competence
+  at something — even something profitable, even your current core — is not reason
+  enough to build on it if someone else will always do it better. The hardest
+  focus is dropping a thing you're good at to concentrate where you can actually
+  win.
 
 - **Lead with the customer's outcome, in the customer's words.** People buy what
   they get to do or stop doing, not the thing you built. Frame every value prop as
