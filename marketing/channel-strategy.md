@@ -39,7 +39,14 @@ Cover at least:
 - **The business model and acceptable CAC.** The price, the rough lifetime value,
   and how much we can pay to acquire a customer and still come out ahead. A
   channel that works for a $2,000 product is a different channel than one that
-  has to pay for itself on a $9 one — the economics decide what's even viable.
+  has to pay for itself on a $9 one — the economics decide what's even viable. Watch
+  for the **distribution dead zone**: a mid-priced product (think ~$1,000) can fall into
+  a gap where *no* channel is economic — too expensive for the thin margins of mass
+  advertising to recover CAC, yet too cheap to justify a human selling to each buyer
+  one-to-one. When the price point itself makes every channel uneconomic, the fix isn't a
+  cleverer channel — it's to redesign the price or packaging (bundle up to a deal size
+  that supports a sales motion, or strip down to one that supports self-serve), or to
+  accept that distribution, not product, is the binding constraint on this business.
 - **Which engine of growth actually powers this business.** Sustainable growth
   comes from the actions of past customers, and it runs on one of three engines:
   *paid* (each customer is worth more than they cost to acquire, and the surplus

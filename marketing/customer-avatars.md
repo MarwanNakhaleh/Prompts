@@ -36,7 +36,8 @@ Cover at least:
 - **The decision the avatars will drive.** Positioning and messaging, channel
   selection, who the MVP targets first, ad targeting, sales qualification? The use
   determines which attributes matter — channels need "where they already are,"
-  sales needs "who signs the check."
+  sales needs "who signs the check," and reach or virality needs the *amplifier* —
+  who will spread the message to the buyer, who is often not the buyer themselves.
 - **How many distinct segments seem to be in there.** Push me toward the smallest
   number of *genuinely different* buyers. If two proposed avatars would read the
   same headline, buy through the same channel, and have the same objection, they
@@ -134,6 +135,12 @@ compare. The avatar set is a living hypothesis, not a finished portrait.
   and the ad budget as much as the target avatar directs them.
 - **A real quote beats a description.** Use the customer's own words; never
   fabricate one to fill the field.
+- **The audience that spreads you isn't always the one that buys.** When the decision
+  is reach — content, virality, word of mouth — identify the *amplifier* alongside the
+  buyer: the person most motivated to carry your message into the buyer's world, often
+  a different person (the daughter who tags her mother, the engineer who forwards to the
+  VP). Target the buyer directly for direct response; targeting the amplifier is often
+  the cheaper path to the buyer when the message is shareable.
 - **Avatars are living hypotheses.** Ship the best-supported version, then sharpen
   it as real customers prove you right or wrong — and surface the riskiest
   assumptions so they get tested, not enshrined.

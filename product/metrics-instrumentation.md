@@ -76,6 +76,18 @@ because they decide what's worth measuring.
 - **Justify each as actionable, not vanity:** for every stage metric, name the
   decision it would change and the cohort you'd read it by. If you can't, it
   doesn't belong on the list — cut it and say so.
+- **Pressure-test each metric as an incentive, not just a measurement.** Anything
+  you elevate to a tracked metric will quietly reshape behavior toward *it* — often
+  at the expense of the thing you actually wanted. Before locking a metric, war-game
+  how a team optimizing for it could hit the number while making the real goal
+  worse: ship features fast but mediocre to make a velocity target, chase signups
+  that never activate to make an acquisition number, starve the support that drives
+  retention to make a cost number. If a metric can be satisfied in a way that
+  betrays its intent, pair it with a **guardrail metric** that catches the betrayal
+  (acquisition with activation, speed with quality, growth with retention). And
+  never let the number stand in for the qualitative goal — a metric *supplements*
+  product vision, it doesn't replace it; a frantic chase of a metric that doesn't
+  capture real value produces exactly that, motion instead of value.
 - **Name the growth engine and its driver metric.** Sustainable growth runs on one
   of three engines, and each makes a *different* funnel stage the real lever: a
   *sticky* engine grows on retention (the compounding of growth rate over churn), a
@@ -197,5 +209,6 @@ the North Star as a living hypothesis, not a trophy.
   behavioral predictor so the team can move before the slow number confirms it.
 - For a paid engine, measure gross profit, not revenue, in the acquisition economics. Lifetime gross profit over acquisition cost — 3:1 or better is the rough floor before you scale; below that, the engine doesn't fund itself. Pair it with a 30-day payback check: if a customer's gross profit in the first ~30 days doesn't cover acquisition and fulfillment cost, you're funding growth from your balance sheet rather than from the engine, and every additional customer burns capital instead of spinning the flywheel.
 - One economic denominator, deliberately chosen. Distinct from the North Star (which measures delivered value), name the single profit-per-X that most drives the economics — and choose the X with care, because the wrong denominator steers the business toward the wrong behavior even as the number climbs.
+- A metric is an incentive; design for the behavior, not just the number. Whatever you measure, the team will optimize toward — so before you set a metric, war-game how it could be hit while making the real goal worse, and pair it with a guardrail that catches the gaming (acquisition with activation, speed with quality, cost with retention). And never let a metric substitute for product vision: the number supplements the qualitative goal, it can't replace it.
 - If it can't be measured, it can't be improved. When a metric that matters isn't
   emittable, that's not a dead end — it's the next thing to instrument.

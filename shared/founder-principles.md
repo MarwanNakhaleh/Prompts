@@ -123,10 +123,29 @@ web for the primary sources rather than reproducing them here.
   sooner; a venture's real runway is the number of pivots it has left, so get to
   each decision faster and don't let going-nowhere "success" talk you out of it.
 
+- **Anchor the iterating to a definite thesis.** Validation de-risks a bet; it is
+  not a substitute for having one. Leanness is a method, not a goal — and iterating
+  on what already exists climbs toward a *local* maximum, the best version of a
+  familiar thing, while the prize that takes a company from zero to something genuinely
+  new is a *global* one that only a bold, specific bet reaches. So the testing should
+  serve a definite thesis: a concrete, non-obvious truth about the customer or the
+  market that few people agree with — the kind of answer you'd give to "what important
+  truth do very few people agree with you on?" Undirected iteration — try things, keep
+  whatever sticks — is how you end up with the most polished version of something nobody
+  needed. Test cheaply and pivot honestly (above), but in service of a vision you can
+  state plainly, never as a replacement for having one.
+
 - **A cheap "no" now beats an expensive one later.** Finding out that nobody has
   the problem, nobody will pay, or the channel doesn't work is the *point* of these
   experiments — celebrate it, don't bury it. The whole discipline exists to make
-  killing a bad idea cheap, fast, and free of ego.
+  killing a bad idea cheap, fast, and free of ego. Beware the asymmetry that does
+  the burying: people pounce on an encouraging signal and act on it at once, but
+  meet a discouraging one with a list of reasons to wave it away — it was a slow
+  week, the sample was small, the page was broken, the holiday skewed it. The team
+  doing this isn't lying to you; they're lying to themselves, and if you accept the
+  comforting story you're lying to yourself too. Treat the bad reading as the one
+  most likely to be telling the truth, precisely because it's the one you're
+  tempted to explain away.
 
 - **Outward-facing and money-spending actions need a human gate.** Spending ad
   budget, launching a campaign, emailing a list, or making a promise to a real

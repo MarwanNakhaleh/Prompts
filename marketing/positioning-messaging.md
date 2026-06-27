@@ -74,9 +74,14 @@ stress it. State it back to me plainly:
 
 Then attack it, and tell me where it's weak:
 
-- **Is the differentiation real and defensible?** Could a competitor say the exact
-  same sentence? If so, it's not differentiation — it's table stakes. Is the wedge
-  hard to copy, or could a rival ship it next quarter?
+- **Is the differentiation real, defensible, and *big enough*?** Could a competitor say
+  the exact same sentence? If so, it's not differentiation — it's table stakes. Is the
+  wedge hard to copy, or could a rival ship it next quarter? And is the product
+  *dramatically* better on the one dimension this customer most cares about, or only
+  marginally? A ~20% improvement reads as marginal: customers are numb to inflated claims,
+  won't believe it, and won't pay the switching cost to leave what they already have. Aim
+  for order-of-magnitude (≈10x) superiority on the dimension that matters — that's what
+  makes the advantage *obvious* instead of arguable.
 - **If there's a clear category leader, are we its opposite — not its "better"?** A
   "me-too but improved" claim runs straight at the incumbent's strength, on the ground
   where the customer already trusts them. Find the attribute the leader structurally
@@ -100,7 +105,13 @@ every level inheriting from the one above:
   ship, but everything below must trace to it.
 - **Headline / value proposition:** the customer-facing one-liner. Clear over clever.
   It should make the best-fit customer think "that's for me" and a bad-fit customer
-  self-select out.
+  self-select out. And it has to earn a *stop*: in a feed of thousands of competing
+  messages a day, clarity alone won't make the right person pause. Find the **hook** —
+  the one sharp, specific, often unexpected angle that packages the value so it stands
+  out and leaves them wanting more. The idea underneath needn't be novel; the packaging
+  is what cuts through ("the 4-hour workweek" beat "a guide to working fewer hours" with
+  the same content inside). Lead with the hook, let the clear value prop pay it off, and
+  never bait with a hook the product can't deliver on.
 - **3–5 core value props:** each tied to a customer *outcome*, not a feature. Lead
   with what the customer gets to do or stop doing; the feature is the supporting
   evidence, not the headline. Attach concrete proof to each (a metric, a mechanism,
@@ -137,8 +148,11 @@ a hypothesis; the brief is its current best version, not its final truth.
 - Anchor on the competitive alternative the customer *actually* uses — including
   doing nothing, a spreadsheet, or a manual workaround. That, not the obvious rival,
   is usually what you're really displacing.
-- Differentiation must be true, and ideally hard to copy. If a competitor could say
-  the same sentence, it isn't differentiation — keep digging.
+- Differentiation must be true, hard to copy, and *big*. If a competitor could say
+  the same sentence, it's table stakes — keep digging. And a marginal edge (20% better)
+  reads as no edge: it's met with skepticism and won't overcome switching inertia. Aim to
+  be dramatically better — roughly 10x — on the one dimension the customer most values, so
+  the advantage is obvious rather than argued.
 - Narrow beats broad. A beachhead you dominate is worth more than a market you're
   mediocre in. "For everyone" is for no one.
 - Use the customer's words. Internal jargon, invented category names, and feature-speak
@@ -152,6 +166,13 @@ a hypothesis; the brief is its current best version, not its final truth.
   a quote, or a demonstrable fact, or cut it.
 - Lead with the outcome, not the feature. The customer buys what they get to do, not
   the thing you built.
+- Know who you are, not just what you do. A product is *what you do*; the brand is *who
+  you are* — the durable identity and purpose the product is one expression of (a
+  performance company that happens to make shoes, not a shoe company). Positioning a
+  single product is sharper, and far more durable, when it ladders up to that identity:
+  it outlives any one product and lets the positioning stretch as the product evolves. A
+  position that only describes the thing you ship today dies the day someone ships a
+  better thing.
 - Treat the messaging as a hypothesis to test on prospects, not a finished truth.
   Ship the strongest version you can defend, then learn from real reactions.
 - Never invent differentiation, a customer quote, or a metric silently. If you don't

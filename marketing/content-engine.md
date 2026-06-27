@@ -120,6 +120,17 @@ Everything is built from the same unit: **hook → retain → reward.**
   long, only too boring — the audience decides, and a growing audience is your only
   proof you cleared the bar. Don't promise "7 ways" and deliver four; don't bait the
   right people and reward the wrong ones.
+- **Design for the share, not just the view.** The like and the view are passive and
+  near-vanity; the *share* is the action that both proves the piece resonated and is
+  the engine of organic reach — shared content gets shown to the sharer's whole
+  network, and when share-velocity is high the platform amplifies it to strangers,
+  which is how growth compounds. People don't share to help *you*; they share because
+  it gives *them* something — social currency. A share lets them be the funny friend,
+  the one who moved someone, the helpful insider, the person with taste. So build a
+  *value exchange*: give the audience value, and hand them something worth passing on.
+  Before publishing, ask "what does sharing this say about the person who shares it,
+  and to whom would they send it?" — a piece with no answer gets consumed and
+  forgotten; one with a clear answer travels.
 - **A starter batch.** A first set of concrete pieces built to these templates,
   drawn from your real experience and results — enough to start the cadence, with
   the ask mechanics (integrated or intermittent) shown in place. Mark any result or
@@ -176,6 +187,11 @@ the inputs consistent and tune toward what the audience rewards.
 - **Measure growth rate and engaged leads, never vanity.** Follower totals and raw
   views are optimism. The rate the audience grows and the engaged leads it produces
   are the signal.
+- **The share is the truest signal and the growth engine.** Optimize for shareability
+  over likes and views: a share both proves the content resonated and compounds reach
+  by carrying it into new networks. People share for social currency — what passing it
+  on lets them give or signal to their friends — so design every piece to hand the
+  sharer something worth passing on, not just something nice to consume.
 - **Consistency over years beats a heroic month.** This compounds slowly. Pick a
   cadence you can hold and do not stop — most people quit right before it works.
 - **Never fabricate a result, a number, or a story.** If the proof isn't there yet,

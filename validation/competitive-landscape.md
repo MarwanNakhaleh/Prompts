@@ -149,6 +149,14 @@ behavioral signal that would confirm or kill it. The map is a hypothesis, not a 
   with bloat or under-serve with neglect — not the place you're 10% better at everything.
 - **Differentiation must be true and defensible.** If a rival could say the same sentence,
   it's table stakes. Keep digging until the wedge is real, and be honest about how copyable it is.
+- **Define the market honestly — in both directions.** Two opposite lies tempt founders. The
+  first shrinks the market to own it by definition ("the only British restaurant in Palo Alto")
+  — gerrymandering the boundary narrow to manufacture a monopoly that vanishes the moment you
+  draw it the way the customer actually shops. The second inflates it: "1% of a $100B market"
+  treats a giant TAM as a selling point when it's a red flag — huge markets are brutally
+  competitive, not freely attainable, and you can't dominate a submarket that's fictional. Draw
+  the boundary the way the customer's real alternatives draw it, then aim to be the obvious
+  choice in a slice small enough to actually dominate, not a marginal player in an ocean.
 - **Winning the customer and winning the industry are different.** The customer's choice tells
   you whether they'll pick you; the industry's structure tells you whether picking you is
   profitable. A strong wedge in an industry with no barriers, powerful buyers, or commodity
