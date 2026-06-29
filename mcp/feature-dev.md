@@ -147,6 +147,12 @@ were already approved — and capture the plan in your handoff summary instead.
   setup and reject bad calls with clear, structured errors an autonomous model can
   recover from (say what was wrong and what a valid call looks like) — but read
   *external* responses tolerantly.
+- **When part of the capability cannot be automated** — an approval-gated upstream
+  step, a credential the API can't mint, a console-only action — return a **clear,
+  structured set of human instructions** ("do exactly X in the platform UI") rather
+  than failing opaquely, and **record in the audit log that a manual step was
+  surfaced**. The complement to the approval gate: the gate stops automated spend;
+  manual-step guidance hands off cleanly when automation isn't possible.
 - Keep the decision logic (branching, mapping, entitlement) in a plain, testable
   unit rather than fused into the tool handler — matching how the server already
   separates them — so it is unit-testable without a running transport or a live

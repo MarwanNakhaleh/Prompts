@@ -98,8 +98,26 @@ These are **example** upstreams — the first server built in this category wrap
 - **TikTok Marketing API** — https://business-api.tiktok.com/portal
   The TikTok for Business Marketing API (v1.3 at time of writing) for campaign and ad-group data and management. Pair with the TikTok for Developers portal below for app registration and the Business API SDKs. Note: **no GA official MCP server yet**, and an app audit may be required before production scopes are granted — confirm the current state before assuming a capability exists.
 
+- **TikTok Content Posting API** — https://developers.tiktok.com/doc/content-posting-api-get-started/
+  TikTok is also an **organic content-publishing** upstream, not only an ads platform: the Content Posting API plus Login Kit lets a server publish or schedule posts to a creator/business account. Frame TikTok as **ads OR organic content publishing** and pick the API per capability — the Marketing API above for paid campaigns, this one for organic posts. Publishing is an irreversible, outward-facing action: gate it like any other write and confirm the current scope-audit requirements before assuming production access.
+
 - **TikTok for Developers** — https://developers.tiktok.com/
   App registration, OAuth, scope catalog, and the official Business API SDKs for the TikTok upstream. The reference for the auth flow and the SDK an adapter wraps when there is no official MCP server to compose.
+
+---
+
+## Media / Creative Generation (example upstreams)
+
+When a server exposes **creative-generation** tools — text-to-speech, music, image, or video produced by calling an external media-generation API from inside a tool — these are the example providers. Model each generation capability as its own provider **port** (`SpeechProvider`, `MusicProvider`, `VideoProvider`) with the vendors below as swappable vendor adapters, the same ports-and-adapters discipline as the data adapters above. The media-generation model is a tool/provider config plus a per-call parameter — distinct from the runtime LLM that drives the server. Capabilities and model catalogs here move fast and **must be re-verified** against the live docs.
+
+- **fal.ai** — https://fal.ai/
+  A generative-media inference platform exposing image, video, audio, and speech models behind one API — a single adapter can reach many generation models. Useful when one `SpeechProvider`/`VideoProvider` port should front several model choices selected by config or per-call parameter.
+
+- **Replicate** — https://replicate.com/docs
+  Runs a broad catalog of open and hosted generation models (image, video, audio, speech, music) over a uniform prediction API, typically async with a polling/webhook completion. A common adapter target when the set of generation models must stay open-ended; mind that long-running generations need the resilience timeout/idempotency discipline like any other upstream.
+
+- **ElevenLabs** — https://elevenlabs.io/docs
+  Speech and audio generation — text-to-speech, voice, music, and sound effects. **Audio-only: not a video provider** — back a `SpeechProvider`/`MusicProvider` port with it, and reach for fal.ai or Replicate for image/video capabilities.
 
 ---
 

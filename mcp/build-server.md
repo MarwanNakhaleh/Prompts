@@ -48,7 +48,12 @@ but skip nothing that would change the design. Group them and cover at least:
   each, is it **read-only**, a **reversible write**, or an **irreversible /
   outward-facing / money-spending** action? These are different risk tiers with
   different gating, and most early use should be read-only. Push me toward
-  read-only first unless I have a concrete reason to write.
+  read-only first unless I have a concrete reason to write. Flag separately any
+  **creative-generation** capability — a tool that produces media (text-to-speech,
+  music, image, video) by calling an external media-generation API — since the
+  generated media is an outward-facing artifact and the media-generation model is
+  a per-capability config axis distinct from the runtime model that drives the
+  server.
 - **Conditions of satisfaction & concrete examples.** For each tool, ask me for
   specific call→result examples that define "done" — real argument values and the
   expected structured output, not abstractions. Worst-case and adversarial inputs
@@ -67,6 +72,11 @@ but skip nothing that would change the design. Group them and cover at least:
   endpoint (HTTP/streamable) — and which host(s)/client(s) drive it? Remote servers
   carry the MCP spec's OAuth 2.1 + PKCE obligation; local stdio does not. This
   determines installation, auth flow, and the security surface.
+- **Install & registration.** How do clients install and register the server, and
+  which hosts must be supported? For stdio, that is the published package and the
+  command/args/env a host's MCP config block invokes (`uvx`/`npx`); for remote,
+  the endpoint URL and the OAuth registration flow. Each supported host has its own
+  config shape — pin the exact list so the README ships the right install snippet.
 - **Model-agnosticism & runtime swap.** Is swapping the runtime model a
   requirement? If so, the runtime model + client harness must live in config, and
   tool descriptions / system prompt / few-shot examples must live in versioned,
@@ -94,10 +104,26 @@ but skip nothing that would change the design. Group them and cover at least:
   `@modelcontextprotocol/sdk` is the alternative — **not** a web framework),
   package manager, supported runtime versions, any client libraries I'm allowed or
   forbidden to add.
+- **Performance & load.** Make the targets concrete: the per-tool latency budget
+  (tool overhead + upstream time), the expected number of concurrent tool calls
+  (especially on a remote server), each upstream's rate-limit ceiling, payload-size
+  caps on tool arguments and results, and whether load/soak testing is required
+  before any write tier is enabled. "Fast" is not a requirement; a measurable
+  budget is.
+- **Team & lifecycle.** Who operates and maintains the server; the dev/staging/prod
+  environments and how config and **capability flags** differ per environment (e.g.
+  `live_mutate` enabled only where deliberately intended); the deploy cadence; and
+  who owns credential rotation and periodic audit-log review.
 - **Testability & evals.** How tools are tested without hitting live upstreams
   (fakes / recorded contract fixtures), and whether an **eval harness** measuring
   tool-call reliability across runtime models is in scope — essential whenever the
   model is swappable, since prompts tuned against one model rarely transfer cleanly.
+- **Non-functional.** The cross-cutting "ilities" that no single tool owns:
+  observability and metrics coverage, the performance and load budgets above, eval
+  coverage of tool-call reliability, maintainability and the team/lifecycle model,
+  and the supply-chain posture of any composed servers (a third-party server sees
+  your data *and* tokens). State these explicitly so they are designed in, not
+  discovered late.
 - **Out of scope & extension hooks.** What is explicitly *not* in v1, and where to
   leave a clearly-marked extension hook (e.g. a `creative_provider`,
   `notification_sink`) so a future capability can plug in without a rewrite.
@@ -147,7 +173,14 @@ Present a short, concrete plan before implementing:
   **compose/proxy it** rather than reimplementing its API. The core domain (verbs,
   policy) must stay independent of any SDK, any vendor API, and the transport — so
   those stay swappable details and the logic is testable without a live upstream
-  or a running transport (the dependency rule).
+  or a running transport (the dependency rule). If the server exposes
+  **creative-generation** tools, model each generation capability as its own
+  provider **port** (`SpeechProvider`, `MusicProvider`, `VideoProvider`) with
+  vendor adapters swappable by config — the same ports-and-adapters discipline as
+  the upstream data adapters, and keep the two model-switch axes distinct: the
+  **runtime LLM that drives the server** is a config boundary, while the
+  **media-generation model a tool calls** is a tool/provider config plus a call
+  parameter, not the same knob.
 - **The policy layer as a single cross-cutting seam every write passes through** —
   not logic copied into each adapter:
   1. **Staged capability flags.** The server boots in the least-privileged mode
@@ -181,6 +214,35 @@ Present a short, concrete plan before implementing:
   hang a tool); bounded retries with backoff; idempotency keys on mutations so a
   retried write doesn't double-apply; degrade a capability rather than the whole
   server.
+- **Performance targets & baseline.** State *measurable* targets, not "fast": e.g.
+  a P95 tool-call latency ceiling under N concurrent calls with a healthy upstream,
+  and a degraded-upstream timeout ceiling above which a tool fails fast rather than
+  hanging. **Capture a baseline on the steel-thread read tool** (Phase 4) so a later
+  regression is detectable, and reason about the whole path — tool overhead, the
+  policy seam, the adapter, and the upstream — not just the handler.
+- **Persisted state & migration.** Sketch the persisted-state shapes the server
+  keeps — the **audit-log record**, the **token-store entry** keyed by `account_id`,
+  the **idempotency-key store**, the **rate-limit counter**, and the **approval
+  ticket** — and their backing store: a local file / SQLite for stdio, an external
+  store for a multi-instance remote where in-process state can't be trusted for
+  coordination. Give the audit-log and structured-output formats a migration /
+  versioning plan per the **expand/contract** principle, since a connected host
+  depends on those shapes and they are high-stakes one-way doors.
+- **Observability.** Wire the three signals on the steel thread (see
+  `mcp/common/engineering-principles.md`): structured tool-call event logs, per-tool
+  metrics including upstream latency percentiles, and a trace tying one tool call
+  from registration through the policy layer and adapter to the upstream and back —
+  all secret/PII-redacted, consistent with the audit-log rule, using OpenTelemetry
+  (the entry in `mcp/resources.md`).
+- **Packaging, distribution & deploy.** Name the published artifact: for stdio, an
+  installable package a host runs via `uvx`/`npx` with documented command, args,
+  and env; for remote, a container on a host that holds a long-lived streamable-HTTP
+  connection. Define server **versioning** and how a connected host **pins** a
+  version (the structured-output and audit-log contracts a host depends on must not
+  shift under it). Specify the client-side **install/registration snippet** for the
+  README (the host's MCP config block per supported host), and a **CI pipeline** that
+  gates publish on lint → type → test → eval, then publishes the package or pushes
+  the container image.
 - **Test strategy** across all four quadrants: (1) unit tests for verbs/policy in
   plain functions with fakes for adapters; (2) example-driven contract tests for
   the agreed tool call→result examples; (3) exploratory passes by hand; (4)
@@ -232,7 +294,18 @@ capability area is delivered later through `mcp/feature-dev.md`.
   structured errors; read external responses tolerantly; map vendor/persistence
   shapes to response types you own; write each tool's name/description/argument
   schema in the versioned prompt files (not inline as an afterthought), since they
-  are the model's interface.
+  are the model's interface. **Tool-description clarity and machine-recoverable
+  error quality are this server's accessibility axis** — the model is the consumer:
+  every description must let it select and call the tool correctly, and every error
+  must state what was wrong and what a valid call looks like; hold this to the same
+  standard `web/` and `ios/` hold WCAG.
+- Where a capability **cannot be automated** — an approval-gated upstream step, a
+  credential the API can't mint, a console-only action — the tool must return a
+  **clear, structured set of human instructions** ("do exactly X in the platform
+  UI") rather than failing opaquely, and **record in the audit log that a manual
+  step was surfaced**. This is the complement to the approval gate: the gate stops
+  automated spend; manual-step guidance hands off cleanly when automation isn't
+  possible.
 - Manage secrets via the credential store / environment — never hardcoded, never
   echoed into logs or the audit trail. Provide a `.env.example` listing every
   required key per upstream, and a README covering local setup, the **capability
