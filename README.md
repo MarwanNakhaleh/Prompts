@@ -11,7 +11,7 @@ moments.
 The work splits into two arcs that meet in the middle, with a third sitting on
 top. The **company-building** prompts (`validation/`, `product/`, `marketing/`)
 de-risk *what* to build and *who it's for* before and around the engineering. The
-**engineering** prompts (`ios/`, `web/`) build, test, and harden it. Validation
+**engineering** prompts (`ios/`, `web/`, `mcp/`) build, test, and harden it. Validation
 feeds product scoping, product scoping feeds the build, and positioning feeds
 go-to-market — so a prompt that ends by handing a clean brief to the next one is
 doing its job.
@@ -173,6 +173,23 @@ the latter.
   churn × complexity. Report a plan only; establishes the existing test suite
   (and any `web/qa/qa-audit.md` findings) as the regression safety net the
   refactoring must keep green.
+- `mcp/build-server.md`: Stand up an MCP (Model Context Protocol) server from
+  approved requirements — the capability/safety model, transport, the
+  orchestrator/adapter boundary, the policy layer (capability flags, human-approval
+  gate, write rate limits, append-only audit log), config/secrets, and one
+  read-only end-to-end tool that proves the design — then decompose the server into
+  capability areas and orchestrate parallel `mcp/feature-dev.md` agents
+  (partitioned by adapter/file ownership, policy layer landed first). Builds in the
+  safety doctrine of `marketing/connect-ad-platforms.md` — read-before-write,
+  safe-by-default, no autonomous spend — for a server you *build* rather than
+  connect to, and keeps the runtime model swappable via config. Use for a
+  greenfield server or a major re-architecture.
+- `mcp/feature-dev.md`: Add one capability — a tool, an adapter, a capability area
+  — to an existing, living MCP server, matching its architecture and routing every
+  write through the established policy layer (capability-flag gate, approval gate,
+  rate limits, audit log) with input validation built in. This is the unit of work
+  `mcp/build-server.md` fans out; also run it directly to add a capability to a
+  living server.
 - `marketing/customer-avatars.md`: Synthesize discovery evidence (interviews,
   sales calls, support tickets, analytics cohorts) into a small, distinct set of
   customer avatars — segmented by job-to-be-done and triggering situation, not
@@ -710,13 +727,30 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   implement boundaries at the inflection point). Every `web/` prompt instructs
   the LLM to read this file — it is the canonical lens for architecture,
   implementation, refactoring, and audit decisions.
+- `mcp/common/engineering-principles.md`: Platform-wide MCP-server engineering
+  principles. Carries the same stack-agnostic core as the iOS and web files
+  (simplicity is the deliverable; names reveal intent; dependency rule; don't marry
+  the SDK/framework; ports-and-adapters boundaries; composition root; minimize
+  dependencies; resilience; concurrency is a separate concern; return empty objects
+  not null; true vs. accidental duplication; implement boundaries at the inflection
+  point) re-flavored for MCP servers in Python (official MCP SDK / FastMCP) or
+  TypeScript (`@modelcontextprotocol/sdk`), plus the MCP-specific lens: a tool's
+  blast radius is whatever it can do, so capability gating / safe-by-default state /
+  the human-approval gate / write rate limits / an append-only audit log are
+  load-bearing architecture; tool descriptions are the model's interface and the
+  top reliability lever; model-agnostic by design (runtime model + harness in
+  config, descriptions/prompts in versioned files); compose official upstream
+  servers before reimplementing and vet third-party; never expose secrets — not even
+  into the audit log. Every `mcp/` prompt instructs the LLM to read this file — it is
+  the canonical lens for architecture, implementation, refactoring, and audit
+  decisions. (`mcp/resources.md` is its companion authoritative-docs index.)
 
 Meta-prompt (library maintenance — not a product workflow):
 
 - `improvement.md`: Reading-loop prompt that advances the library's knowledge
   base. It runs in two arcs against the current book in `reading_progress.json`,
   starting at the saved position: the **technical** loop reads all prompts in
-  `ios/` and `web/` and applies engineering insights from the technical books
+  `ios/`, `web/`, and `mcp/` and applies engineering insights from the technical books
   (`knowledge-base/technical/`), and the **business** loop reads all prompts in
   `validation/`, `product/`, and `marketing/` plus `shared/founder-principles.md`
   and applies company-building insights from the business books
@@ -821,7 +855,7 @@ For workflow prompts:
 - Phase 4 is where implementation, final requirements, or setup instructions
   happen after approval.
 
-For `build-app.md` (stand up an app, then delegate features):
+For `build-app.md` / `mcp/build-server.md` (stand up an app or server, then delegate features):
 
 - Phases 1–3 clarify requirements, research current guidance, and get the
   architecture signed off. Phase 4 builds **only** the foundation, the shared
@@ -838,11 +872,11 @@ For `build-app.md` (stand up an app, then delegate features):
   decision). After the fan-out, cross-review features against each other and run
   the full test suite on the integrated whole.
 
-For `feature-dev.md` (add one feature to a living codebase):
+For `feature-dev.md` / `mcp/feature-dev.md` (add one feature to a living codebase):
 
-- It assumes the architecture and conventions already exist (from `build-app.md`
-  or an established repo). Phase 2 studies the codebase and mirrors its patterns
-  rather than imposing new ones.
+- It assumes the architecture and conventions already exist (from `build-app.md`,
+  `mcp/build-server.md`, or an established repo). Phase 2 studies the codebase and
+  mirrors its patterns rather than imposing new ones.
 - When invoked as a chunk from `build-app.md`, it inherits the handoff context
   (architecture, reusable building blocks, acceptance criteria) and confirms only
   what is genuinely unresolved instead of re-asking settled questions.
