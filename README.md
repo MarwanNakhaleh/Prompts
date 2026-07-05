@@ -157,16 +157,19 @@ the latter.
   violations, ORM type coercion, webhook idempotency, and client self-rate-limiting.
 - `web/security-audit.md`: Audit a Next.js codebase for security issues. Report
   findings only.
-- `web/seo-audit.md`: Audit a Next.js site's technical SEO in pipeline order —
+- `web/seo-audit.md`: Audit a Next.js codebase and its production deployment for
+  technical and on-page SEO, in pipeline order from the crawler inward —
   fetchability → indexability → canonicalization → metadata/schema → internal
-  linking → Search Console query diagnosis → competitive SERP analysis — always
-  verifying against production HTML, not just source (a site-wide noindex or
-  homepage-pointing canonical in a root layout invalidates all downstream work).
-  Buckets GSC queries by intent (product / adjacent / mismatch) so zero-click
-  impressions are diagnosed as a position-or-title problem rather than a
-  positioning panic. Report findings only, tiered T1-T4; fixes route to
-  `web/feature-dev.md` and content gaps to `cmo/content-seo-strategy.md` /
-  `marketing/content-engine.md`.
+  linking → performance → Search Console query diagnosis → competitive SERP
+  analysis — always verifying against production HTML, not just source (a
+  site-wide noindex or homepage-pointing canonical in a root layout invalidates
+  all downstream work). Buckets GSC queries by intent (product / adjacent /
+  mismatch) so zero-click impressions are diagnosed as a position-or-title
+  problem rather than a positioning panic. Then remediates in tiers:
+  engineering defects are fixed directly, outward-facing copy changes are
+  human-gated, and net-new content opportunities hand off to
+  `cmo/content-seo-strategy.md`. The engineering half of the organic engine;
+  prioritizes fixes by the downstream action a page drives, not raw traffic.
 - `web/qa/qa-audit.md`: Audit Next.js and full-stack TypeScript test coverage
   across all four testing quadrants (unit/component, example-driven acceptance,
   exploratory, and non-functional), focusing on production bug classes like
