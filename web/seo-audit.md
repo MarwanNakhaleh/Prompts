@@ -94,6 +94,14 @@ Pull top queries with impressions, clicks, and position, then bucket by intent b
 - Identify the repeatable patterns winners share (URL structure, topic clusters, free-tool interlinking, visible FAQs) and the gaps where no strong page exists — those gaps are the cheapest wins
 - Comparison pages ("X vs Y", "free alternatives to Z") rank and convert **because they are fair** — acknowledging competitor strengths is a ranking feature, not a concession
 - Note listicles/directories that own commercial queries; getting *into* them is off-page work worth listing
+- Patterns repeatedly observed winning in B2B/technical niches (verify against the live SERP before assuming, then mimic):
+  - **Schema density + freshness can beat raw domain authority**: young domains outrank enterprise incumbents by stacking FAQPage + HowTo + SoftwareApplication (+ BlogPosting/Product) on one page while incumbents carry none — check whether the niche's incumbents have this gap
+  - **Question-stacked H2s** that are literal search queries let one pillar page rank for a dozen variants
+  - **Year-stamped titles** ("X Requirements: 2026 Compliance Guide") with tables and checklists; refreshed annually
+  - **One page per exact error string** — vendor KB pages win troubleshooting queries purely on error-message-titled pages; pairing the diagnosis with a free interactive tool beats them
+  - **Zero-registration free tools as the top-of-funnel**, with every content page ending at a tool (SoftwareApplication schema with `offers.price: 0`)
+  - **Named author + bio + date** on every piece — the E-E-A-T signal docs-style incumbents lack
+  - A **fragmented SERP with no dedicated winner** (e.g., a raw login page ranking for a head term) marks the most winnable query — flag those first
 
 ## 10. Content Strategy Fit (report gaps, don't write content here)
 
