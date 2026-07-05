@@ -157,6 +157,13 @@ the latter.
   violations, ORM type coercion, webhook idempotency, and client self-rate-limiting.
 - `web/security-audit.md`: Audit a Next.js codebase for security issues. Report
   findings only.
+- `web/seo-audit.md`: Audit a Next.js codebase for technical and on-page SEO —
+  crawlability, indexation, rendering, metadata, structured data, internal
+  linking, Core Web Vitals — then remediate: engineering defects are fixed
+  directly, outward-facing copy changes are human-gated, and net-new content
+  opportunities hand off to `cmo/content-seo-strategy.md`. The engineering half
+  of the organic engine; prioritizes fixes by the downstream action a page
+  drives, not raw traffic.
 - `web/qa/qa-audit.md`: Audit Next.js and full-stack TypeScript test coverage
   across all four testing quadrants (unit/component, example-driven acceptance,
   exploratory, and non-functional), focusing on production bug classes like
