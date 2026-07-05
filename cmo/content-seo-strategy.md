@@ -69,6 +69,15 @@ model and stress them. State it back to me: the few topic clusters tied to the b
 jobs, the intent behind each (problem-aware, solution-aware, ready-to-buy), and how each
 piece reaches its audience and what it should drive. Then research and attack it:
 
+- **Is the site technically able to rank at all?** Before betting a quarter of writing
+  on organic search, confirm the pipeline underneath it: run (or read the latest)
+  `web/seo-audit.md`. A site-wide noindex, a homepage-pointing canonical, or blocked
+  render assets makes every piece published a tree falling where Google can't hear it —
+  a T1 finding there pauses content production until it ships fixed. Where Search
+  Console data exists, use its query/intent buckets (product / adjacent / mismatch) as
+  demand evidence: impressions on adjacent-intent queries are a funnel opportunity to
+  write into, and zero-click impressions are a position-or-title problem, not proof the
+  topic is wrong.
 - **Is there real, reachable search/audience demand?** Where it matters, research the
   actual search terms, their rough volume and competition, and the communities where the
   topic lives — and **cite the source**. Separate terms we can plausibly win from ones

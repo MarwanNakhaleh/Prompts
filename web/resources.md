@@ -259,6 +259,36 @@ Core Web Vitals, bundle analysis, structured logging, and distributed tracing.
 
 ---
 
+## SEO (Audit Reference)
+
+Authoritative sources for `web/seo-audit.md` — how Google fetches, renders, indexes, and ranks, plus the Next.js metadata surface.
+
+- **Google Search Essentials** — https://developers.google.com/search/docs/essentials
+  The baseline: technical requirements, spam policies, and key best practices. The policy source for findings like schema-must-match-visible-content.
+
+- **Google: robots meta / X-Robots-Tag** — https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag
+  Indexability semantics. The reference when auditing layouts for inherited `noindex` and header-level robots directives (§2).
+
+- **Google: Consolidate duplicate URLs (canonicalization)** — https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+  Canonical, host, and redirect consolidation rules for §3 — including why a site-wide canonical de-indexes everything it points away from.
+
+- **Google: JavaScript SEO basics** — https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+  How Googlebot renders — the reason blocking `/_next/static/` or fonts in robots.txt is a T1 finding, not hygiene (§1).
+
+- **Google: Structured data guidelines** — https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+  Eligibility policies for FAQ/HowTo/Article/Product rich results; validate with the Rich Results Test (https://search.google.com/test/rich-results).
+
+- **Next.js Metadata API** — https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+  `metadata` / `generateMetadata`, title templates, `metadataBase`, `alternates.canonical` inheritance — the framework mechanics behind §§2-5, including why a "use client" page cannot export `metadata`.
+
+- **Next.js sitemap / robots file conventions** — https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
+  `sitemap.ts` and `robots.ts` generation for §§1 and 4.
+
+- **Google Search Console documentation** — https://support.google.com/webmasters
+  URL Inspection, indexing reports, and the Performance (query/impression/position) data that drives the §8 funnel-stage diagnosis.
+
+---
+
 ## Dependency & Supply Chain
 
 CVE scanning, lockfile integrity, and supply-chain analysis beyond known CVEs.
