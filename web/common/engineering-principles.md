@@ -204,5 +204,8 @@ Don't bury decisions in code. A constraint, a risk, or a rejected alternative wo
 ## Ask when uncertain
 A question is cheaper than a wrong implementation. If a decision is genuinely ambiguous, surface it rather than guessing.
 
+## Free the port before you bind it — kill stale server instances first
+Before starting a dev or local production server in a session, stop instances left over from earlier sessions first: a lingering listener either fails with EADDRINUSE or — worse — keeps serving stale code on the port you believe is fresh, sending you to debug a ghost. Kill by port, not by fuzzy process-name match (`lsof -ti :PORT | xargs kill -9`), and confirm the port is actually free before relaunching. The same applies after crashes and test runs that leave child processes behind: the newest server must be the only thing bound to the port.
+
 ## Cite current documentation
 When a decision rests on current framework or host behavior, cite the official Next.js documentation or the confirmed host's docs. Training data can be behind; official sources take precedence over community convention.
