@@ -128,3 +128,15 @@ Chinese chat models verified cheap: qwen3.7-flash $0.03/M, deepseek-v4-flash $0.
 - Xcode 27 requires macOS Tahoe 26.6+, Apple silicon only.
 - `xcodegen` generates `.xcodeproj` from `project.yml` — reproducible project setup, avoids pbxproj merge conflicts (critical when parallel agents add files: agents edit sources; regenerate project from `project.yml` instead of hand-editing pbxproj).
 - Build/test via `xcodebuild -project ... -scheme ... -destination 'platform=iOS Simulator,name=...'`; `CODE_SIGNING_ALLOWED=NO` for simulator unit-test builds.
+
+---
+
+## 6. Distribution / TestFlight gotchas (learned 2026-09-13)
+
+**Privacy manifest is mandatory, and its absence fails SILENTLY.** A build uploaded without `PrivacyInfo.xcprivacy` (or missing required-reason declarations for APIs the binary references, e.g. UserDefaults → CA92.1) is accepted by the delivery service ("Upload succeeded"), then quietly disappears during ASC processing: it never appears in TestFlight, no error in xcodebuild, and the report (ITMS-9105x series) goes ONLY to the account's notification email. Signature of this failure: export/upload fully green + zero build rows in TestFlight after >20 min → check the email, check the app bundle for the manifest. Every app ships a privacy manifest from day one: `NSPrivacyTracking false`, empty tracking domains, empty collected-data types (for on-device apps), and accessed-API declarations with reason codes.
+
+**Purpose strings must cover what the BINARY references**, not just what the code intends: static analysis flags framework usage (e.g. any `HKHealthStore` symbol requires `NSHealthShareUsageDescription` present in Info.plist at upload time). Read-only HealthKit needs only the Share string; don't declare Update unless writing.
+
+**ASC API key roles for CLI uploads:** `xcodebuild -allowProvisioningUpdates` with an API key does cloud signing (creates certificates + profiles with no local CSR dance), but **Admin-role keys are required**; App Manager keys get "Cloud signing permission error." Keys can't be role-upgraded after creation — generate a second key at the right role. The key's `-authenticationKeyPath` must be an absolute path to an existing file; keep deploy scripts in sync with where the key actually lives.
+
+**Adopting an existing ASC app record:** if a prior app record exists for the concept (never submitted), adopting it (switch the project's bundle ID to the record's, reuse the unique name) beats fighting ASC name-uniqueness. Watch for: pending Program License Agreement updates block ALL uploads/new apps until the Account Holder accepts at developer.apple.com/account.
