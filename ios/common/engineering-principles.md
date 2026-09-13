@@ -203,3 +203,15 @@ A question is cheaper than a wrong implementation or rewrite. If a decision is g
 
 ## Cite Apple documentation
 When a decision rests on current platform behavior, cite the Apple developer documentation or the relevant WWDC session. Training data can be behind; first-party sources take precedence over community convention.
+
+## Verify third-party capability claims against the live API
+For any third-party capability a design depends on — an endpoint, a model, a feature flag, a pricing tier — curl the actual API and inspect the real response before committing to it. Docs lag and are easy to misread; model/provider surfaces change monthly (instance: a confident "video generation doesn't exist on OpenRouter" claim from both memory and a first docs pass was refuted in one minute by their docs index and a live models call). The API is the ground truth; treat anything else as a hypothesis to verify.
+
+## Gate UI progression on input, never on the action's own outcome
+When a "Continue" button's enabled state depends on the result of work that only that button can trigger, the UI deadlocks (instance: an onboarding Continue disabled until key validation succeeded, where validation only ran on Continue — nobody could ever reach validation). Gate on what the user has provided (non-empty, well-formed input); run the action on tap; surface its result as feedback that unlocks the next state.
+
+## Coordinate the working tree with long-running agents
+Never build, run, or test a tree while an implementation agent is mid-rewrite — a half-finished binary produces stale line tables that misdirect crash symbolication and diagnose the wrong code (instance: a "quit unexpectedly" crash report blamed a test that, in current sources, didn't exist at the crashing line). Have long-running agents work on a branch, or treat their completion signal as the only safe point to touch the tree.
+
+## Assertions must fail, not crash
+A test assertion that subscripts a collection that a regression could leave empty (`items[0]`) turns a clean one-test failure into a runner crash that kills the whole suite and masquerades as an app crash. In Swift Testing, unwrap with `try #require(collection.first)` (or `dropFirst(n).first`) before asserting, so every regression fails its own test and the run stays green enough to diagnose.
