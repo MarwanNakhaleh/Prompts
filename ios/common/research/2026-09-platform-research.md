@@ -140,3 +140,17 @@ Chinese chat models verified cheap: qwen3.7-flash $0.03/M, deepseek-v4-flash $0.
 **ASC API key roles for CLI uploads:** `xcodebuild -allowProvisioningUpdates` with an API key does cloud signing (creates certificates + profiles with no local CSR dance), but **Admin-role keys are required**; App Manager keys get "Cloud signing permission error." Keys can't be role-upgraded after creation — generate a second key at the right role. The key's `-authenticationKeyPath` must be an absolute path to an existing file; keep deploy scripts in sync with where the key actually lives.
 
 **Adopting an existing ASC app record:** if a prior app record exists for the concept (never submitted), adopting it (switch the project's bundle ID to the record's, reuse the unique name) beats fighting ASC name-uniqueness. Watch for: pending Program License Agreement updates block ALL uploads/new apps until the Account Holder accepts at developer.apple.com/account.
+
+---
+
+## 7. Chat-pipeline latency & crash lessons (field-tested 2026-09-13, PersonalCoach)
+
+**Send conversation history exactly once.** A client that both (a) embeds recent history inside the system prompt and (b) sends full history as message turns pays double input tokens on every request and grows unboundedly — at 15k tokens of history this produced multi-minute stalls. Window the turns (last ~30 messages) and let retrieval (RAG chunks in the system prompt) carry older recall.
+
+**Bound the invisible.** Three bounds every streaming chat client needs, learned from a 10+ minute "hang" that never errored: (1) `reasoning: {effort: "low", exclude: true}` — reasoning tokens stream invisibly and a thinking model on a big context can reason for minutes; (2) `max_tokens` — unbounded generation is a runaway surface; (3) an app-level first-token watchdog — provider keep-alive comments reset URLSession's idle-gap timeout, so a stalled stream NEVER times out on its own; race a watchdog task (e.g. 45s) against first token and cancel with a user-visible retry.
+
+**Never index a mutable collection across an await.** `messages[messages.count - 1].x = y` evaluated after a multi-second await (a critic call, a persist) is an out-of-bounds crash the moment any concurrent path mutates the array during the await. Update by stable ID: `firstIndex(where: { $0.id == id })`. UI-scoped arrays on @MainActor are NOT safe from this — awaits open re-entrancy windows (scenePhase handlers, background-completion callbacks) even on the main actor.
+
+**Throughput routing composes with ZDR filtering.** OpenRouter's `:nitro` variant sorts a model's endpoint pool by throughput (admitting priority tier); `provider.zdr` restricts the eligible pool. Filter + sort compose — request `model:nitro` while sending `provider: {zdr: true}`. Endpoint redundancy is the real latency lever: a model with 22 ZDR endpoints routes around cold providers; a 2-endpoint model is a serial bottleneck. Check ZDR-endpoint counts in the join, not just price.
+
+**TestFlight crash reports don't flow until shared.** ASC shows "–" for crashes until the tester enables sharing (TestFlight app → "Share Crash Reports") or shares the OS report; the on-device source of truth is Settings → Privacy & Security → Analytics Data → `<App>-<date>.ips`. Ask for that file — symbolicated guesses waste builds.
