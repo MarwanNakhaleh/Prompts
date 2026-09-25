@@ -688,6 +688,25 @@ Shared reference (not a standalone prompt — read when a prompt points to it):
   direction* that sit on top of both. Where a judgment is about validation, pricing,
   or positioning it defers to `shared/founder-principles.md`; where it's about
   architecture or implementation it defers to the engineering principles.
+- `shared/writing-voice.md`: Platform-wide writing voice law for every string a user
+  reads (landing pages, lifecycle email, blog articles, product UI copy, transactional
+  emails, support replies). Bans: em dashes in user-facing copy, negative parallelism
+  ("It's not X it's Y" and siblings), false intimacy openers, metaphor filler
+  (journey/navigate/landscape/leverage), the 2026 AI-tell word set
+  (showcase/underscore/highlighting tails, delve/utilize/facilitate, "serves as" for
+  is, tapestry/testament/realm, robust/seamless/comprehensive, unlock/unleash/harness,
+  craft/tailored, game-changer/cutting-edge, "Additionally," openers), phrase tells
+  ("In today's world", "Let's dive in", "The result?" one-liners, "No X. No Y. Just
+  Z.", uncited "Studies have shown", "It's important to note", "In conclusion"
+  closers), and structure tells (Title Case headings, uniform bullets, ", emphasizing..."
+  participle tails, rule-of-three twice in a row, same-length paragraphs, fake
+  suspense, perfect pro/con balance). What reads as human: concrete nouns and real
+  numbers, plain verbs, is/are/has, committed claims, first person with reasons,
+  fragments, admitted asymmetry. Copy-producing prompts (`marketing/landing-page.md`,
+  `marketing/lifecycle-email.md`, `marketing/content-engine.md`,
+  `cmo/content-seo-strategy.md`, `marketing/positioning-messaging.md`,
+  `design/*` copy work, and any rewrite of existing copy) read this first; project
+  repos may keep a project-specific voice file that inherits and adds, never relaxes.
 - `ios/common/engineering-principles.md`: Platform-wide iOS engineering principles
   (simplicity is the deliverable; names reveal intent — including scope-based
   name length, side-effect naming, and encapsulate/prefer-positive conditionals;
